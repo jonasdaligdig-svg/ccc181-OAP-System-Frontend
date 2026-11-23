@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { OapProvider } from './context/OapContext';
 import AdminLayout from './components/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
+import StudentManagement from './pages/admin/StudentManagement';
 
 function ComingSoon({ title }: { title: string }) {
   return (
@@ -22,7 +23,7 @@ export default function App() {
           <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="students" element={<ComingSoon title="Student Management" />} />
+            <Route path="students" element={<StudentManagement />} />
             <Route path="applicants" element={<ComingSoon title="Applicant Management" />} />
             <Route path="rooms" element={<ComingSoon title="Room and Bed Management" />} />
             <Route path="occupancy" element={<ComingSoon title="Occupancy Monitoring" />} />
