@@ -3,6 +3,8 @@ import { OapProvider } from './context/OapContext';
 import AdminLayout from './components/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import StudentManagement from './pages/admin/StudentManagement';
+import ApplicantManagement from './pages/admin/ApplicantManagement';
+import ReviewApplication from './pages/admin/ReviewApplication';
 
 function ComingSoon({ title }: { title: string }) {
   return (
@@ -24,7 +26,8 @@ export default function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="students" element={<StudentManagement />} />
-            <Route path="applicants" element={<ComingSoon title="Applicant Management" />} />
+            <Route path="applicants" element={<ApplicantManagement />} />
+            <Route path="applicants/:id" element={<ReviewApplication />} />
             <Route path="rooms" element={<ComingSoon title="Room and Bed Management" />} />
             <Route path="occupancy" element={<ComingSoon title="Occupancy Monitoring" />} />
             <Route path="attendance" element={<ComingSoon title="Attendance Monitoring" />} />

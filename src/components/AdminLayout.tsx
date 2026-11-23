@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   AlertTriangle,
   ArrowRight,
@@ -52,6 +52,7 @@ interface SearchResult {
 
 export default function AdminLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { dormers, rooms, passSlips, renewalRequests, absenceAlerts, logout } = useOap();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -150,13 +151,14 @@ export default function AdminLayout() {
               key={item.to}
               to={item.to}
               onClick={() => setMobileOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-medium transition-colors ${
-                  isActive
+              className={({ isActive }) => {
+                const isMatch = isActive || location.pathname.startsWith(item.to);
+                return `flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-medium transition-colors ${
+                  isMatch
                     ? 'bg-[#2563EB] text-white shadow-sm'
                     : 'text-slate-300 hover:bg-white/10 hover:text-white'
-                }`
-              }
+                }`;
+              }}
             >
               <Icon className="h-4 w-4 shrink-0" />
               <span className="truncate">{item.label}</span>

@@ -64,16 +64,44 @@ export interface AttendanceCredential {
   credential_status: "active" | "inactive";
 }
 
+export interface ApplicantDocument {
+  id: string;
+  title: string;
+  file_type: string;
+  submitted_at: string;
+  file_name: string;
+}
+
+export interface ApplicantChecklist {
+  enrollment_confirmed: boolean;
+  valid_student_id: boolean;
+  completed_application: boolean;
+}
+
 export interface Applicant {
   applicant_id: number;
   dormer_id: number;
-  evaluated_by: number | null;
-  application_date: string;
-  scholarship_status: boolean;
-  address: string;
-  consent_confirmed: boolean;
-  evaluation_notes: string;
-  application_status: "pending" | "approved" | "rejected" | "waitlisted";
+  application_code?: string;
+  submitted_at?: string;
+  status?: "pending" | "approved" | "waitlisted" | "rejected";
+  is_scholar?: boolean;
+  home_address?: string;
+  emergency_contact_name?: string;
+  emergency_contact_relationship?: string;
+  emergency_contact_number?: string;
+  decision_notes?: string;
+  reviewed_at?: string | null;
+  checklist?: ApplicantChecklist;
+  documents?: ApplicantDocument[];
+
+  // Legacy / DB Schema fields
+  evaluated_by?: number | null;
+  application_date?: string;
+  scholarship_status?: boolean;
+  address?: string;
+  consent_confirmed?: boolean;
+  evaluation_notes?: string;
+  application_status?: "pending" | "approved" | "rejected" | "waitlisted";
 }
 
 export interface RoomAssignment {
@@ -252,6 +280,13 @@ export interface OapContextValue extends OapState {
   updateDormer: (dormerId: number, updates: Partial<Dormer>) => ActionResult<Dormer>;
   submitApplication: (formData: SubmitApplicationData) => ActionResult<Applicant>;
   evaluateApplicant: (applicantId: number, status: string, evaluationNotes: string) => void;
+  reviewApplicant: (
+    applicantId: number,
+    decision: 'approved' | 'waitlisted' | 'rejected',
+    notes?: string,
+    notifyApplicant?: boolean,
+    checklist?: ApplicantChecklist
+  ) => ActionResult<Applicant>;
   assignStudentToBed: (dormerId: number, bedId: number) => ActionResult;
   recordAttendance: (payload: RecordAttendancePayload) => ActionResult;
   submitPassSlip: (dormerId: number, payload: SubmitPassSlipPayload) => ActionResult;

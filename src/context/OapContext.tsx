@@ -11,6 +11,8 @@ import type {
   SubmitPassSlipPayload,
   RecordAttendancePayload,
   AddDormerData,
+  ApplicantChecklist,
+  Notification,
 } from '../types/oap';
 import {
   INITIAL_APPLICANTS,
@@ -30,7 +32,7 @@ import {
 } from '../data/mockData';
 import { OapContext } from './oapContextDef';
 
-const STORAGE_KEY = 'msun_oap_state_v1';
+const STORAGE_KEY = 'msun_oap_state_v3';
 const ABSENCE_ALERT_THRESHOLD = 3; // Configured consecutive-night absence threshold (FR-18)
 
 function loadInitialState(): OapState {
@@ -121,16 +123,41 @@ export function OapProvider({ children }: { children: ReactNode }) {
     }
 
     const newApplicantId = Math.max(260, ...state.applicants.map((a) => a.applicant_id)) + 1;
+    const nowIso = new Date().toISOString();
     const newApplicant: Applicant = {
       applicant_id: newApplicantId,
       dormer_id: targetDormerId,
-      evaluated_by: null,
-      application_date: new Date().toISOString().slice(0, 10),
-      scholarship_status: Boolean(formData.scholarship_status),
-      address: formData.address.trim(),
-      consent_confirmed: Boolean(formData.consent_confirmed),
-      evaluation_notes: '',
+      application_code: `APP-${String(newApplicantId).padStart(4, '0')}`,
+      submitted_at: nowIso,
+      application_date: nowIso.slice(0, 10),
+      status: 'pending',
       application_status: 'pending',
+      is_scholar: Boolean(formData.scholarship_status),
+      scholarship_status: Boolean(formData.scholarship_status),
+      home_address: formData.address.trim(),
+      address: formData.address.trim(),
+      emergency_contact_name: formData.emergency_contact_name?.trim() || '',
+      emergency_contact_relationship: formData.emergency_contact_relationship?.trim() || '',
+      emergency_contact_number: formData.emergency_contact_number?.trim() || '',
+      consent_confirmed: Boolean(formData.consent_confirmed),
+      decision_notes: '',
+      evaluation_notes: '',
+      evaluated_by: null,
+      reviewed_at: null,
+      checklist: {
+        enrollment_confirmed: true,
+        valid_student_id: true,
+        completed_application: true,
+      },
+      documents: [
+        {
+          id: `doc-${newApplicantId}-1`,
+          title: 'Enrollment Confirmation',
+          file_type: 'PDF',
+          submitted_at: nowIso.slice(0, 16).replace('T', ' '),
+          file_name: `enrollment_${cleanNum}.pdf`,
+        },
+      ],
     };
 
     setState((prev) => ({
@@ -144,21 +171,77 @@ export function OapProvider({ children }: { children: ReactNode }) {
 
   // --- FR-07: Applicant Evaluation (human decision only) ---
   const evaluateApplicant = (applicantId: number, status: string, evaluationNotes: string) => {
+    reviewApplicant(
+      applicantId,
+      status as 'approved' | 'waitlisted' | 'rejected',
+      evaluationNotes,
+      true
+    );
+  };
+
+  const reviewApplicant = (
+    applicantId: number,
+    decision: 'approved' | 'waitlisted' | 'rejected',
+    notes?: string,
+    notifyApplicant = true,
+    checklist?: ApplicantChecklist
+  ): ActionResult<Applicant> => {
     const reviewerId =
       state.personnel.find((p) => p.user_id === state.currentUser?.user_id)?.personnel_id || 1;
+    const applicant = state.applicants.find((a) => a.applicant_id === applicantId);
+    if (!applicant) return { ok: false, error: 'Applicant not found.' };
+
+    const dormer = state.dormers.find((d) => d.dormer_id === applicant.dormer_id);
+    const nowIso = new Date().toISOString();
+
+    const updatedApplicant: Applicant = {
+      ...applicant,
+      status: decision,
+      application_status: decision,
+      decision_notes: notes ?? applicant.decision_notes ?? '',
+      evaluation_notes: notes ?? applicant.evaluation_notes ?? '',
+      reviewed_at: nowIso,
+      evaluated_by: reviewerId,
+      checklist: checklist || applicant.checklist,
+    };
+
+    let nextDormers = state.dormers;
+    if (decision === 'approved') {
+      if (dormer) {
+        const hasActiveAssignment = state.roomAssignments.some(
+          (r) => r.dormer_id === dormer.dormer_id && r.assignment_status === 'active'
+        );
+        if (!hasActiveAssignment) {
+          nextDormers = state.dormers.map((d) =>
+            d.dormer_id === dormer.dormer_id ? { ...d, status: 'Pending Assignment' } : d
+          );
+        }
+      }
+    }
+
+    let nextNotifications = state.notifications;
+    if (notifyApplicant) {
+      const nextNotifId = Math.max(0, ...state.notifications.map((n) => n.notification_id)) + 1;
+      const notifCode = applicant.application_code || `APP-${String(applicant.applicant_id).padStart(4, '0')}`;
+      const newNotification: Notification = {
+        notification_id: nextNotifId,
+        user_id: dormer?.user_id || 0,
+        notification_type: `application_${decision}`,
+        message: `Your dormitory application (${notifCode}) was ${decision.toUpperCase()}.${notes ? ` Decision note: ${notes}` : ''}`,
+        date_created: nowIso.slice(0, 19),
+        read_status: false,
+      };
+      nextNotifications = [newNotification, ...state.notifications];
+    }
+
     setState((prev) => ({
       ...prev,
-      applicants: prev.applicants.map((a) =>
-        a.applicant_id === applicantId
-          ? {
-              ...a,
-              application_status: status as Applicant['application_status'],
-              evaluation_notes: evaluationNotes,
-              evaluated_by: reviewerId,
-            }
-          : a
-      ),
+      dormers: nextDormers,
+      notifications: nextNotifications,
+      applicants: prev.applicants.map((a) => (a.applicant_id === applicantId ? updatedApplicant : a)),
     }));
+
+    return { ok: true, applicant: updatedApplicant };
   };
 
   // --- FR-08 & FR-09: Assign Student to Bed (enforces max 4 per room & no double-booking) ---
@@ -504,6 +587,7 @@ export function OapProvider({ children }: { children: ReactNode }) {
     updateDormer,
     submitApplication,
     evaluateApplicant,
+    reviewApplicant,
     assignStudentToBed,
     recordAttendance,
     submitPassSlip,
