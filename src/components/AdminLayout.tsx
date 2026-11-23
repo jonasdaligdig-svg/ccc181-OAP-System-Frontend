@@ -6,11 +6,9 @@ import {
   BarChart3,
   BedDouble,
   Bell,
-  Building2,
   ChevronDown,
   Clock,
   FileText,
-  Home,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -135,20 +133,12 @@ export default function AdminLayout() {
   const SidebarContent = (
     <div className="flex h-full flex-col bg-[#0F2447] text-slate-200">
       {/* University & OAP Branding */}
-      <div className="flex flex-col items-center px-5 pt-6 pb-5 text-center border-b border-white/10">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#7C1D24] shadow-md ring-2 ring-amber-400/80">
-          <Building2 className="h-6 w-6" />
-        </div>
-        <p className="mt-2.5 text-[11px] font-medium leading-tight text-slate-300">
-          Mindanao State
-          <br />
-          University at Naawan
-        </p>
-        <div className="mt-4 flex items-center gap-2">
-          <Home className="h-5 w-5 text-white" />
-          <span className="text-xl font-bold tracking-wide text-white">OAP</span>
-        </div>
-        <p className="text-[11px] text-slate-400">Occupancy Analytics Platform</p>
+      <div className="flex items-center justify-center px-5 py-5 text-center border-b border-white/10">
+        <img
+          src="/oap-logo.png"
+          alt="MSUN Girls Dormitory — Occupancy Analytics Platform"
+          className="w-44 mx-auto object-contain"
+        />
       </div>
 
       {/* Navigation */}
