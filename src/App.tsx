@@ -5,6 +5,7 @@ import Dashboard from './pages/admin/Dashboard';
 import StudentManagement from './pages/admin/StudentManagement';
 import ApplicantManagement from './pages/admin/ApplicantManagement';
 import ReviewApplication from './pages/admin/ReviewApplication';
+import RoomBedManagement from './pages/admin/RoomBedManagement';
 
 function ComingSoon({ title }: { title: string }) {
   return (
@@ -28,7 +29,7 @@ export default function App() {
             <Route path="students" element={<StudentManagement />} />
             <Route path="applicants" element={<ApplicantManagement />} />
             <Route path="applicants/:id" element={<ReviewApplication />} />
-            <Route path="rooms" element={<ComingSoon title="Room and Bed Management" />} />
+            <Route path="rooms" element={<RoomBedManagement />} />
             <Route path="occupancy" element={<ComingSoon title="Occupancy Monitoring" />} />
             <Route path="attendance" element={<ComingSoon title="Attendance Monitoring" />} />
             <Route path="pass-slips" element={<ComingSoon title="Pass Slip Management" />} />

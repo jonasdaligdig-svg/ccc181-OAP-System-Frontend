@@ -213,7 +213,7 @@ export default function StudentManagement() {
     return [
       {
         type: 'Student Name',
-        value: dormersWithMeta[0]?.fullName || 'Juan Dela Cruz',
+        value: dormersWithMeta[0]?.fullName || 'Juana Dela Cruz',
       },
       {
         type: 'Student ID',

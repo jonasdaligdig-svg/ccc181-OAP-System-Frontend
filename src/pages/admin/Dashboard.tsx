@@ -400,7 +400,7 @@ export default function Dashboard() {
             {[
               { time: 'Nov 22, 2026 — 09:15 AM', text: 'Pass slip approved for Maria A. Santos' },
               { time: 'Nov 21, 2026 — 08:32 PM', text: 'Nightly biometric attendance synced (6 records)' },
-              { time: 'Nov 17, 2026 — 08:20 AM', text: 'Renewal request submitted by Juan Dela Cruz' },
+              { time: 'Nov 17, 2026 — 08:20 AM', text: 'Renewal request submitted by Juana Dela Cruz' },
             ].map((act) => (
               <li key={act.time} className="relative">
                 <span className="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full bg-[#2563EB] ring-4 ring-white" />

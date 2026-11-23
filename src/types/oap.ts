@@ -27,8 +27,11 @@ export interface Room {
   room_id: number;
   building_id: number;
   room_number: string;
+  floor: string;
   capacity: number;
-  room_status: "available" | "unavailable";
+  status: "available" | "full" | "maintenance";
+  room_status?: "available" | "unavailable";
+  last_reviewed?: string;
 }
 
 export interface Bed {
@@ -36,6 +39,22 @@ export interface Bed {
   room_id: number;
   bed_number: string;
   bed_status: "available" | "occupied";
+}
+
+export interface AddRoomPayload {
+  building_id: number;
+  room_number: string;
+  floor: string;
+  capacity: number;
+  status?: "available" | "maintenance";
+}
+
+export interface UpdateRoomPayload {
+  building_id?: number;
+  room_number?: string;
+  floor?: string;
+  capacity?: number;
+  status?: "available" | "full" | "maintenance";
 }
 
 export interface Dormer {
@@ -220,6 +239,8 @@ export interface ActionResult<T = unknown> {
   error?: string;
   user?: T;
   applicant?: T;
+  room?: T;
+  data?: T;
 }
 
 // ─── Full context value ───
@@ -287,6 +308,15 @@ export interface OapContextValue extends OapState {
     notifyApplicant?: boolean,
     checklist?: ApplicantChecklist
   ) => ActionResult<Applicant>;
+  addRoom: (payload: AddRoomPayload) => ActionResult<Room>;
+  updateRoom: (roomId: number, payload: UpdateRoomPayload) => ActionResult<Room>;
+  assignResidentToBed: (
+    bedId: number,
+    dormerId: number,
+    effectiveDate?: string,
+    notes?: string
+  ) => ActionResult;
+  unassignBed: (bedId: number) => ActionResult;
   assignStudentToBed: (dormerId: number, bedId: number) => ActionResult;
   recordAttendance: (payload: RecordAttendancePayload) => ActionResult;
   submitPassSlip: (dormerId: number, payload: SubmitPassSlipPayload) => ActionResult;
