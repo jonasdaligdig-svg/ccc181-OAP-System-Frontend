@@ -1,168 +1,244 @@
 // ─── OAP Dormitory Management System – Entity Interfaces ───
+// Aligned with mockData.js snake_case schema (OAP SRS Ch.5 & Ch.8)
 
 export interface User {
-  id: string;
+  user_id: number;
   username: string;
-  email: string;
-  role: "admin" | "staff" | "dormer";
-  firstName: string;
-  lastName: string;
-  avatarUrl?: string;
-  isActive: boolean;
-  createdAt: string;
+  password_hash: string;
+  role: "management" | "dormer";
+  account_status: "active" | "inactive";
 }
 
 export interface Personnel {
-  id: string;
-  userId: string;
-  employeeId: string;
-  department: string;
+  personnel_id: number;
+  user_id: number;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
   position: string;
-  contactNumber: string;
-  hireDate: string;
-}
-
-export interface Dormer {
-  id: string;
-  userId: string;
-  studentId: string;
-  course: string;
-  yearLevel: number;
-  contactNumber: string;
-  emergencyContact: string;
-  emergencyContactNumber: string;
-  status: "active" | "inactive" | "suspended";
-}
-
-export interface AttendanceCredential {
-  id: string;
-  dormerId: string;
-  cardNumber: string;
-  issuedAt: string;
-  expiresAt: string;
-  isActive: boolean;
-}
-
-export interface Applicant {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  studentId: string;
-  course: string;
-  yearLevel: number;
-  applicationDate: string;
-  status: "pending" | "approved" | "rejected" | "waitlisted";
-  remarks?: string;
 }
 
 export interface Building {
-  id: string;
-  name: string;
-  code: string;
-  address: string;
-  totalFloors: number;
-  totalRooms: number;
-  status: "operational" | "under_maintenance" | "closed";
+  building_id: number;
+  building_name: string;
 }
 
 export interface Room {
-  id: string;
-  buildingId: string;
-  roomNumber: string;
-  floor: number;
+  room_id: number;
+  building_id: number;
+  room_number: string;
   capacity: number;
-  occupancy: number;
-  type: "single" | "double" | "quad" | "suite";
-  status: "available" | "full" | "maintenance";
+  room_status: "available" | "unavailable";
 }
 
 export interface Bed {
-  id: string;
-  roomId: string;
-  bedNumber: string;
-  status: "available" | "occupied" | "maintenance";
-  dormerId?: string;
+  bed_id: number;
+  room_id: number;
+  bed_number: string;
+  bed_status: "available" | "occupied";
+}
+
+export interface Dormer {
+  dormer_id: number;
+  user_id: number | null;
+  student_number: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  email: string;
+  course: string;
+  year_level: string;
+  contact_number: string;
+  address: string;
+  emergency_contact_name: string;
+  emergency_contact_relationship: string;
+  emergency_contact_number: string;
+}
+
+export interface AttendanceCredential {
+  credential_id: number;
+  dormer_id: number;
+  fingerprint_user_id: string;
+  pin_hash: string;
+  credential_status: "active" | "inactive";
+}
+
+export interface Applicant {
+  applicant_id: number;
+  dormer_id: number;
+  evaluated_by: number | null;
+  application_date: string;
+  scholarship_status: boolean;
+  address: string;
+  consent_confirmed: boolean;
+  evaluation_notes: string;
+  application_status: "pending" | "approved" | "rejected" | "waitlisted";
 }
 
 export interface RoomAssignment {
-  id: string;
-  dormerId: string;
-  roomId: string;
-  bedId: string;
-  assignedAt: string;
-  expiresAt: string;
-  status: "active" | "expired" | "cancelled";
+  assignment_id: number;
+  dormer_id: number;
+  bed_id: number;
+  start_date: string;
+  end_date: string | null;
+  assignment_status: "active" | "transferred" | "ended";
 }
 
 export interface AttendanceRecord {
-  id: string;
-  dormerId: string;
-  credentialId: string;
-  type: "check_in" | "check_out";
-  timestamp: string;
-  location: string;
+  attendance_id: number;
+  dormer_id: number;
+  attendance_date: string;
+  time_recorded: string;
+  recording_method: "fingerprint" | "numeric_id_pin" | "manual";
+  attendance_status: "present" | "absent" | "excused";
 }
 
 export interface PassSlip {
-  id: string;
-  dormerId: string;
-  reason: string;
+  pass_slip_id: number;
+  dormer_id: number;
+  reviewed_by: number | null;
+  departure_datetime: string;
+  expected_return_datetime: string;
+  actual_return_datetime: string | null;
   destination: string;
-  departureDate: string;
-  returnDate: string;
-  status: "pending" | "approved" | "rejected" | "expired";
-  approvedBy?: string;
+  purpose: string;
+  remarks: string;
+  request_status: "pending" | "approved" | "rejected" | "overdue" | "returned";
 }
 
 export interface RenewalRequest {
-  id: string;
-  dormerId: string;
-  currentAssignmentId: string;
-  requestDate: string;
-  desiredStartDate: string;
-  desiredEndDate: string;
-  status: "pending" | "approved" | "rejected";
-  reviewedBy?: string;
-  remarks?: string;
+  renewal_id: number;
+  dormer_id: number;
+  reviewed_by: number | null;
+  submission_date: string;
+  renewal_period: string;
+  consent_confirmed: boolean;
+  assessment_notes: string;
+  review_date: string | null;
+  renewal_status: "pending" | "approved" | "rejected";
 }
 
 export interface MonitoringRecord {
-  id: string;
-  dormerId: string;
-  recordedBy: string;
-  type: "violation" | "incident" | "observation";
+  monitoring_id: number;
+  dormer_id: number;
+  recorded_by: number;
+  record_date: string;
+  monitoring_type: string;
   description: string;
-  date: string;
-  severity: "low" | "medium" | "high";
-  resolved: boolean;
 }
 
 export interface Notification {
-  id: string;
-  userId: string;
-  title: string;
+  notification_id: number;
+  user_id: number;
+  notification_type: string;
   message: string;
-  type: "info" | "warning" | "success" | "error";
-  isRead: boolean;
-  createdAt: string;
+  date_created: string;
+  read_status: boolean;
 }
 
-// ─── Aggregate types ───
+export interface OccupancyTrend {
+  semester: string;
+  occupancyRate: number;
+}
 
-export interface MockData {
+// ─── Application State ───
+
+export interface OapState {
   users: User[];
   personnel: Personnel[];
-  dormers: Dormer[];
-  attendanceCredentials: AttendanceCredential[];
-  applicants: Applicant[];
   buildings: Building[];
   rooms: Room[];
   beds: Bed[];
+  dormers: Dormer[];
+  credentials: AttendanceCredential[];
+  applicants: Applicant[];
   roomAssignments: RoomAssignment[];
   attendanceRecords: AttendanceRecord[];
   passSlips: PassSlip[];
   renewalRequests: RenewalRequest[];
   monitoringRecords: MonitoringRecord[];
   notifications: Notification[];
+  currentUser: User | null;
+}
+
+// ─── Computed types ───
+
+export interface AbsenceAlert {
+  dormer: Dormer;
+  consecutiveAbsences: number;
+}
+
+export interface BuildingOccupancy extends Building {
+  totalRooms: number;
+  totalBeds: number;
+  occupiedBeds: number;
+  availableBeds: number;
+  occupancyRate: number;
+}
+
+export interface OccupancyStats {
+  totalBeds: number;
+  occupiedBeds: number;
+  availableBeds: number;
+  overallRate: number;
+  byBuilding: BuildingOccupancy[];
+}
+
+// ─── Result types ───
+
+export interface ActionResult<T = unknown> {
+  ok: boolean;
+  error?: string;
+  user?: T;
+  applicant?: T;
+}
+
+// ─── Full context value ───
+
+export interface SubmitApplicationData {
+  student_number: string;
+  first_name: string;
+  middle_name?: string;
+  last_name: string;
+  email: string;
+  course: string;
+  year_level: string;
+  contact_number: string;
+  address: string;
+  emergency_contact_name: string;
+  emergency_contact_relationship: string;
+  emergency_contact_number: string;
+  scholarship_status: boolean;
+  consent_confirmed: boolean;
+}
+
+export interface SubmitPassSlipPayload {
+  departure_datetime: string;
+  expected_return_datetime: string;
+  destination: string;
+  purpose: string;
+}
+
+export interface RecordAttendancePayload {
+  dormer_id: number;
+  attendance_date: string;
+  attendance_status: "present" | "absent" | "excused";
+  recording_method?: "fingerprint" | "numeric_id_pin" | "manual";
+}
+
+export interface OapContextValue extends OapState {
+  absenceAlerts: AbsenceAlert[];
+  occupancyStats: OccupancyStats;
+  login: (username: string, password: string, expectedRole?: string) => ActionResult<User>;
+  logout: () => void;
+  submitApplication: (formData: SubmitApplicationData) => ActionResult<Applicant>;
+  evaluateApplicant: (applicantId: number, status: string, evaluationNotes: string) => void;
+  assignStudentToBed: (dormerId: number, bedId: number) => ActionResult;
+  recordAttendance: (payload: RecordAttendancePayload) => ActionResult;
+  submitPassSlip: (dormerId: number, payload: SubmitPassSlipPayload) => ActionResult;
+  reviewPassSlip: (passSlipId: number, status: string, remarks?: string, actualReturn?: string | null) => void;
+  submitRenewal: (dormerId: number, renewalPeriod: string, profileUpdates: Partial<Dormer>) => ActionResult;
+  reviewRenewal: (renewalId: number, status: string, assessmentNotes: string) => void;
+  markNotificationRead: (notificationId: number) => void;
+  resetDemoData: () => void;
 }

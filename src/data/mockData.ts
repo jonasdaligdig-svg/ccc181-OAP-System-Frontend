@@ -1,227 +1,494 @@
+// Initial mock dataset aligned with OAP SRS Chapter 5 & Chapter 8 (14 ERD Entities)
+
 import type {
   User,
   Personnel,
-  Dormer,
-  AttendanceCredential,
-  Applicant,
   Building,
   Room,
   Bed,
+  Dormer,
+  AttendanceCredential,
+  Applicant,
   RoomAssignment,
   AttendanceRecord,
   PassSlip,
   RenewalRequest,
   MonitoringRecord,
   Notification,
-} from "../types/oap";
+  OccupancyTrend,
+} from '../types/oap';
 
-// ─── Users ───
-export const users: User[] = [
+export const INITIAL_USERS: User[] = [
   {
-    id: "u1",
-    username: "admin",
-    email: "admin@oap.edu",
-    role: "admin",
-    firstName: "Maria",
-    lastName: "Santos",
-    isActive: true,
-    createdAt: "2026-01-15T08:00:00Z",
+    user_id: 1,
+    username: 'admin@msunaawan.edu.ph',
+    password_hash: 'demo-admin-123',
+    role: 'management',
+    account_status: 'active',
   },
   {
-    id: "u2",
-    username: "staff1",
-    email: "jcruz@oap.edu",
-    role: "staff",
-    firstName: "Juan",
-    lastName: "Cruz",
-    isActive: true,
-    createdAt: "2026-02-01T08:00:00Z",
+    user_id: 2,
+    username: 'houseparent@msunaawan.edu.ph',
+    password_hash: 'demo-staff-123',
+    role: 'management',
+    account_status: 'active',
   },
   {
-    id: "u3",
-    username: "dormer1",
-    email: "aramos@oap.edu",
-    role: "dormer",
-    firstName: "Ana",
-    lastName: "Ramos",
-    isActive: true,
-    createdAt: "2026-06-01T08:00:00Z",
+    user_id: 3,
+    username: 'juan.delacruz@msunaawan.edu.ph',
+    password_hash: 'demo-dormer-123',
+    role: 'dormer',
+    account_status: 'active',
+  },
+  {
+    user_id: 4,
+    username: 'maria.santos@msunaawan.edu.ph',
+    password_hash: 'demo-dormer-123',
+    role: 'dormer',
+    account_status: 'active',
+  },
+  {
+    user_id: 5,
+    username: 'pedro.reyes@msunaawan.edu.ph',
+    password_hash: 'demo-dormer-123',
+    role: 'dormer',
+    account_status: 'active',
+  },
+  {
+    user_id: 6,
+    username: 'ana.gomez@msunaawan.edu.ph',
+    password_hash: 'demo-dormer-123',
+    role: 'dormer',
+    account_status: 'active',
+  },
+  {
+    user_id: 7,
+    username: 'kyle.tan@msunaawan.edu.ph',
+    password_hash: 'demo-dormer-123',
+    role: 'dormer',
+    account_status: 'inactive',
   },
 ];
 
-// ─── Personnel ───
-export const personnel: Personnel[] = [
+export const INITIAL_PERSONNEL: Personnel[] = [
   {
-    id: "p1",
-    userId: "u2",
-    employeeId: "EMP-2024-001",
-    department: "Student Affairs",
-    position: "Dormitory Manager",
-    contactNumber: "09171234567",
-    hireDate: "2024-03-01",
+    personnel_id: 1,
+    user_id: 1,
+    first_name: 'Arnell',
+    middle_name: 'R.',
+    last_name: 'Arjona',
+    position: 'Dormitory Head / Landlord',
+  },
+  {
+    personnel_id: 2,
+    user_id: 2,
+    first_name: 'Elena',
+    middle_name: 'M.',
+    last_name: 'Villanueva',
+    position: 'House Parent (Tita)',
   },
 ];
 
-// ─── Dormers ───
-export const dormers: Dormer[] = [
+export const INITIAL_BUILDINGS: Building[] = [
+  { building_id: 1, building_name: 'Dormitory A' },
+  { building_id: 2, building_name: 'Dormitory B' },
+  { building_id: 3, building_name: 'Dormitory C' },
+];
+
+export const INITIAL_ROOMS: Room[] = [
+  { room_id: 101, building_id: 1, room_number: 'A-101', capacity: 4, room_status: 'available' },
+  { room_id: 102, building_id: 1, room_number: 'A-104', capacity: 4, room_status: 'available' },
+  { room_id: 201, building_id: 2, room_number: 'B-205', capacity: 4, room_status: 'available' },
+  { room_id: 202, building_id: 2, room_number: 'B-114', capacity: 4, room_status: 'available' },
+  { room_id: 301, building_id: 3, room_number: 'C-102', capacity: 4, room_status: 'available' },
+  { room_id: 302, building_id: 3, room_number: 'C-108', capacity: 4, room_status: 'unavailable' },
+];
+
+export const INITIAL_BEDS: Bed[] = [
+  // Dorm A - Room A-101 (4 beds)
+  { bed_id: 1, room_id: 101, bed_number: 'Bed 01', bed_status: 'occupied' },
+  { bed_id: 2, room_id: 101, bed_number: 'Bed 02', bed_status: 'occupied' },
+  { bed_id: 3, room_id: 101, bed_number: 'Bed 03', bed_status: 'available' },
+  { bed_id: 4, room_id: 101, bed_number: 'Bed 04', bed_status: 'available' },
+  // Dorm A - Room A-104 (4 beds)
+  { bed_id: 5, room_id: 102, bed_number: 'Bed 01', bed_status: 'occupied' },
+  { bed_id: 6, room_id: 102, bed_number: 'Bed 02', bed_status: 'available' },
+  { bed_id: 7, room_id: 102, bed_number: 'Bed 03', bed_status: 'available' },
+  { bed_id: 8, room_id: 102, bed_number: 'Bed 04', bed_status: 'available' },
+  // Dorm B - Room B-205 (4 beds)
+  { bed_id: 9, room_id: 201, bed_number: 'Bed 01', bed_status: 'occupied' },
+  { bed_id: 10, room_id: 201, bed_number: 'Bed 02', bed_status: 'available' },
+  { bed_id: 11, room_id: 201, bed_number: 'Bed 03', bed_status: 'available' },
+  { bed_id: 12, room_id: 201, bed_number: 'Bed 04', bed_status: 'available' },
+  // Dorm B - Room B-114 (4 beds)
+  { bed_id: 13, room_id: 202, bed_number: 'Bed 01', bed_status: 'occupied' },
+  { bed_id: 14, room_id: 202, bed_number: 'Bed 02', bed_status: 'available' },
+  { bed_id: 15, room_id: 202, bed_number: 'Bed 03', bed_status: 'available' },
+  { bed_id: 16, room_id: 202, bed_number: 'Bed 04', bed_status: 'available' },
+  // Dorm C - Room C-102 (4 beds)
+  { bed_id: 17, room_id: 301, bed_number: 'Bed 01', bed_status: 'occupied' },
+  { bed_id: 18, room_id: 301, bed_number: 'Bed 02', bed_status: 'available' },
+  { bed_id: 19, room_id: 301, bed_number: 'Bed 03', bed_status: 'available' },
+  { bed_id: 20, room_id: 301, bed_number: 'Bed 04', bed_status: 'available' },
+];
+
+export const INITIAL_DORMERS: Dormer[] = [
   {
-    id: "d1",
-    userId: "u3",
-    studentId: "STU-2026-0001",
-    course: "BS Computer Science",
-    yearLevel: 2,
-    contactNumber: "09181234567",
-    emergencyContact: "Rosa Ramos",
-    emergencyContactNumber: "09191234567",
-    status: "active",
+    dormer_id: 1,
+    user_id: 3,
+    student_number: '2023-0145',
+    first_name: 'Juan',
+    middle_name: 'M.',
+    last_name: 'Dela Cruz',
+    email: 'juan.delacruz@msunaawan.edu.ph',
+    course: 'BSIT',
+    year_level: '4th Year',
+    contact_number: '0917-555-0101',
+    address: 'Malaybalay City, Bukidnon',
+    emergency_contact_name: 'Roberto Dela Cruz',
+    emergency_contact_relationship: 'Father',
+    emergency_contact_number: '0917-555-0199',
+  },
+  {
+    dormer_id: 2,
+    user_id: 4,
+    student_number: '2024-0321',
+    first_name: 'Maria',
+    middle_name: 'A.',
+    last_name: 'Santos',
+    email: 'maria.santos@msunaawan.edu.ph',
+    course: 'BS DevCom',
+    year_level: '3rd Year',
+    contact_number: '0918-555-0102',
+    address: 'Iligan City, Lanao del Norte',
+    emergency_contact_name: 'Lourdes Santos',
+    emergency_contact_relationship: 'Mother',
+    emergency_contact_number: '0918-555-0198',
+  },
+  {
+    dormer_id: 3,
+    user_id: 5,
+    student_number: '2024-0789',
+    first_name: 'Pedro',
+    middle_name: 'S.',
+    last_name: 'Reyes',
+    email: 'pedro.reyes@msunaawan.edu.ph',
+    course: 'BS Biology',
+    year_level: '3rd Year',
+    contact_number: '0919-555-0103',
+    address: 'Cagayan de Oro City, Misamis Oriental',
+    emergency_contact_name: 'Carlos Reyes',
+    emergency_contact_relationship: 'Father',
+    emergency_contact_number: '0919-555-0197',
+  },
+  {
+    dormer_id: 4,
+    user_id: 6,
+    student_number: '2025-0512',
+    first_name: 'Ana',
+    middle_name: 'T.',
+    last_name: 'Gomez',
+    email: 'ana.gomez@msunaawan.edu.ph',
+    course: 'BSIT',
+    year_level: '2nd Year',
+    contact_number: '0920-555-0104',
+    address: 'Ozamiz City, Misamis Occidental',
+    emergency_contact_name: 'Teresa Gomez',
+    emergency_contact_relationship: 'Mother',
+    emergency_contact_number: '0920-555-0196',
+  },
+  {
+    dormer_id: 5,
+    user_id: 7,
+    student_number: '2025-0967',
+    first_name: 'Kyle',
+    middle_name: 'S.',
+    last_name: 'Tan',
+    email: 'kyle.tan@msunaawan.edu.ph',
+    course: 'BS Criminology',
+    year_level: '2nd Year',
+    contact_number: '0921-555-0105',
+    address: 'Butuan City, Agusan del Norte',
+    emergency_contact_name: 'Mina Tan',
+    emergency_contact_relationship: 'Guardian',
+    emergency_contact_number: '0921-555-0195',
+  },
+  {
+    dormer_id: 6,
+    user_id: null,
+    student_number: '2026-0045',
+    first_name: 'Jana',
+    middle_name: 'B.',
+    last_name: 'Dalag',
+    email: 'jana.dalag@msunaawan.edu.ph',
+    course: 'BSIT',
+    year_level: '1st Year',
+    contact_number: '0922-555-0106',
+    address: 'Valencia City, Bukidnon',
+    emergency_contact_name: 'Ramon Dalag',
+    emergency_contact_relationship: 'Father',
+    emergency_contact_number: '0922-555-0194',
+  },
+  // Applicants without active bed assignments yet
+  {
+    dormer_id: 7,
+    user_id: null,
+    student_number: '2026-0112',
+    first_name: 'Clarisse',
+    middle_name: 'D.',
+    last_name: 'Mendoza',
+    email: 'clarisse.mendoza@msunaawan.edu.ph',
+    course: 'BS Marine Biology',
+    year_level: '1st Year',
+    contact_number: '0923-555-0107',
+    address: 'Pagadian City, Zamboanga del Sur',
+    emergency_contact_name: 'Rico Mendoza',
+    emergency_contact_relationship: 'Father',
+    emergency_contact_number: '0923-555-0193',
+  },
+  {
+    dormer_id: 8,
+    user_id: null,
+    student_number: '2026-0188',
+    first_name: 'Mark',
+    middle_name: 'B.',
+    last_name: 'Flores',
+    email: 'mark.flores@msunaawan.edu.ph',
+    course: 'BSIT',
+    year_level: '1st Year',
+    contact_number: '0924-555-0108',
+    address: 'Naawan, Misamis Oriental',
+    emergency_contact_name: 'Nora Flores',
+    emergency_contact_relationship: 'Mother',
+    emergency_contact_number: '0924-555-0192',
   },
 ];
 
-// ─── Attendance Credentials ───
-export const attendanceCredentials: AttendanceCredential[] = [
+export const INITIAL_ATTENDANCE_CREDENTIALS: AttendanceCredential[] = [
+  { credential_id: 1, dormer_id: 1, fingerprint_user_id: 'FP-1001', pin_hash: '****145', credential_status: 'active' },
+  { credential_id: 2, dormer_id: 2, fingerprint_user_id: 'FP-1002', pin_hash: '****321', credential_status: 'active' },
+  { credential_id: 3, dormer_id: 3, fingerprint_user_id: 'FP-1003', pin_hash: '****789', credential_status: 'active' },
+  { credential_id: 4, dormer_id: 4, fingerprint_user_id: 'FP-1004', pin_hash: '****512', credential_status: 'active' },
+  { credential_id: 5, dormer_id: 5, fingerprint_user_id: 'FP-1005', pin_hash: '****967', credential_status: 'active' },
+  { credential_id: 6, dormer_id: 6, fingerprint_user_id: 'FP-1006', pin_hash: '****045', credential_status: 'active' },
+];
+
+export const INITIAL_APPLICANTS: Applicant[] = [
   {
-    id: "ac1",
-    dormerId: "d1",
-    cardNumber: "CARD-00001",
-    issuedAt: "2026-06-01T08:00:00Z",
-    expiresAt: "2027-06-01T08:00:00Z",
-    isActive: true,
+    applicant_id: 261,
+    dormer_id: 7,
+    evaluated_by: null,
+    application_date: '2026-11-12',
+    scholarship_status: true,
+    address: 'Pagadian City, Zamboanga del Sur',
+    consent_confirmed: true,
+    evaluation_notes: 'DOST scholar from distant province (high priority).',
+    application_status: 'pending',
+  },
+  {
+    applicant_id: 262,
+    dormer_id: 8,
+    evaluated_by: 1,
+    application_date: '2026-11-14',
+    scholarship_status: false,
+    address: 'Naawan, Misamis Oriental',
+    consent_confirmed: true,
+    evaluation_notes: 'Nearby municipality; placed on waitlist pending distant applicants.',
+    application_status: 'waitlisted',
+  },
+  {
+    applicant_id: 263,
+    dormer_id: 6,
+    evaluated_by: 1,
+    application_date: '2026-11-10',
+    scholarship_status: true,
+    address: 'Valencia City, Bukidnon',
+    consent_confirmed: true,
+    evaluation_notes: 'Approved and ready for bed assignment.',
+    application_status: 'approved',
   },
 ];
 
-// ─── Applicants ───
-export const applicants: Applicant[] = [
+export const INITIAL_ROOM_ASSIGNMENTS: RoomAssignment[] = [
+  { assignment_id: 1, dormer_id: 1, bed_id: 5, start_date: '2026-08-15', end_date: null, assignment_status: 'active' },
+  { assignment_id: 2, dormer_id: 2, bed_id: 9, start_date: '2026-08-15', end_date: null, assignment_status: 'active' },
+  { assignment_id: 3, dormer_id: 3, bed_id: 1, start_date: '2026-08-15', end_date: null, assignment_status: 'active' },
+  { assignment_id: 4, dormer_id: 4, bed_id: 2, start_date: '2026-08-15', end_date: null, assignment_status: 'active' },
+  { assignment_id: 5, dormer_id: 5, bed_id: 17, start_date: '2026-08-15', end_date: null, assignment_status: 'active' },
+  { assignment_id: 6, dormer_id: 6, bed_id: 13, start_date: '2026-08-15', end_date: null, assignment_status: 'active' },
+];
+
+// Consecutive absences for dormer_id 1 (3 nights) and dormer_id 4 (4 nights) trigger absence alerts without vacating beds
+export const INITIAL_ATTENDANCE_RECORDS: AttendanceRecord[] = [
+  { attendance_id: 1, dormer_id: 1, attendance_date: '2026-11-19', time_recorded: '21:00:00', recording_method: 'manual', attendance_status: 'absent' },
+  { attendance_id: 2, dormer_id: 1, attendance_date: '2026-11-20', time_recorded: '21:00:00', recording_method: 'manual', attendance_status: 'absent' },
+  { attendance_id: 3, dormer_id: 1, attendance_date: '2026-11-21', time_recorded: '21:00:00', recording_method: 'manual', attendance_status: 'absent' },
+
+  { attendance_id: 4, dormer_id: 2, attendance_date: '2026-11-20', time_recorded: '20:42:10', recording_method: 'fingerprint', attendance_status: 'present' },
+  { attendance_id: 5, dormer_id: 2, attendance_date: '2026-11-21', time_recorded: '20:35:04', recording_method: 'fingerprint', attendance_status: 'present' },
+
+  { attendance_id: 6, dormer_id: 3, attendance_date: '2026-11-20', time_recorded: '20:51:22', recording_method: 'numeric_id_pin', attendance_status: 'present' },
+  { attendance_id: 7, dormer_id: 3, attendance_date: '2026-11-21', time_recorded: '20:48:11', recording_method: 'fingerprint', attendance_status: 'excused' },
+
+  { attendance_id: 8, dormer_id: 4, attendance_date: '2026-11-18', time_recorded: '21:00:00', recording_method: 'manual', attendance_status: 'absent' },
+  { attendance_id: 9, dormer_id: 4, attendance_date: '2026-11-19', time_recorded: '21:00:00', recording_method: 'manual', attendance_status: 'absent' },
+  { attendance_id: 10, dormer_id: 4, attendance_date: '2026-11-20', time_recorded: '21:00:00', recording_method: 'manual', attendance_status: 'absent' },
+  { attendance_id: 11, dormer_id: 4, attendance_date: '2026-11-21', time_recorded: '21:00:00', recording_method: 'manual', attendance_status: 'absent' },
+
+  { attendance_id: 12, dormer_id: 5, attendance_date: '2026-11-21', time_recorded: '20:15:30', recording_method: 'fingerprint', attendance_status: 'present' },
+  { attendance_id: 13, dormer_id: 6, attendance_date: '2026-11-21', time_recorded: '20:28:19', recording_method: 'fingerprint', attendance_status: 'present' },
+];
+
+export const INITIAL_PASS_SLIPS: PassSlip[] = [
   {
-    id: "a1",
-    firstName: "Carlos",
-    lastName: "Garcia",
-    email: "cgarcia@oap.edu",
-    studentId: "STU-2026-0042",
-    course: "BS Information Technology",
-    yearLevel: 1,
-    applicationDate: "2026-05-10",
-    status: "pending",
+    pass_slip_id: 142,
+    dormer_id: 1,
+    reviewed_by: null,
+    departure_datetime: '2026-11-23T08:00',
+    expected_return_datetime: '2026-11-23T18:00',
+    actual_return_datetime: null,
+    destination: 'Iligan City',
+    purpose: 'Family visit and school supplies',
+    remarks: '',
+    request_status: 'pending',
+  },
+  {
+    pass_slip_id: 141,
+    dormer_id: 2,
+    reviewed_by: 1,
+    departure_datetime: '2026-11-22T09:00',
+    expected_return_datetime: '2026-11-22T17:00',
+    actual_return_datetime: null,
+    destination: 'Naawan Town Center',
+    purpose: 'Personal errand',
+    remarks: 'Approved by House Parent.',
+    request_status: 'approved',
+  },
+  {
+    pass_slip_id: 140,
+    dormer_id: 3,
+    reviewed_by: 2,
+    departure_datetime: '2026-11-21T08:00',
+    expected_return_datetime: '2026-11-22T20:00',
+    actual_return_datetime: null,
+    destination: 'Cagayan de Oro City',
+    purpose: 'Medical check-up',
+    remarks: 'Present approved slip at gate.',
+    request_status: 'approved',
+  },
+  {
+    pass_slip_id: 139,
+    dormer_id: 4,
+    reviewed_by: 1,
+    departure_datetime: '2026-11-19T08:00',
+    expected_return_datetime: '2026-11-20T19:00',
+    actual_return_datetime: null,
+    destination: 'Ozamiz City',
+    purpose: 'Family event',
+    remarks: 'Past expected return time — follow-up required.',
+    request_status: 'overdue',
+  },
+  {
+    pass_slip_id: 138,
+    dormer_id: 5,
+    reviewed_by: 2,
+    departure_datetime: '2026-11-20T10:00',
+    expected_return_datetime: '2026-11-20T16:00',
+    actual_return_datetime: '2026-11-20T15:40',
+    destination: 'Naawan Public Market',
+    purpose: 'Academic errand',
+    remarks: 'Returned on time.',
+    request_status: 'returned',
   },
 ];
 
-// ─── Buildings ───
-export const buildings: Building[] = [
+export const INITIAL_RENEWAL_REQUESTS: RenewalRequest[] = [
   {
-    id: "b1",
-    name: "Rizal Hall",
-    code: "RH",
-    address: "OAP Campus, Building A",
-    totalFloors: 4,
-    totalRooms: 40,
-    status: "operational",
+    renewal_id: 1,
+    dormer_id: 1,
+    reviewed_by: null,
+    submission_date: '2026-11-17',
+    renewal_period: '2nd Sem AY 2026-2027',
+    consent_confirmed: true,
+    assessment_notes: '',
+    review_date: null,
+    renewal_status: 'pending',
+  },
+  {
+    renewal_id: 2,
+    dormer_id: 2,
+    reviewed_by: 1,
+    submission_date: '2026-11-16',
+    renewal_period: '2nd Sem AY 2026-2027',
+    consent_confirmed: true,
+    assessment_notes: 'Good attendance standing and zero conduct issues.',
+    review_date: '2026-11-18T14:15:00',
+    renewal_status: 'approved',
+  },
+  {
+    renewal_id: 3,
+    dormer_id: 4,
+    reviewed_by: null,
+    submission_date: '2026-11-16',
+    renewal_period: '2nd Sem AY 2026-2027',
+    consent_confirmed: true,
+    assessment_notes: 'Flagged for 4 consecutive unexcused absences and overdue pass slip.',
+    review_date: null,
+    renewal_status: 'pending',
   },
 ];
 
-// ─── Rooms ───
-export const rooms: Room[] = [
+export const INITIAL_MONITORING_RECORDS: MonitoringRecord[] = [
   {
-    id: "r1",
-    buildingId: "b1",
-    roomNumber: "101",
-    floor: 1,
-    capacity: 4,
-    occupancy: 1,
-    type: "quad",
-    status: "available",
+    monitoring_id: 1,
+    dormer_id: 4,
+    recorded_by: 2,
+    record_date: '2026-11-21',
+    monitoring_type: 'Overdue Pass Slip',
+    description: 'Did not log return by 7:00 PM on Nov 20. Contacted emergency guardian.',
+  },
+  {
+    monitoring_id: 2,
+    dormer_id: 1,
+    recorded_by: 1,
+    record_date: '2026-11-21',
+    monitoring_type: 'Consecutive Absence',
+    description: 'Absent for 3 consecutive nightly curfew checks without an active pass slip.',
   },
 ];
 
-// ─── Beds ───
-export const beds: Bed[] = [
+export const INITIAL_NOTIFICATIONS: Notification[] = [
   {
-    id: "bed1",
-    roomId: "r1",
-    bedNumber: "A",
-    status: "occupied",
-    dormerId: "d1",
+    notification_id: 1,
+    user_id: 3,
+    notification_type: 'renewal_update',
+    message: 'Your renewal request for 2nd Sem AY 2026-2027 has been received and is Pending review.',
+    date_created: '2026-11-17T10:25:00',
+    read_status: false,
   },
   {
-    id: "bed2",
-    roomId: "r1",
-    bedNumber: "B",
-    status: "available",
+    notification_id: 2,
+    user_id: 4,
+    notification_type: 'pass_slip_update',
+    message: 'Your pass slip request (PS-141) to Naawan Town Center has been Approved.',
+    date_created: '2026-11-22T08:15:00',
+    read_status: false,
   },
-];
-
-// ─── Room Assignments ───
-export const roomAssignments: RoomAssignment[] = [
   {
-    id: "ra1",
-    dormerId: "d1",
-    roomId: "r1",
-    bedId: "bed1",
-    assignedAt: "2026-06-01T08:00:00Z",
-    expiresAt: "2027-05-31T08:00:00Z",
-    status: "active",
+    notification_id: 3,
+    user_id: 4,
+    notification_type: 'renewal_update',
+    message: 'Your dormitory renewal for 2nd Sem AY 2026-2027 has been Approved.',
+    date_created: '2026-11-18T14:15:00',
+    read_status: true,
   },
 ];
 
-// ─── Attendance Records ───
-export const attendanceRecords: AttendanceRecord[] = [
-  {
-    id: "ar1",
-    dormerId: "d1",
-    credentialId: "ac1",
-    type: "check_in",
-    timestamp: "2026-11-23T07:30:00Z",
-    location: "Main Gate",
-  },
-];
-
-// ─── Pass Slips ───
-export const passSlips: PassSlip[] = [
-  {
-    id: "ps1",
-    dormerId: "d1",
-    reason: "Family event",
-    destination: "Quezon City",
-    departureDate: "2026-11-25",
-    returnDate: "2026-11-27",
-    status: "pending",
-  },
-];
-
-// ─── Renewal Requests ───
-export const renewalRequests: RenewalRequest[] = [
-  {
-    id: "rr1",
-    dormerId: "d1",
-    currentAssignmentId: "ra1",
-    requestDate: "2026-11-01",
-    desiredStartDate: "2027-06-01",
-    desiredEndDate: "2028-05-31",
-    status: "pending",
-  },
-];
-
-// ─── Monitoring Records ───
-export const monitoringRecords: MonitoringRecord[] = [
-  {
-    id: "mr1",
-    dormerId: "d1",
-    recordedBy: "p1",
-    type: "observation",
-    description: "Room kept in good condition during inspection.",
-    date: "2026-11-20",
-    severity: "low",
-    resolved: true,
-  },
-];
-
-// ─── Notifications ───
-export const notifications: Notification[] = [
-  {
-    id: "n1",
-    userId: "u3",
-    title: "Welcome!",
-    message: "Your dormitory account has been created.",
-    type: "info",
-    isRead: false,
-    createdAt: "2026-06-01T08:00:00Z",
-  },
+export const HISTORICAL_OCCUPANCY_TRENDS: OccupancyTrend[] = [
+  { semester: '1st Sem 24-25', occupancyRate: 60 },
+  { semester: '2nd Sem 24-25', occupancyRate: 65 },
+  { semester: '1st Sem 25-26', occupancyRate: 70 },
+  { semester: '2nd Sem 25-26', occupancyRate: 74 },
+  { semester: '1st Sem 26-27', occupancyRate: 78 },
+  { semester: '2nd Sem 26-27', occupancyRate: 80 },
 ];
