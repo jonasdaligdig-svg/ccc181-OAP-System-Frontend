@@ -53,6 +53,7 @@ export interface Dormer {
   emergency_contact_name: string;
   emergency_contact_relationship: string;
   emergency_contact_number: string;
+  status?: 'Active Resident' | 'On Leave' | 'Pending Assignment' | string;
 }
 
 export interface AttendanceCredential {
@@ -226,11 +227,29 @@ export interface RecordAttendancePayload {
   recording_method?: "fingerprint" | "numeric_id_pin" | "manual";
 }
 
+export interface AddDormerData {
+  student_number: string;
+  first_name: string;
+  middle_name?: string;
+  last_name: string;
+  email: string;
+  course: string;
+  year_level: string;
+  contact_number: string;
+  address?: string;
+  emergency_contact_name: string;
+  emergency_contact_relationship?: string;
+  emergency_contact_number: string;
+  status?: 'Active Resident' | 'On Leave' | 'Pending Assignment' | string;
+}
+
 export interface OapContextValue extends OapState {
   absenceAlerts: AbsenceAlert[];
   occupancyStats: OccupancyStats;
   login: (username: string, password: string, expectedRole?: string) => ActionResult<User>;
   logout: () => void;
+  addDormer: (dormerData: AddDormerData) => ActionResult<Dormer>;
+  updateDormer: (dormerId: number, updates: Partial<Dormer>) => ActionResult<Dormer>;
   submitApplication: (formData: SubmitApplicationData) => ActionResult<Applicant>;
   evaluateApplicant: (applicantId: number, status: string, evaluationNotes: string) => void;
   assignStudentToBed: (dormerId: number, bedId: number) => ActionResult;

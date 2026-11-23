@@ -10,6 +10,7 @@ import type {
   SubmitApplicationData,
   SubmitPassSlipPayload,
   RecordAttendancePayload,
+  AddDormerData,
 } from '../types/oap';
 import {
   INITIAL_APPLICANTS,
@@ -440,12 +441,67 @@ export function OapProvider({ children }: { children: ReactNode }) {
     setState(loadInitialState());
   };
 
+  const addDormer = (dormerData: AddDormerData): ActionResult<Dormer> => {
+    const cleanNum = dormerData.student_number.trim();
+    if (state.dormers.some((d) => d.student_number.toLowerCase() === cleanNum.toLowerCase())) {
+      return { ok: false, error: 'Student ID already exists.' };
+    }
+    const nextId = Math.max(0, ...state.dormers.map((d) => d.dormer_id)) + 1;
+    const newDormer: Dormer = {
+      dormer_id: nextId,
+      user_id: null,
+      student_number: cleanNum,
+      first_name: dormerData.first_name.trim(),
+      middle_name: dormerData.middle_name?.trim() || '',
+      last_name: dormerData.last_name.trim(),
+      email: dormerData.email.trim(),
+      course: dormerData.course,
+      year_level: dormerData.year_level,
+      contact_number: dormerData.contact_number.trim(),
+      address: dormerData.address?.trim() || '',
+      emergency_contact_name: dormerData.emergency_contact_name.trim(),
+      emergency_contact_relationship: dormerData.emergency_contact_relationship?.trim() || 'Parent/Guardian',
+      emergency_contact_number: dormerData.emergency_contact_number.trim(),
+      status: dormerData.status || 'Pending Assignment',
+    };
+    setState((prev) => ({
+      ...prev,
+      dormers: [...prev.dormers, newDormer],
+    }));
+    return { ok: true, user: undefined };
+  };
+
+  const updateDormer = (dormerId: number, updates: Partial<Dormer>): ActionResult<Dormer> => {
+    const existing = state.dormers.find((d) => d.dormer_id === dormerId);
+    if (!existing) return { ok: false, error: 'Student not found.' };
+
+    if (
+      updates.student_number &&
+      updates.student_number.trim().toLowerCase() !== existing.student_number.toLowerCase() &&
+      state.dormers.some(
+        (d) =>
+          d.dormer_id !== dormerId &&
+          d.student_number.toLowerCase() === updates.student_number!.trim().toLowerCase()
+      )
+    ) {
+      return { ok: false, error: 'Student ID already in use.' };
+    }
+
+    setState((prev) => ({
+      ...prev,
+      dormers: prev.dormers.map((d) => (d.dormer_id === dormerId ? { ...d, ...updates } : d)),
+    }));
+    return { ok: true };
+  };
+
   const value = {
     ...state,
     absenceAlerts,
     occupancyStats,
     login,
     logout,
+    addDormer,
+    updateDormer,
     submitApplication,
     evaluateApplicant,
     assignStudentToBed,
