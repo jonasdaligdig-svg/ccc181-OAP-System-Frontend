@@ -267,7 +267,7 @@ export default function AdminLayout() {
                       {(searchQuery.trim()
                         ? searchResults
                         : [
-                            { title: 'Juan Dela Cruz', subtitle: 'Student Management', to: '/admin/students' },
+                            { title: 'Juana Dela Cruz', subtitle: 'Student Management', to: '/admin/students' },
                             { title: 'Room A-104', subtitle: 'Room and Bed Management', to: '/admin/rooms' },
                             { title: 'Maria Santos', subtitle: 'Student Management', to: '/admin/students' },
                           ]

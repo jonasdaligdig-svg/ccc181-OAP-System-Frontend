@@ -6,6 +6,10 @@ import type {
   User,
   Applicant,
   Dormer,
+  Room,
+  Bed,
+  AddRoomPayload,
+  UpdateRoomPayload,
   ActionResult,
   SubmitApplicationData,
   SubmitPassSlipPayload,
@@ -32,7 +36,7 @@ import {
 } from '../data/mockData';
 import { OapContext } from './oapContextDef';
 
-const STORAGE_KEY = 'msun_oap_state_v3';
+const STORAGE_KEY = 'msun_oap_state_v6';
 const ABSENCE_ALERT_THRESHOLD = 3; // Configured consecutive-night absence threshold (FR-18)
 
 function loadInitialState(): OapState {
@@ -244,21 +248,155 @@ export function OapProvider({ children }: { children: ReactNode }) {
     return { ok: true, applicant: updatedApplicant };
   };
 
-  // --- FR-08 & FR-09: Assign Student to Bed (enforces max 4 per room & no double-booking) ---
-  const assignStudentToBed = (dormerId: number, bedId: number): ActionResult => {
+  // --- Room & Bed Management Actions ---
+  const addRoom = (payload: AddRoomPayload): ActionResult<Room> => {
+    const cleanRoomNum = payload.room_number.trim();
+    if (!cleanRoomNum) {
+      return { ok: false, error: 'Room number is required.' };
+    }
+    const duplicate = state.rooms.some(
+      (r) =>
+        r.building_id === payload.building_id &&
+        r.room_number.toLowerCase() === cleanRoomNum.toLowerCase()
+    );
+    if (duplicate) {
+      return { ok: false, error: 'Room number already exists in this dormitory.' };
+    }
+    const cap = Math.min(4, Math.max(1, payload.capacity || 4));
+    const nextRoomId = Math.max(0, ...state.rooms.map((r) => r.room_id)) + 1;
+    const today = new Date().toISOString().slice(0, 10);
+    const status = payload.status || 'available';
+    const newRoom: Room = {
+      room_id: nextRoomId,
+      building_id: payload.building_id,
+      room_number: cleanRoomNum,
+      floor: payload.floor.trim() || '1st floor',
+      capacity: cap,
+      status,
+      room_status: status === 'maintenance' ? 'unavailable' : 'available',
+      last_reviewed: today,
+    };
+
+    let nextBedId = Math.max(0, ...state.beds.map((b) => b.bed_id)) + 1;
+    const newBeds: Bed[] = Array.from({ length: cap }, (_, i) => ({
+      bed_id: nextBedId++,
+      room_id: nextRoomId,
+      bed_number: `Bed ${String(i + 1).padStart(2, '0')}`,
+      bed_status: 'available',
+    }));
+
+    setState((prev) => ({
+      ...prev,
+      rooms: [...prev.rooms, newRoom],
+      beds: [...prev.beds, ...newBeds],
+    }));
+
+    return { ok: true, room: newRoom };
+  };
+
+  const updateRoom = (roomId: number, payload: UpdateRoomPayload): ActionResult<Room> => {
+    const room = state.rooms.find((r) => r.room_id === roomId);
+    if (!room) return { ok: false, error: 'Room not found.' };
+
+    const targetBldg = payload.building_id ?? room.building_id;
+    const targetNum = payload.room_number ? payload.room_number.trim() : room.room_number;
+
+    if (
+      (targetBldg !== room.building_id || targetNum.toLowerCase() !== room.room_number.toLowerCase()) &&
+      state.rooms.some(
+        (r) =>
+          r.room_id !== roomId &&
+          r.building_id === targetBldg &&
+          r.room_number.toLowerCase() === targetNum.toLowerCase()
+      )
+    ) {
+      return { ok: false, error: 'Room number already exists in this dormitory.' };
+    }
+
+    const currentOccupiedBeds = state.beds.filter(
+      (b) => b.room_id === roomId && b.bed_status === 'occupied'
+    ).length;
+
+    let targetCapacity = room.capacity;
+    if (payload.capacity !== undefined) {
+      if (payload.capacity < currentOccupiedBeds) {
+        return {
+          ok: false,
+          error: `Cannot reduce bed capacity below currently occupied beds (${currentOccupiedBeds}).`,
+        };
+      }
+      targetCapacity = Math.min(4, Math.max(1, payload.capacity));
+    }
+
+    const today = new Date().toISOString().slice(0, 10);
+    let nextStatus = payload.status ?? room.status;
+    if (nextStatus !== 'maintenance') {
+      nextStatus = currentOccupiedBeds >= targetCapacity ? 'full' : 'available';
+    }
+
+    const updatedRoom: Room = {
+      ...room,
+      building_id: targetBldg,
+      room_number: targetNum,
+      floor: payload.floor ? payload.floor.trim() : room.floor,
+      capacity: targetCapacity,
+      status: nextStatus,
+      room_status: nextStatus === 'maintenance' ? 'unavailable' : 'available',
+      last_reviewed: today,
+    };
+
+    let updatedBeds = [...state.beds];
+    const currentRoomBeds = updatedBeds.filter((b) => b.room_id === roomId);
+    if (targetCapacity > currentRoomBeds.length) {
+      let nextBedId = Math.max(0, ...state.beds.map((b) => b.bed_id)) + 1;
+      const addCount = targetCapacity - currentRoomBeds.length;
+      for (let i = 0; i < addCount; i++) {
+        const bedIndex = currentRoomBeds.length + i + 1;
+        updatedBeds.push({
+          bed_id: nextBedId++,
+          room_id: roomId,
+          bed_number: `Bed ${String(bedIndex).padStart(2, '0')}`,
+          bed_status: 'available',
+        });
+      }
+    } else if (targetCapacity < currentRoomBeds.length) {
+      let toRemove = currentRoomBeds.length - targetCapacity;
+      const bedsToRemoveIds = new Set<number>();
+      for (let i = currentRoomBeds.length - 1; i >= 0 && toRemove > 0; i--) {
+        if (currentRoomBeds[i].bed_status !== 'occupied') {
+          bedsToRemoveIds.add(currentRoomBeds[i].bed_id);
+          toRemove--;
+        }
+      }
+      updatedBeds = updatedBeds.filter((b) => !bedsToRemoveIds.has(b.bed_id));
+    }
+
+    setState((prev) => ({
+      ...prev,
+      rooms: prev.rooms.map((r) => (r.room_id === roomId ? updatedRoom : r)),
+      beds: updatedBeds,
+    }));
+
+    return { ok: true, room: updatedRoom };
+  };
+
+  const assignResidentToBed = (
+    bedId: number,
+    dormerId: number,
+    effectiveDate?: string,
+    notes?: string
+  ): ActionResult => {
     const bed = state.beds.find((b) => b.bed_id === bedId);
     if (!bed || bed.bed_status !== 'available') {
       return { ok: false, error: 'Selected bed is not available.' };
     }
     const room = state.rooms.find((r) => r.room_id === bed.room_id);
-    const activeInRoom = state.beds.filter(
-      (b) => b.room_id === bed.room_id && b.bed_status === 'occupied'
-    ).length;
-    if (activeInRoom >= (room?.capacity || 4)) {
-      return { ok: false, error: 'Room has reached its maximum capacity of 4 occupants.' };
-    }
+    if (!room) return { ok: false, error: 'Room not found.' };
 
-    const today = new Date().toISOString().slice(0, 10);
+    const dormer = state.dormers.find((d) => d.dormer_id === dormerId);
+    if (!dormer) return { ok: false, error: 'Resident not found.' };
+
+    const today = effectiveDate || new Date().toISOString().slice(0, 10);
     const nextAssignmentId = Math.max(0, ...state.roomAssignments.map((r) => r.assignment_id)) + 1;
 
     setState((prev) => {
@@ -270,6 +408,7 @@ export function OapProvider({ children }: { children: ReactNode }) {
           ? { ...r, assignment_status: 'transferred' as const, end_date: today }
           : r
       );
+
       const updatedBeds = prev.beds.map((b) => {
         if (previousActive && b.bed_id === previousActive.bed_id) {
           return { ...b, bed_status: 'available' as const };
@@ -279,9 +418,44 @@ export function OapProvider({ children }: { children: ReactNode }) {
         }
         return b;
       });
+
+      const occupiedInRoom = updatedBeds.filter(
+        (b) => b.room_id === room.room_id && b.bed_status === 'occupied'
+      ).length;
+
+      const updatedRooms = prev.rooms.map((r) => {
+        if (r.room_id === room.room_id) {
+          const newStatus: 'available' | 'full' | 'maintenance' =
+            r.status === 'maintenance'
+              ? 'maintenance'
+              : occupiedInRoom >= r.capacity
+              ? 'full'
+              : 'available';
+          return { ...r, status: newStatus, last_reviewed: today };
+        }
+        return r;
+      });
+
+      const updatedDormers = prev.dormers.map((d) =>
+        d.dormer_id === dormerId ? { ...d, status: 'Active Resident' } : d
+      );
+
+      const noteMessage = notes ? ` Note: ${notes}` : '';
+      const newNotif: Notification = {
+        notification_id: Math.max(0, ...prev.notifications.map((n) => n.notification_id)) + 1,
+        user_id: dormer.user_id || 0,
+        notification_type: 'Room Assignment',
+        message: `Assigned to ${room.room_number} (${bed.bed_number}).${noteMessage}`,
+        date_created: today,
+        read_status: false,
+      };
+
       return {
         ...prev,
         beds: updatedBeds,
+        rooms: updatedRooms,
+        dormers: updatedDormers,
+        notifications: [newNotif, ...prev.notifications],
         roomAssignments: [
           ...updatedAssignments,
           {
@@ -295,7 +469,73 @@ export function OapProvider({ children }: { children: ReactNode }) {
         ],
       };
     });
+
     return { ok: true };
+  };
+
+  const unassignBed = (bedId: number): ActionResult => {
+    const bed = state.beds.find((b) => b.bed_id === bedId);
+    if (!bed || bed.bed_status !== 'occupied') {
+      return { ok: false, error: 'Bed is not currently occupied.' };
+    }
+    const room = state.rooms.find((r) => r.room_id === bed.room_id);
+    const assignment = state.roomAssignments.find(
+      (r) => r.bed_id === bedId && r.assignment_status === 'active'
+    );
+
+    const today = new Date().toISOString().slice(0, 10);
+
+    setState((prev) => {
+      const updatedBeds = prev.beds.map((b) =>
+        b.bed_id === bedId ? { ...b, bed_status: 'available' as const } : b
+      );
+
+      const updatedAssignments = prev.roomAssignments.map((r) =>
+        r.bed_id === bedId && r.assignment_status === 'active'
+          ? { ...r, assignment_status: 'ended' as const, end_date: today }
+          : r
+      );
+
+      const updatedDormers = assignment
+        ? prev.dormers.map((d) =>
+            d.dormer_id === assignment.dormer_id
+              ? { ...d, status: 'Pending Assignment' }
+              : d
+          )
+        : prev.dormers;
+
+      const occupiedInRoom = updatedBeds.filter(
+        (b) => b.room_id === bed.room_id && b.bed_status === 'occupied'
+      ).length;
+
+      const updatedRooms = prev.rooms.map((r) => {
+        if (room && r.room_id === room.room_id) {
+          const newStatus: 'available' | 'full' | 'maintenance' =
+            r.status === 'maintenance'
+              ? 'maintenance'
+              : occupiedInRoom >= r.capacity
+              ? 'full'
+              : 'available';
+          return { ...r, status: newStatus, last_reviewed: today };
+        }
+        return r;
+      });
+
+      return {
+        ...prev,
+        beds: updatedBeds,
+        rooms: updatedRooms,
+        dormers: updatedDormers,
+        roomAssignments: updatedAssignments,
+      };
+    });
+
+    return { ok: true };
+  };
+
+  // Backwards compatible wrapper for assignStudentToBed
+  const assignStudentToBed = (dormerId: number, bedId: number): ActionResult => {
+    return assignResidentToBed(bedId, dormerId);
   };
 
   // --- FR-11: Record / Import Attendance (does NOT alter bed occupancy) ---
@@ -588,6 +828,10 @@ export function OapProvider({ children }: { children: ReactNode }) {
     submitApplication,
     evaluateApplicant,
     reviewApplicant,
+    addRoom,
+    updateRoom,
+    assignResidentToBed,
+    unassignBed,
     assignStudentToBed,
     recordAttendance,
     submitPassSlip,
