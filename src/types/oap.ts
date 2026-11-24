@@ -271,9 +271,14 @@ export interface SubmitPassSlipPayload {
 
 export interface RecordAttendancePayload {
   dormer_id: number;
-  attendance_date: string;
-  attendance_status: "present" | "absent" | "excused";
+  date?: string;
+  attendance_date?: string;
+  time_recorded?: string;
+  status?: "present" | "absent" | "excused";
+  attendance_status?: "present" | "absent" | "excused";
+  method?: "biometric" | "pin" | "manual" | null;
   recording_method?: "fingerprint" | "numeric_id_pin" | "manual";
+  remarks?: string;
 }
 
 export interface AddDormerData {

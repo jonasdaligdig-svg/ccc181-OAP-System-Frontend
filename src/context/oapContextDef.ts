@@ -9,6 +9,7 @@ export type {
   ApplicantDocument,
   Bed,
   OapContextValue,
+  RecordAttendancePayload,
   Room,
   UpdateRoomPayload,
 } from '../types/oap';
