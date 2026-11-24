@@ -14,6 +14,7 @@ import type {
   SubmitApplicationData,
   SubmitPassSlipPayload,
   RecordAttendancePayload,
+  AttendanceRecord,
   AddDormerData,
   ApplicantChecklist,
   Notification,
@@ -538,30 +539,55 @@ export function OapProvider({ children }: { children: ReactNode }) {
     return assignResidentToBed(bedId, dormerId);
   };
 
-  // --- FR-11: Record / Import Attendance (does NOT alter bed occupancy) ---
-  const recordAttendance = ({ dormer_id, attendance_date, attendance_status, recording_method }: RecordAttendancePayload): ActionResult => {
-    const exists = state.attendanceRecords.some(
-      (r) => r.dormer_id === dormer_id && r.attendance_date === attendance_date
-    );
-    if (exists) {
-      return { ok: false, error: 'Duplicate attendance entry for this student and date.' };
+  // --- FR-11: Record / Import Attendance (upsert: updates if exists for dormer + date, otherwise inserts; does NOT alter bed occupancy) ---
+  const recordAttendance = (payload: RecordAttendancePayload): ActionResult => {
+    const targetDate = payload.date || payload.attendance_date || new Date().toISOString().slice(0, 10);
+    const targetStatus = payload.status || payload.attendance_status || 'present';
+    const targetTime = payload.time_recorded || new Date().toTimeString().slice(0, 8);
+
+    let method: 'fingerprint' | 'numeric_id_pin' | 'manual' = 'manual';
+    if (payload.recording_method) {
+      method = payload.recording_method;
+    } else if (payload.method === 'pin') {
+      method = 'numeric_id_pin';
+    } else if (payload.method === 'manual') {
+      method = 'manual';
+    } else if (payload.method === 'biometric') {
+      method = 'fingerprint';
+    } else if (targetStatus === 'present') {
+      method = 'fingerprint';
     }
-    const nextId = Math.max(0, ...state.attendanceRecords.map((a) => a.attendance_id)) + 1;
-    const nowTime = new Date().toTimeString().slice(0, 8);
-    setState((prev) => ({
-      ...prev,
-      attendanceRecords: [
-        {
+
+    setState((prev) => {
+      const existingIdx = prev.attendanceRecords.findIndex(
+        (r) => r.dormer_id === payload.dormer_id && r.attendance_date === targetDate
+      );
+
+      if (existingIdx >= 0) {
+        const updated = [...prev.attendanceRecords];
+        updated[existingIdx] = {
+          ...updated[existingIdx],
+          attendance_status: targetStatus,
+          time_recorded: targetTime,
+          recording_method: method,
+        };
+        return { ...prev, attendanceRecords: updated };
+      } else {
+        const nextId = Math.max(0, ...prev.attendanceRecords.map((a) => a.attendance_id)) + 1;
+        const newRecord: AttendanceRecord = {
           attendance_id: nextId,
-          dormer_id,
-          attendance_date,
-          time_recorded: nowTime,
-          recording_method: recording_method || 'fingerprint',
-          attendance_status,
-        },
-        ...prev.attendanceRecords,
-      ],
-    }));
+          dormer_id: payload.dormer_id,
+          attendance_date: targetDate,
+          time_recorded: targetTime,
+          recording_method: method,
+          attendance_status: targetStatus,
+        };
+        return {
+          ...prev,
+          attendanceRecords: [newRecord, ...prev.attendanceRecords],
+        };
+      }
+    });
     return { ok: true };
   };
 
