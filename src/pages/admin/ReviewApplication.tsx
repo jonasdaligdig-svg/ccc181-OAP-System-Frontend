@@ -157,7 +157,7 @@ export default function ReviewApplication() {
     );
   }
 
-  // Certificate of Registration (COR) document
+  // Attached documents (COR + optional Proof of Scholarship)
   const corDocument: ApplicantDocument = applicant?.documents?.find(
     (d) =>
       d.title.toLowerCase().includes('certificate of registration') ||
@@ -170,6 +170,11 @@ export default function ReviewApplication() {
       submitted_at: `${submittedDate} · 09:30 AM`,
       file_name: `cor_sem1_2026_${dormer?.last_name?.toLowerCase() || 'student'}.pdf`,
     };
+
+  const extraDocuments: ApplicantDocument[] = (applicant?.documents || []).filter(
+    (d) => d.id !== corDocument.id
+  );
+  const attachedDocuments: ApplicantDocument[] = [corDocument, ...extraDocuments];
 
   return (
     <div className="space-y-6">
@@ -362,32 +367,41 @@ export default function ReviewApplication() {
           {/* 03 Attached Document */}
           <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
             <h3 className="text-xs font-bold tracking-wider text-[#0F2447] uppercase">
-              03 Attached Document
+              {attachedDocuments.length > 1 ? '03 Attached Documents' : '03 Attached Document'}
             </h3>
             <p className="mt-1 text-xs text-slate-500">
-              Certificate of Registration (COR) submitted for dormitory application.
+              {attachedDocuments.length > 1
+                ? 'Certificate of Registration (COR) and supporting documents submitted for dormitory application.'
+                : 'Certificate of Registration (COR) submitted for dormitory application.'}
             </p>
 
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#F4F7FC] p-3.5 transition hover:bg-blue-50/50">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-[#2563EB]">
-                  <FileText className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-slate-900">{corDocument.title}</p>
-                  <p className="text-[11px] text-slate-500">
-                    {corDocument.file_type} &bull; Submitted {corDocument.submitted_at}
-                  </p>
-                </div>
-              </div>
+            <div className="mt-4 space-y-3">
+              {attachedDocuments.map((doc) => (
+                <div
+                  key={doc.id}
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#F4F7FC] p-3.5 transition hover:bg-blue-50/50"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-[#2563EB]">
+                      <FileText className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-900">{doc.title}</p>
+                      <p className="text-[11px] text-slate-500">
+                        {doc.file_type} &bull; Submitted {doc.submitted_at}
+                      </p>
+                    </div>
+                  </div>
 
-              <button
-                type="button"
-                onClick={() => setSelectedDoc(corDocument)}
-                className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2563EB] shadow-2xs hover:bg-slate-50 cursor-pointer"
-              >
-                View document
-              </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDoc(doc)}
+                    className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2563EB] shadow-2xs hover:bg-slate-50 cursor-pointer"
+                  >
+                    View document
+                  </button>
+                </div>
+              ))}
             </div>
           </section>
 

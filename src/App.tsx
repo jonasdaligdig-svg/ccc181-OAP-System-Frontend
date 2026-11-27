@@ -1,5 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { OapProvider } from './context/OapContext';
+import PublicLayout from './components/PublicLayout';
+import PublicHome from './pages/public/PublicHome';
+import PublicAbout from './pages/public/PublicAbout';
+import PublicApply from './pages/public/PublicApply';
+import PublicConfirmation from './pages/public/PublicConfirmation';
 import AdminLayout from './components/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import StudentManagement from './pages/admin/StudentManagement';
@@ -25,7 +30,12 @@ export default function App() {
     <OapProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<PublicHome />} />
+            <Route path="/about" element={<PublicAbout />} />
+            <Route path="/apply" element={<PublicApply />} />
+            <Route path="/apply/confirmation" element={<PublicConfirmation />} />
+          </Route>
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="students" element={<StudentManagement />} />
@@ -40,7 +50,7 @@ export default function App() {
             <Route path="analytics" element={<ComingSoon title="Analytics and Reports" />} />
             <Route path="users" element={<ComingSoon title="User Management" />} />
           </Route>
-          <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </OapProvider>
