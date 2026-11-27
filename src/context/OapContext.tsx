@@ -12,11 +12,14 @@ import type {
   UpdateRoomPayload,
   ActionResult,
   SubmitApplicationData,
+  SubmitPublicApplicationPayload,
+  SubmitPublicApplicationResult,
   SubmitPassSlipPayload,
   RecordAttendancePayload,
   AttendanceRecord,
   AddDormerData,
   ApplicantChecklist,
+  ApplicantDocument,
   Notification,
 } from '../types/oap';
 import {
@@ -172,6 +175,171 @@ export function OapProvider({ children }: { children: ReactNode }) {
     }));
 
     return { ok: true, applicant: newApplicant };
+  };
+
+  const submitPublicApplication = (
+    payload: SubmitPublicApplicationPayload
+  ): SubmitPublicApplicationResult => {
+    const cleanNum = payload.studentNumber.trim();
+    const cleanFullName = payload.fullName.trim();
+    if (!cleanNum || !cleanFullName) {
+      return { success: false, error: 'Full name and Student ID are required.' };
+    }
+
+    const matchingDormer = state.dormers.find(
+      (d) => d.student_number.trim().toLowerCase() === cleanNum.toLowerCase()
+    );
+    if (matchingDormer) {
+      const hasPending = state.applicants.some(
+        (a) =>
+          a.dormer_id === matchingDormer.dormer_id &&
+          (a.status || a.application_status || 'pending').toLowerCase() === 'pending'
+      );
+      if (hasPending) {
+        return {
+          success: false,
+          error: `A pending application already exists for Student ID ${cleanNum}. Please wait for the dormitory office review.`,
+        };
+      }
+    }
+
+    const nameParts = cleanFullName.split(/\s+/).filter(Boolean);
+    let firstName = nameParts[0] || cleanFullName;
+    let middleName = '';
+    let lastName = '';
+    if (nameParts.length === 2) {
+      lastName = nameParts[1];
+    } else if (nameParts.length >= 3) {
+      firstName = nameParts[0];
+      lastName = nameParts[nameParts.length - 1];
+      middleName = nameParts.slice(1, -1).join(' ');
+    }
+
+    let targetDormerId: number;
+    let nextDormers: Dormer[];
+    if (matchingDormer) {
+      targetDormerId = matchingDormer.dormer_id;
+      nextDormers = state.dormers.map((d) =>
+        d.dormer_id === targetDormerId
+          ? {
+              ...d,
+              first_name: firstName,
+              middle_name: middleName,
+              last_name: lastName,
+              email: payload.email.trim(),
+              course: payload.course.trim(),
+              year_level: payload.yearLevel,
+              contact_number: payload.contactNumber.trim(),
+              address: payload.homeAddress.trim(),
+              emergency_contact_name: payload.emergencyContactName.trim(),
+              emergency_contact_relationship: payload.emergencyContactRelationship.trim(),
+              emergency_contact_number: payload.emergencyContactNumber.trim(),
+            }
+          : d
+      );
+    } else {
+      targetDormerId = Math.max(0, ...state.dormers.map((d) => d.dormer_id)) + 1;
+      const newDormer: Dormer = {
+        dormer_id: targetDormerId,
+        user_id: null,
+        student_number: cleanNum,
+        first_name: firstName,
+        middle_name: middleName,
+        last_name: lastName,
+        email: payload.email.trim(),
+        course: payload.course.trim(),
+        year_level: payload.yearLevel,
+        contact_number: payload.contactNumber.trim(),
+        address: payload.homeAddress.trim(),
+        emergency_contact_name: payload.emergencyContactName.trim(),
+        emergency_contact_relationship: payload.emergencyContactRelationship.trim(),
+        emergency_contact_number: payload.emergencyContactNumber.trim(),
+        status: 'Pending Assignment',
+      };
+      nextDormers = [...state.dormers, newDormer];
+    }
+
+    const newApplicantId = Math.max(260, ...state.applicants.map((a) => a.applicant_id)) + 1;
+    const applicationCode = `APP-${String(newApplicantId).padStart(4, '0')}`;
+    const now = new Date();
+    const nowIso = now.toISOString();
+    const submittedDisplay = now.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    }) +
+      ' · ' +
+      now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+    const getDocExtension = (fileName: string, mimeType: string) => {
+      const dotIdx = fileName.lastIndexOf('.');
+      if (dotIdx !== -1 && dotIdx < fileName.length - 1) {
+        return fileName.slice(dotIdx + 1).toUpperCase();
+      }
+      if (mimeType.includes('pdf')) return 'PDF';
+      if (mimeType.includes('png')) return 'PNG';
+      if (mimeType.includes('jpeg') || mimeType.includes('jpg')) return 'JPG';
+      return 'FILE';
+    };
+
+    const documents: ApplicantDocument[] = [
+      {
+        id: `doc-${newApplicantId}-cor`,
+        title: 'Certificate of Registration (COR)',
+        file_type: getDocExtension(payload.corFile.name, payload.corFile.type),
+        submitted_at: submittedDisplay,
+        file_name: payload.corFile.name,
+      },
+    ];
+
+    if (payload.isScholar && payload.scholarshipFile) {
+      documents.push({
+        id: `doc-${newApplicantId}-scholarship`,
+        title: 'Proof of Scholarship',
+        file_type: getDocExtension(payload.scholarshipFile.name, payload.scholarshipFile.type),
+        submitted_at: submittedDisplay,
+        file_name: payload.scholarshipFile.name,
+      });
+    }
+
+    const newApplicant: Applicant = {
+      applicant_id: newApplicantId,
+      dormer_id: targetDormerId,
+      application_code: applicationCode,
+      submitted_at: nowIso,
+      application_date: nowIso.slice(0, 10),
+      status: 'pending',
+      application_status: 'pending',
+      is_scholar: Boolean(payload.isScholar),
+      scholarship_status: Boolean(payload.isScholar),
+      home_address: payload.homeAddress.trim(),
+      address: payload.homeAddress.trim(),
+      emergency_contact_name: payload.emergencyContactName.trim(),
+      emergency_contact_relationship: payload.emergencyContactRelationship.trim(),
+      emergency_contact_number: payload.emergencyContactNumber.trim(),
+      consent_confirmed: Boolean(payload.consentConfirmed),
+      decision_notes: '',
+      evaluation_notes: '',
+      evaluated_by: null,
+      reviewed_at: null,
+      checklist: {
+        enrollment_confirmed: true,
+        valid_student_id: true,
+        completed_application: true,
+      },
+      documents,
+    };
+
+    setState((prev) => ({
+      ...prev,
+      dormers: nextDormers,
+      applicants: [newApplicant, ...prev.applicants],
+    }));
+
+    return { success: true, applicationCode };
   };
 
   // --- FR-07: Applicant Evaluation (human decision only) ---
@@ -852,6 +1020,7 @@ export function OapProvider({ children }: { children: ReactNode }) {
     addDormer,
     updateDormer,
     submitApplication,
+    submitPublicApplication,
     evaluateApplicant,
     reviewApplicant,
     addRoom,

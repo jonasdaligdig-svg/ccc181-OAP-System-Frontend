@@ -262,6 +262,34 @@ export interface SubmitApplicationData {
   consent_confirmed: boolean;
 }
 
+export interface PublicUploadFileInfo {
+  name: string;
+  type: string;
+}
+
+export interface SubmitPublicApplicationPayload {
+  fullName: string;
+  studentNumber: string;
+  email: string;
+  contactNumber: string;
+  course: string;
+  yearLevel: string;
+  isScholar: boolean;
+  emergencyContactName: string;
+  emergencyContactRelationship: string;
+  emergencyContactNumber: string;
+  homeAddress: string;
+  corFile: PublicUploadFileInfo;
+  scholarshipFile?: PublicUploadFileInfo | null;
+  consentConfirmed: boolean;
+}
+
+export interface SubmitPublicApplicationResult {
+  success: boolean;
+  error?: string;
+  applicationCode?: string;
+}
+
 export interface SubmitPassSlipPayload {
   departure_datetime: string;
   expected_return_datetime: string;
@@ -305,6 +333,7 @@ export interface OapContextValue extends OapState {
   addDormer: (dormerData: AddDormerData) => ActionResult<Dormer>;
   updateDormer: (dormerId: number, updates: Partial<Dormer>) => ActionResult<Dormer>;
   submitApplication: (formData: SubmitApplicationData) => ActionResult<Applicant>;
+  submitPublicApplication: (payload: SubmitPublicApplicationPayload) => SubmitPublicApplicationResult;
   evaluateApplicant: (applicantId: number, status: string, evaluationNotes: string) => void;
   reviewApplicant: (
     applicantId: number,

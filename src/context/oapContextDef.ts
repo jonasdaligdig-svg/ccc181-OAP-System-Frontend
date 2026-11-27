@@ -9,8 +9,11 @@ export type {
   ApplicantDocument,
   Bed,
   OapContextValue,
+  PublicUploadFileInfo,
   RecordAttendancePayload,
   Room,
+  SubmitPublicApplicationPayload,
+  SubmitPublicApplicationResult,
   UpdateRoomPayload,
 } from '../types/oap';
 export const OapContext = createContext<OapContextValue | null>(null);
