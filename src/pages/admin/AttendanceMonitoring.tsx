@@ -450,7 +450,7 @@ export default function AttendanceMonitoring() {
       {/* 1. Header & Controls */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#0F2447]">
+          <h1 className="text-2xl font-bold tracking-tight text-[#152852]">
             Attendance Monitoring
           </h1>
           <p className="mt-1 text-xs text-slate-500">
@@ -470,7 +470,7 @@ export default function AttendanceMonitoring() {
               }}
               className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 shadow-2xs hover:bg-slate-50 cursor-pointer"
             >
-              <Calendar className="h-3.5 w-3.5 text-[#2563EB]" />
+              <Calendar className="h-3.5 w-3.5 text-[#152852]" />
               <span>{formatDate(selectedDate)}</span>
               <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
             </button>
@@ -491,12 +491,12 @@ export default function AttendanceMonitoring() {
                     }}
                     className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                       selectedDate === d
-                        ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                        ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                         : 'text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     <span>{formatDate(d)}</span>
-                    {selectedDate === d && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                    {selectedDate === d && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                   </button>
                 ))}
               </div>
@@ -517,7 +517,7 @@ export default function AttendanceMonitoring() {
           <button
             type="button"
             onClick={handleOpenRecordModal}
-            className="flex items-center gap-1.5 rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] transition-colors cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             <span>Record attendance</span>
@@ -531,7 +531,7 @@ export default function AttendanceMonitoring() {
         <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500">Total Residents</span>
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] text-[#152852]">
               <Users className="h-4 w-4" />
             </span>
           </div>
@@ -585,7 +585,7 @@ export default function AttendanceMonitoring() {
           <div>
             {/* Header */}
             <div className="flex items-center justify-between border-b border-slate-100 p-5">
-              <h2 className="text-xs font-bold tracking-wider text-[#0F2447] uppercase">
+              <h2 className="text-xs font-bold tracking-wider text-[#152852] uppercase">
                 DAILY ATTENDANCE LOG
               </h2>
               <span className="text-[11px] text-slate-400 font-medium">Last synced 9:00 PM</span>
@@ -604,7 +604,7 @@ export default function AttendanceMonitoring() {
                     setCurrentPage(1);
                   }}
                   placeholder="Search resident by name, ID or room..."
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                 />
               </div>
 
@@ -635,12 +635,12 @@ export default function AttendanceMonitoring() {
                         }}
                         className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                           selectedDorm === opt
-                            ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                            ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
                         <span>{opt}</span>
-                        {selectedDorm === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                        {selectedDorm === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                       </button>
                     ))}
                   </div>
@@ -674,12 +674,12 @@ export default function AttendanceMonitoring() {
                         }}
                         className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                           selectedStatus === opt
-                            ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                            ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
                         <span>{opt}</span>
-                        {selectedStatus === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                        {selectedStatus === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                       </button>
                     ))}
                   </div>
@@ -691,7 +691,7 @@ export default function AttendanceMonitoring() {
                 <button
                   type="button"
                   onClick={handleResetFilters}
-                  className="flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline cursor-pointer"
+                  className="flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline cursor-pointer"
                 >
                   <RotateCcw className="h-3 w-3" />
                   <span>Reset filters</span>
@@ -703,7 +703,7 @@ export default function AttendanceMonitoring() {
             <div className="overflow-x-auto min-h-[300px]">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-[#EEF3FC] text-[11px] font-bold text-slate-600 uppercase tracking-wider">
+                  <tr className="bg-[#FFF8EB] text-[11px] font-bold text-[#152852] uppercase tracking-wider">
                     <th className="py-3 px-4">Resident</th>
                     <th className="py-3 px-4">Dorm / Room</th>
                     <th className="py-3 px-4">Check-in time</th>
@@ -719,11 +719,11 @@ export default function AttendanceMonitoring() {
                         {/* Resident */}
                         <td className="py-3.5 px-4">
                           <div className="flex items-center gap-2.5">
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-xs text-[#2563EB]">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#EFE6D2] bg-[#FFF8EB] font-bold text-xs text-[#152852]">
                               {getInitials(item.dormer.first_name, item.dormer.last_name)}
                             </span>
                             <div>
-                              <p className="font-bold text-[#0F2447]">
+                              <p className="font-bold text-[#152852]">
                                 {item.dormer.first_name} {item.dormer.middle_name || ''}{' '}
                                 {item.dormer.last_name}
                               </p>
@@ -763,7 +763,7 @@ export default function AttendanceMonitoring() {
                                 setActiveMenuId(null);
                                 setHistoryModalResident(item.dormer);
                               }}
-                              className="rounded-lg border border-blue-200 bg-white px-2.5 py-1 text-xs font-semibold text-[#2563EB] shadow-2xs hover:bg-blue-50 cursor-pointer"
+                              className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-[#152852] shadow-2xs hover:bg-[#FFF8EB] hover:text-[#1e3a75] cursor-pointer"
                             >
                               View log
                             </button>
@@ -801,7 +801,7 @@ export default function AttendanceMonitoring() {
                                     onClick={() => handleOpenRecordForResident(item.dormer.dormer_id)}
                                     className="flex w-full items-center gap-2.5 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 cursor-pointer"
                                   >
-                                    <Clock className="h-3.5 w-3.5 text-[#2563EB]" />
+                                    <Clock className="h-3.5 w-3.5 text-[#152852]" />
                                     <span>Record / Update attendance</span>
                                   </button>
                                   <button
@@ -882,7 +882,7 @@ export default function AttendanceMonitoring() {
                   }}
                   className={`h-7 w-7 rounded-lg text-xs font-semibold cursor-pointer ${
                     currentPage === page
-                      ? 'bg-[#2563EB] text-white shadow-2xs'
+                      ? 'bg-[#152852] text-white shadow-2xs'
                       : 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                   }`}
                 >
@@ -909,7 +909,7 @@ export default function AttendanceMonitoring() {
         <div className="space-y-5 lg:col-span-4">
           {/* Card 1: Attendance by Building */}
           <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs">
-            <h2 className="text-base font-bold text-[#0F2447]">Attendance by Building</h2>
+            <h2 className="text-base font-bold text-[#152852]">Attendance by Building</h2>
             <p className="text-xs text-slate-500 mt-0.5">
               {presentCount} of {totalResidents} residents present
             </p>
@@ -919,14 +919,14 @@ export default function AttendanceMonitoring() {
                 <div key={item.buildingName} className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-semibold text-slate-800">{item.buildingName}</span>
-                    <span className="font-bold text-[#2563EB]">
+                    <span className="font-bold text-[#152852]">
                       {item.present} / {item.total}
                     </span>
                   </div>
-                  {/* Slim royal blue progress bar */}
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-blue-100">
+                  {/* Slim navy progress bar */}
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-[#EFE6D2]">
                     <div
-                      className="h-full rounded-full bg-[#2563EB] transition-all duration-300"
+                      className="h-full rounded-full bg-[#152852] transition-all duration-300"
                       style={{ width: `${Math.min(100, Math.max(0, item.rate))}%` }}
                     />
                   </div>
@@ -939,7 +939,7 @@ export default function AttendanceMonitoring() {
           <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-base font-bold text-[#0F2447]">Needs Follow-up</h2>
+                <h2 className="text-base font-bold text-[#152852]">Needs Follow-up</h2>
                 <p className="text-xs text-slate-500 mt-0.5">
                   {flaggedResidents.length} {flaggedResidents.length === 1 ? 'resident' : 'residents'} absent 3+ nights
                 </p>
@@ -997,7 +997,7 @@ export default function AttendanceMonitoring() {
             {/* Header */}
             <div className="flex items-start justify-between border-b border-slate-100 p-5">
               <div>
-                <h3 className="text-base font-bold text-[#0F2447]">Record attendance</h3>
+                <h3 className="text-base font-bold text-[#152852]">Record attendance</h3>
                 <p className="text-xs text-slate-500 mt-0.5">
                   Review the details below before continuing.
                 </p>
@@ -1021,7 +1021,7 @@ export default function AttendanceMonitoring() {
                 <select
                   value={formDormerId}
                   onChange={(e) => setFormDormerId(Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:outline-none"
                 >
                   {allAssignedAttendance.map((item) => (
                     <option key={item.dormer.dormer_id} value={item.dormer.dormer_id}>
@@ -1042,7 +1042,7 @@ export default function AttendanceMonitoring() {
                     type="date"
                     value={formDate}
                     onChange={(e) => setFormDate(e.target.value)}
-                    className="w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -1054,7 +1054,7 @@ export default function AttendanceMonitoring() {
                     disabled={formStatus === 'absent'}
                     value={formTime}
                     onChange={(e) => setFormTime(e.target.value)}
-                    className="w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2 text-xs text-slate-800 disabled:opacity-50 disabled:cursor-not-allowed focus:border-[#2563EB] focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2 text-xs text-slate-800 disabled:opacity-50 disabled:cursor-not-allowed focus:border-[#152852] focus:outline-none"
                   />
                 </div>
               </div>
@@ -1103,7 +1103,7 @@ export default function AttendanceMonitoring() {
                     type="text"
                     readOnly
                     value="Manual - Dormitory personnel"
-                    className="w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs font-medium text-slate-700 cursor-not-allowed select-none"
+                    className="w-full rounded-xl border border-slate-200 bg-[#FFF8EB] p-2.5 text-xs font-medium text-slate-700 cursor-not-allowed select-none"
                   />
                   <p className="mt-1 text-[11px] text-slate-500">
                     Manual entry is used only when the biometric terminal is unavailable or under maintenance.
@@ -1119,7 +1119,7 @@ export default function AttendanceMonitoring() {
                   value={formRemarks}
                   onChange={(e) => setFormRemarks(e.target.value)}
                   placeholder="Verified at the dormitory entrance"
-                  className="w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none"
+                  className="w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:outline-none"
                 />
               </div>
             </div>
@@ -1136,7 +1136,7 @@ export default function AttendanceMonitoring() {
               <button
                 type="button"
                 onClick={handleSaveRecord}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Save attendance
               </button>
@@ -1154,7 +1154,7 @@ export default function AttendanceMonitoring() {
             {/* Header */}
             <div className="flex items-start justify-between border-b border-slate-100 p-5">
               <div>
-                <h3 className="text-base font-bold text-[#0F2447]">Attendance history</h3>
+                <h3 className="text-base font-bold text-[#152852]">Attendance history</h3>
                 <p className="text-xs text-slate-500 mt-0.5">
                   Review the details below before continuing.
                 </p>
@@ -1171,7 +1171,7 @@ export default function AttendanceMonitoring() {
             {/* Body */}
             <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
               {/* Resident header info */}
-              <div className="rounded-xl bg-[#F4F7FC] p-3.5">
+              <div className="rounded-xl bg-[#FFF8EB] p-3.5">
                 <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                   Resident Details
                 </span>
@@ -1187,7 +1187,7 @@ export default function AttendanceMonitoring() {
 
               {/* Past logs list */}
               <div>
-                <p className="text-xs font-bold text-[#0F2447] mb-2.5">Recorded Roll Calls</p>
+                <p className="text-xs font-bold text-[#152852] mb-2.5">Recorded Roll Calls</p>
                 <div className="space-y-2">
                   {selectedDormerLogs.length > 0 ? (
                     selectedDormerLogs.map((log) => {
@@ -1251,7 +1251,7 @@ export default function AttendanceMonitoring() {
               <button
                 type="button"
                 onClick={() => setHistoryModalResident(null)}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Back to attendance
               </button>
@@ -1269,7 +1269,7 @@ export default function AttendanceMonitoring() {
             {/* Header */}
             <div className="flex items-start justify-between border-b border-slate-100 p-5">
               <div>
-                <h3 className="text-base font-bold text-[#0F2447]">Export attendance report</h3>
+                <h3 className="text-base font-bold text-[#152852]">Export attendance report</h3>
                 <p className="text-xs text-slate-500 mt-0.5">
                   Review the details below before continuing.
                 </p>
@@ -1286,7 +1286,7 @@ export default function AttendanceMonitoring() {
             {/* Body */}
             <div className="p-5 space-y-4">
               {/* Date */}
-              <div className="rounded-xl bg-[#F4F7FC] p-3.5">
+              <div className="rounded-xl bg-[#FFF8EB] p-3.5">
                 <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                   Roll Call Date
                 </span>
@@ -1296,7 +1296,7 @@ export default function AttendanceMonitoring() {
               </div>
 
               {/* Dormitory scope */}
-              <div className="rounded-xl bg-[#F4F7FC] p-3.5">
+              <div className="rounded-xl bg-[#FFF8EB] p-3.5">
                 <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                   Dormitory Scope
                 </span>
@@ -1311,7 +1311,7 @@ export default function AttendanceMonitoring() {
                 <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                   Included Data Fields
                 </span>
-                <p className="text-xs font-bold text-[#0F2447] mt-0.5">
+                <p className="text-xs font-bold text-[#152852] mt-0.5">
                   Resident, check-in time, method, status
                 </p>
               </div>
@@ -1325,13 +1325,13 @@ export default function AttendanceMonitoring() {
                     onClick={() => setExportFormat('csv')}
                     className={`flex items-start gap-3 rounded-xl border p-3.5 text-left transition-all cursor-pointer ${
                       exportFormat === 'csv'
-                        ? 'border-[#2563EB] bg-blue-50/50 ring-1 ring-[#2563EB]'
+                        ? 'border-[#152852] bg-[#FFF8EB] ring-1 ring-[#152852]'
                         : 'border-slate-200 bg-white hover:bg-slate-50'
                     }`}
                   >
                     <FileText
                       className={`h-4 w-4 mt-0.5 ${
-                        exportFormat === 'csv' ? 'text-[#2563EB]' : 'text-slate-400'
+                        exportFormat === 'csv' ? 'text-[#152852]' : 'text-slate-400'
                       }`}
                     />
                     <div>
@@ -1349,13 +1349,13 @@ export default function AttendanceMonitoring() {
                     onClick={() => setExportFormat('pdf')}
                     className={`flex items-start gap-3 rounded-xl border p-3.5 text-left transition-all cursor-pointer ${
                       exportFormat === 'pdf'
-                        ? 'border-[#2563EB] bg-blue-50/50 ring-1 ring-[#2563EB]'
+                        ? 'border-[#152852] bg-[#FFF8EB] ring-1 ring-[#152852]'
                         : 'border-slate-200 bg-white hover:bg-slate-50'
                     }`}
                   >
                     <Printer
                       className={`h-4 w-4 mt-0.5 ${
-                        exportFormat === 'pdf' ? 'text-[#2563EB]' : 'text-slate-400'
+                        exportFormat === 'pdf' ? 'text-[#152852]' : 'text-slate-400'
                       }`}
                     />
                     <div>
@@ -1381,7 +1381,7 @@ export default function AttendanceMonitoring() {
               <button
                 type="button"
                 onClick={handlePrepareReport}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Prepare report
               </button>

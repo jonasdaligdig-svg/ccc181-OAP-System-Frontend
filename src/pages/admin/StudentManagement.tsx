@@ -432,7 +432,7 @@ export default function StudentManagement() {
     <div className="space-y-6">
       {/* 1. Page Header & Filter Toolbar */}
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-[#0F2447]">Student Management</h1>
+        <h1 className="text-2xl font-bold text-[#152852]">Student Management</h1>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
@@ -449,7 +449,7 @@ export default function StudentManagement() {
                   }}
                   onFocus={() => setShowSearchPopover(true)}
                   placeholder="Search student by name, ID or room..."
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9.5 pr-8 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB] shadow-2xs"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9.5 pr-8 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852] shadow-2xs"
                 />
                 {searchQuery && (
                   <button
@@ -489,7 +489,7 @@ export default function StudentManagement() {
                             setCurrentPage(1);
                             setShowSearchPopover(false);
                           }}
-                          className="flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-left text-xs transition hover:bg-[#F4F7FC]"
+                          className="flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-left text-xs transition hover:bg-[#FFF8EB]"
                         >
                           <span className="font-semibold text-slate-800">{item.value}</span>
                           <span className="text-[11px] text-slate-400">{item.type}</span>
@@ -532,12 +532,12 @@ export default function StudentManagement() {
                         }}
                         className={`flex w-full items-center justify-between px-3 py-1.5 text-xs transition ${
                           isSelected
-                            ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                            ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
                         <span>{opt}</span>
-                        {isSelected && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                        {isSelected && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                       </button>
                     );
                   })}
@@ -576,12 +576,12 @@ export default function StudentManagement() {
                         }}
                         className={`flex w-full items-center justify-between px-3 py-1.5 text-xs transition ${
                           isSelected
-                            ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                            ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
                         <span>{opt}</span>
-                        {isSelected && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                        {isSelected && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                       </button>
                     );
                   })}
@@ -620,12 +620,12 @@ export default function StudentManagement() {
                         }}
                         className={`flex w-full items-center justify-between px-3 py-1.5 text-xs transition ${
                           isSelected
-                            ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                            ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
                         <span>{opt}</span>
-                        {isSelected && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                        {isSelected && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                       </button>
                     );
                   })}
@@ -641,7 +641,7 @@ export default function StudentManagement() {
               setAddFormError('');
               setIsAddModalOpen(true);
             }}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-blue-700"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-[#1e3a75]"
           >
             <Plus className="h-4 w-4" />
             <span>Add Student</span>
@@ -654,7 +654,7 @@ export default function StudentManagement() {
         {/* Left Card — DORMERS DIRECTORY */}
         <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm xl:col-span-9">
           <div className="flex items-center justify-between pb-4">
-            <h2 className="text-xs font-bold tracking-wider text-[#0F2447] uppercase">
+            <h2 className="text-xs font-bold tracking-wider text-[#152852] uppercase">
               Dormers Directory
             </h2>
             <span className="text-xs font-medium text-slate-500">
@@ -666,7 +666,7 @@ export default function StudentManagement() {
           <div className="overflow-x-auto rounded-xl border border-slate-100">
             <table className="w-full border-collapse text-left text-xs">
               <thead>
-                <tr className="bg-[#EEF3FC] text-slate-700">
+                <tr className="bg-[#FFF8EB] text-[#152852]">
                   <th className="px-3.5 py-2.5 font-bold">ID Number</th>
                   <th className="px-3.5 py-2.5 font-bold">Student Name</th>
                   <th className="px-3.5 py-2.5 font-bold">Course & Year</th>
@@ -689,7 +689,7 @@ export default function StudentManagement() {
                         {/* Student Name */}
                         <td className="px-3.5 py-3">
                           <div className="flex items-center gap-2.5">
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-[#2563EB]">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                               {student.initials}
                             </span>
                             <span className="font-bold text-slate-900">{student.fullName}</span>
@@ -740,14 +740,14 @@ export default function StudentManagement() {
                             <button
                               type="button"
                               onClick={() => setViewingDormer(student)}
-                              className="text-xs font-semibold text-[#2563EB] hover:underline"
+                              className="text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
                             >
                               View Profile
                             </button>
                             <button
                               type="button"
                               onClick={() => handleOpenEdit(student)}
-                              className="inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline"
+                              className="inline-flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
                             >
                               <Pencil className="h-3 w-3" />
                               <span>Edit</span>
@@ -769,7 +769,7 @@ export default function StudentManagement() {
                         <button
                           type="button"
                           onClick={handleClearFilters}
-                          className="mt-4 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2563EB] shadow-2xs hover:bg-slate-50"
+                          className="mt-4 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#152852] shadow-2xs hover:bg-slate-50 hover:text-[#1e3a75]"
                         >
                           Clear filters
                         </button>
@@ -809,7 +809,7 @@ export default function StudentManagement() {
                     onClick={() => setCurrentPage(pageNum)}
                     className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs font-semibold transition ${
                       isActive
-                        ? 'bg-[#2563EB] text-white'
+                        ? 'bg-[#152852] text-white'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
@@ -862,7 +862,7 @@ export default function StudentManagement() {
             <div className="mt-3 space-y-2.5 text-xs text-slate-700">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-xs bg-[#1E3A8A]" />
+                  <span className="h-3 w-3 rounded-xs bg-[#152852]" />
                   <span>Dorm A</span>
                 </div>
                 <span className="font-semibold text-slate-600">({quickStats.countDormA})</span>
@@ -870,7 +870,7 @@ export default function StudentManagement() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-xs bg-[#3B82F6]" />
+                  <span className="h-3 w-3 rounded-xs bg-[#3B629D]" />
                   <span>Dorm B</span>
                 </div>
                 <span className="font-semibold text-slate-600">({quickStats.countDormB})</span>
@@ -878,7 +878,7 @@ export default function StudentManagement() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-xs border border-blue-200 bg-[#BFDBFE]" />
+                  <span className="h-3 w-3 rounded-xs bg-[#E2B743]" />
                   <span>Dorm C</span>
                 </div>
                 <span className="font-semibold text-slate-600">({quickStats.countDormC})</span>
@@ -905,7 +905,7 @@ export default function StudentManagement() {
 
             {/* Modal Header */}
             <div>
-              <h3 className="text-xl font-bold text-[#0F2447]">Add Student</h3>
+              <h3 className="text-xl font-bold text-[#152852]">Add Student</h3>
               <p className="mt-0.5 text-xs text-slate-500">
                 Create a student record. Fields marked * are required.
               </p>
@@ -936,7 +936,7 @@ export default function StudentManagement() {
                       onChange={(e) =>
                         setAddForm({ ...addForm, student_number: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     />
                   </div>
 
@@ -949,7 +949,7 @@ export default function StudentManagement() {
                       placeholder="Enter full name"
                       value={addForm.full_name}
                       onChange={(e) => setAddForm({ ...addForm, full_name: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     />
                   </div>
 
@@ -962,7 +962,7 @@ export default function StudentManagement() {
                       placeholder="Enter student email"
                       value={addForm.email}
                       onChange={(e) => setAddForm({ ...addForm, email: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     />
                   </div>
 
@@ -977,7 +977,7 @@ export default function StudentManagement() {
                       onChange={(e) =>
                         setAddForm({ ...addForm, contact_number: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     />
                   </div>
 
@@ -986,7 +986,7 @@ export default function StudentManagement() {
                     <select
                       value={addForm.course}
                       onChange={(e) => setAddForm({ ...addForm, course: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     >
                       <option value="" disabled>
                         Select course
@@ -1006,7 +1006,7 @@ export default function StudentManagement() {
                     <select
                       value={addForm.year_level}
                       onChange={(e) => setAddForm({ ...addForm, year_level: e.target.value })}
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     >
                       <option value="" disabled>
                         Select year level
@@ -1038,7 +1038,7 @@ export default function StudentManagement() {
                       onChange={(e) =>
                         setAddForm({ ...addForm, emergency_contact_name: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     />
                   </div>
 
@@ -1053,15 +1053,15 @@ export default function StudentManagement() {
                       onChange={(e) =>
                         setAddForm({ ...addForm, emergency_contact_number: e.target.value })
                       }
-                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                      className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Soft blue-gray info box */}
-              <div className="rounded-xl border border-blue-100/60 bg-[#F4F7FC] p-3.5">
-                <p className="text-xs font-bold text-slate-800">Room Assignment</p>
+              {/* Info box */}
+              <div className="rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] p-3.5">
+                <p className="text-xs font-bold text-[#152852]">Room Assignment</p>
                 <p className="mt-0.5 text-xs text-slate-600">
                   Assign a dormitory, room and available bed after creating the record.
                 </p>
@@ -1083,7 +1083,7 @@ export default function StudentManagement() {
                   <button
                     type="submit"
                     disabled={!isAddFormValid}
-                    className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-[#1e3a75] disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     Add Student
                   </button>
@@ -1109,7 +1109,7 @@ export default function StudentManagement() {
 
             {/* Profile Header */}
             <div className="flex items-center gap-3.5 border-b border-slate-100 pb-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-[#2563EB]">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#EFE6D2] bg-[#FFF8EB] text-sm font-bold text-[#152852]">
                 {viewingDormer.first_name?.[0]}
                 {viewingDormer.last_name?.[0]}
               </span>
@@ -1152,14 +1152,14 @@ export default function StudentManagement() {
 
             {/* Student Details Grid */}
             <div className="mt-4 grid grid-cols-1 gap-3.5 sm:grid-cols-2 text-xs">
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Academic Info</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {viewingDormer.course} &bull; {viewingDormer.year_level}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Contact</p>
                 <div className="mt-1 space-y-0.5 font-medium text-slate-800">
                   <div className="flex items-center gap-1.5">
@@ -1173,7 +1173,7 @@ export default function StudentManagement() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Room & Bed Assignment</p>
                 {(() => {
                   const loc = getDormerLocation(
@@ -1198,7 +1198,7 @@ export default function StudentManagement() {
                 })()}
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Emergency Contact</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {viewingDormer.emergency_contact_name || 'N/A'}{' '}
@@ -1215,7 +1215,7 @@ export default function StudentManagement() {
             {/* Recent Attendance Records */}
             <div className="mt-5 border-t border-slate-100 pt-4">
               <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 mb-2">
-                <Clock className="h-4 w-4 text-[#2563EB]" />
+                <Clock className="h-4 w-4 text-[#152852]" />
                 <span>Recent Attendance Records</span>
               </div>
               {(() => {
@@ -1264,7 +1264,7 @@ export default function StudentManagement() {
             {/* Recent Pass Slips */}
             <div className="mt-5 border-t border-slate-100 pt-4">
               <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 mb-2">
-                <FileText className="h-4 w-4 text-[#2563EB]" />
+                <FileText className="h-4 w-4 text-[#152852]" />
                 <span>Recent Pass Slips</span>
               </div>
               {(() => {
@@ -1329,7 +1329,7 @@ export default function StudentManagement() {
 
             {/* Header */}
             <div>
-              <h3 className="text-xl font-bold text-[#0F2447]">Edit Student</h3>
+              <h3 className="text-xl font-bold text-[#152852]">Edit Student</h3>
               <p className="mt-0.5 text-xs text-slate-500">
                 Update student profile, emergency contact, or status.
               </p>
@@ -1353,7 +1353,7 @@ export default function StudentManagement() {
                     onChange={(e) =>
                       setEditForm({ ...editForm, student_number: e.target.value })
                     }
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1363,7 +1363,7 @@ export default function StudentManagement() {
                     type="text"
                     value={editForm.first_name}
                     onChange={(e) => setEditForm({ ...editForm, first_name: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1373,7 +1373,7 @@ export default function StudentManagement() {
                     type="text"
                     value={editForm.middle_name}
                     onChange={(e) => setEditForm({ ...editForm, middle_name: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1383,7 +1383,7 @@ export default function StudentManagement() {
                     type="text"
                     value={editForm.last_name}
                     onChange={(e) => setEditForm({ ...editForm, last_name: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1393,7 +1393,7 @@ export default function StudentManagement() {
                     type="email"
                     value={editForm.email}
                     onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1405,7 +1405,7 @@ export default function StudentManagement() {
                     onChange={(e) =>
                       setEditForm({ ...editForm, contact_number: e.target.value })
                     }
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1414,7 +1414,7 @@ export default function StudentManagement() {
                   <select
                     value={editForm.course}
                     onChange={(e) => setEditForm({ ...editForm, course: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   >
                     {MSU_COURSES.map((c) => (
                       <option key={c} value={c}>
@@ -1429,7 +1429,7 @@ export default function StudentManagement() {
                   <select
                     value={editForm.year_level}
                     onChange={(e) => setEditForm({ ...editForm, year_level: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   >
                     {YEAR_LEVELS.map((y) => (
                       <option key={y} value={y}>
@@ -1445,7 +1445,7 @@ export default function StudentManagement() {
                     type="text"
                     value={editForm.address}
                     onChange={(e) => setEditForm({ ...editForm, address: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1459,7 +1459,7 @@ export default function StudentManagement() {
                     onChange={(e) =>
                       setEditForm({ ...editForm, emergency_contact_name: e.target.value })
                     }
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1473,7 +1473,7 @@ export default function StudentManagement() {
                     onChange={(e) =>
                       setEditForm({ ...editForm, emergency_contact_number: e.target.value })
                     }
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   />
                 </div>
 
@@ -1482,7 +1482,7 @@ export default function StudentManagement() {
                   <select
                     value={editForm.status}
                     onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                    className="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                   >
                     <option value="Active Resident">Active Resident</option>
                     <option value="On Leave">On Leave</option>
@@ -1502,7 +1502,7 @@ export default function StudentManagement() {
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-blue-700"
+                  className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-[#1e3a75]"
                 >
                   Save Changes
                 </button>

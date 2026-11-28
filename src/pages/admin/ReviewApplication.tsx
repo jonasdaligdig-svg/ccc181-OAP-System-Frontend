@@ -135,7 +135,7 @@ export default function ReviewApplication() {
       <div className="space-y-6">
         <Link
           to="/admin/applicants"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2563EB] hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to applicants</span>
@@ -148,7 +148,7 @@ export default function ReviewApplication() {
           </p>
           <Link
             to="/admin/applicants"
-            className="mt-5 inline-flex items-center gap-1.5 rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700"
+            className="mt-5 inline-flex items-center gap-1.5 rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75]"
           >
             Return to directory
           </Link>
@@ -171,10 +171,18 @@ export default function ReviewApplication() {
       file_name: `cor_sem1_2026_${dormer?.last_name?.toLowerCase() || 'student'}.pdf`,
     };
 
-  const extraDocuments: ApplicantDocument[] = (applicant?.documents || []).filter(
-    (d) => d.id !== corDocument.id
-  );
-  const attachedDocuments: ApplicantDocument[] = [corDocument, ...extraDocuments];
+  const isScholarApplicant =
+    applicant?.is_scholar === true || applicant?.scholarship_status === true;
+
+  const scholarshipDocument: ApplicantDocument = applicant?.documents?.find((d) =>
+    d.title.toLowerCase().includes('scholarship')
+  ) || {
+    id: `doc-scholar-${applicantId}`,
+    title: 'Proof of Scholarship',
+    file_type: 'PDF',
+    submitted_at: corDocument.submitted_at,
+    file_name: 'Proof_of_Scholarship_2026.pdf',
+  };
 
   return (
     <div className="space-y-6">
@@ -182,7 +190,7 @@ export default function ReviewApplication() {
       <div>
         <Link
           to="/admin/applicants"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2563EB] hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to applicants</span>
@@ -191,7 +199,7 @@ export default function ReviewApplication() {
 
       {/* Header Row */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-[#0F2447]">Review Application</h1>
+        <h1 className="text-2xl font-bold text-[#152852]">Review Application</h1>
         <div className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-700 shadow-2xs">
           <span className="font-mono text-slate-900">{appCode}</span>
           <span className="text-slate-400">&bull;</span>
@@ -207,7 +215,7 @@ export default function ReviewApplication() {
           <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-[#2563EB]">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#EFE6D2] bg-[#FFF8EB] text-sm font-bold text-[#152852]">
                   {studentInitials}
                 </span>
                 <div>
@@ -245,52 +253,52 @@ export default function ReviewApplication() {
 
           {/* 01 Student Details */}
           <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-            <h3 className="text-xs font-bold tracking-wider text-[#0F2447] uppercase">
+            <h3 className="text-xs font-bold tracking-wider text-[#152852] uppercase">
               01 Student Details
             </h3>
 
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 text-xs">
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Full Name</p>
                 <p className="mt-1 font-bold text-slate-900">{studentFullName}</p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Student ID</p>
                 <p className="mt-1 font-mono font-bold text-slate-900">
                   {dormer?.student_number || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Email Address</p>
                 <p className="mt-1 font-medium text-slate-800 truncate">
                   {dormer?.email || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Mobile Number</p>
                 <p className="mt-1 font-medium text-slate-800">
                   {dormer?.contact_number || applicant.emergency_contact_number || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Course / Program</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {dormer?.course || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Year Level</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {dormer?.year_level || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Scholar Status</p>
                 <p className="mt-1 font-semibold text-slate-900">
                   {applicant.is_scholar || applicant.scholarship_status
@@ -299,7 +307,7 @@ export default function ReviewApplication() {
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Application Status</p>
                 <div className="mt-1">
                   {status === 'pending' && (
@@ -329,33 +337,33 @@ export default function ReviewApplication() {
 
           {/* 02 Emergency Contact */}
           <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-            <h3 className="text-xs font-bold tracking-wider text-[#0F2447] uppercase">
+            <h3 className="text-xs font-bold tracking-wider text-[#152852] uppercase">
               02 Emergency Contact
             </h3>
 
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 text-xs">
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Contact Person</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {applicant.emergency_contact_name || dormer?.emergency_contact_name || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Relationship</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {applicant.emergency_contact_relationship || dormer?.emergency_contact_relationship || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Mobile Number</p>
                 <p className="mt-1 font-medium text-slate-800">
                   {applicant.emergency_contact_number || dormer?.emergency_contact_number || '—'}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Home Address</p>
                 <p className="mt-1 font-medium text-slate-800">
                   {applicant.home_address || applicant.address || dormer?.address || '—'}
@@ -366,44 +374,72 @@ export default function ReviewApplication() {
 
           {/* 03 Attached Document */}
           <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-            <h3 className="text-xs font-bold tracking-wider text-[#0F2447] uppercase">
-              {attachedDocuments.length > 1 ? '03 Attached Documents' : '03 Attached Document'}
+            <h3 className="text-xs font-bold tracking-wider text-[#152852] uppercase">
+              03 Attached Document
             </h3>
             <p className="mt-1 text-xs text-slate-500">
-              {attachedDocuments.length > 1
-                ? 'Certificate of Registration (COR) and supporting documents submitted for dormitory application.'
-                : 'Certificate of Registration (COR) submitted for dormitory application.'}
+              Certificate of Registration (COR) submitted for dormitory application.
             </p>
 
-            <div className="mt-4 space-y-3">
-              {attachedDocuments.map((doc) => (
-                <div
-                  key={doc.id}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#F4F7FC] p-3.5 transition hover:bg-blue-50/50"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-[#2563EB]">
-                      <FileText className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-slate-900">{doc.title}</p>
-                      <p className="text-[11px] text-slate-500">
-                        {doc.file_type} &bull; Submitted {doc.submitted_at}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => setSelectedDoc(doc)}
-                    className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2563EB] shadow-2xs hover:bg-slate-50 cursor-pointer"
-                  >
-                    View document
-                  </button>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#FFF8EB] p-3.5 transition hover:bg-[#FFF8EB]/80">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#152852]/10 text-[#152852]">
+                  <FileText className="h-5 w-5" />
                 </div>
-              ))}
+                <div>
+                  <p className="text-xs font-bold text-slate-900">{corDocument.title}</p>
+                  <p className="text-[11px] text-slate-500">
+                    {corDocument.file_type} &bull; Submitted {corDocument.submitted_at}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setSelectedDoc(corDocument)}
+                className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#152852] shadow-2xs hover:bg-slate-50 hover:text-[#1e3a75] cursor-pointer"
+              >
+                View document
+              </button>
             </div>
           </section>
+
+          {/* 04 Proof of Scholarship (Conditional) */}
+          {isScholarApplicant && (
+            <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+              <h3 className="text-xs font-bold tracking-wider text-[#152852] uppercase">
+                04 Proof of Scholarship
+              </h3>
+              <p className="mt-1 text-xs text-slate-500">
+                Document confirming current scholarship status.
+              </p>
+
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#FFF8EB] p-3.5 transition hover:bg-[#FFF8EB]/80">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#E2B743]/50 bg-[#E2B743]/15 text-[#152852]">
+                    <FileText className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-900">
+                      {scholarshipDocument.title}
+                    </p>
+                    <p className="text-[11px] text-slate-500">
+                      {scholarshipDocument.file_type} &bull; Submitted{' '}
+                      {scholarshipDocument.submitted_at}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedDoc(scholarshipDocument)}
+                  className="rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#152852] shadow-2xs hover:bg-slate-50 hover:text-[#1e3a75] cursor-pointer"
+                >
+                  View document
+                </button>
+              </div>
+            </section>
+          )}
 
           {/* Compact Confirmation Consent Note */}
           <div className="flex items-center gap-2.5 rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-xs text-slate-600 shadow-2xs">
@@ -426,7 +462,7 @@ export default function ReviewApplication() {
               <div
                 onClick={() => handleToggleChecklist('enrollment_confirmed')}
                 className={`flex items-center justify-between rounded-xl border p-3 transition ${
-                  canEditChecklist ? 'cursor-pointer hover:border-[#2563EB]/40' : ''
+                  canEditChecklist ? 'cursor-pointer hover:border-[#152852]/40' : ''
                 } ${
                   checklist.enrollment_confirmed
                     ? 'border-emerald-200 bg-emerald-50/50'
@@ -453,7 +489,7 @@ export default function ReviewApplication() {
               <div
                 onClick={() => handleToggleChecklist('valid_student_id')}
                 className={`flex items-center justify-between rounded-xl border p-3 transition ${
-                  canEditChecklist ? 'cursor-pointer hover:border-[#2563EB]/40' : ''
+                  canEditChecklist ? 'cursor-pointer hover:border-[#152852]/40' : ''
                 } ${
                   checklist.valid_student_id
                     ? 'border-emerald-200 bg-emerald-50/50'
@@ -480,7 +516,7 @@ export default function ReviewApplication() {
               <div
                 onClick={() => handleToggleChecklist('completed_application')}
                 className={`flex items-center justify-between rounded-xl border p-3 transition ${
-                  canEditChecklist ? 'cursor-pointer hover:border-[#2563EB]/40' : ''
+                  canEditChecklist ? 'cursor-pointer hover:border-[#152852]/40' : ''
                 } ${
                   checklist.completed_application
                     ? 'border-emerald-200 bg-emerald-50/50'
@@ -619,7 +655,7 @@ export default function ReviewApplication() {
                       setApproveNotify(true);
                       setApproveModalOpen(true);
                     }}
-                    className="rounded-xl bg-[#2563EB] py-2.5 text-xs font-semibold text-white shadow-2xs transition hover:bg-blue-700 text-center"
+                    className="rounded-xl bg-[#152852] py-2.5 text-xs font-semibold text-white shadow-2xs transition hover:bg-[#1e3a75] text-center"
                   >
                     Approve
                   </button>
@@ -674,12 +710,12 @@ export default function ReviewApplication() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">Approve Application</h3>
+            <h3 className="text-xl font-bold text-[#152852]">Approve Application</h3>
             <p className="mt-0.5 text-xs text-slate-500">
               {appCode} &bull; {studentFullName} &bull; {status.toUpperCase()}
             </p>
 
-            <div className="mt-4 rounded-xl border border-blue-100 bg-blue-50 p-3 text-xs text-blue-900">
+            <div className="mt-4 rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] p-3 text-xs text-[#152852]">
               <span className="font-semibold">Notice:</span> Approval does not assign a room or bed.
             </div>
 
@@ -693,7 +729,7 @@ export default function ReviewApplication() {
                   value={approveNotes}
                   onChange={(e) => setApproveNotes(e.target.value)}
                   placeholder="All enrollment and identity requirements are verified."
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-3 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
                 />
               </div>
 
@@ -702,7 +738,7 @@ export default function ReviewApplication() {
                   type="checkbox"
                   checked={approveNotify}
                   onChange={(e) => setApproveNotify(e.target.checked)}
-                  className="h-4 w-4 rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB]"
+                  className="h-4 w-4 rounded border-slate-300 text-[#152852] focus:ring-[#152852]"
                 />
                 <span className="text-xs font-medium text-slate-700">
                   Notify applicant of this decision
@@ -721,7 +757,7 @@ export default function ReviewApplication() {
               <button
                 type="button"
                 onClick={handleConfirmApprove}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-blue-700"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-[#1e3a75]"
               >
                 Confirm approve
               </button>
@@ -742,7 +778,7 @@ export default function ReviewApplication() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">Waitlist Application</h3>
+            <h3 className="text-xl font-bold text-[#152852]">Waitlist Application</h3>
             <p className="mt-0.5 text-xs text-slate-500">
               {appCode} &bull; {studentFullName} &bull; {status.toUpperCase()}
             </p>
@@ -820,7 +856,7 @@ export default function ReviewApplication() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">Reject Application</h3>
+            <h3 className="text-xl font-bold text-[#152852]">Reject Application</h3>
             <p className="mt-0.5 text-xs text-slate-500">
               {appCode} &bull; {studentFullName} &bull; {status.toUpperCase()}
             </p>
@@ -899,7 +935,7 @@ export default function ReviewApplication() {
             </button>
 
             <div>
-              <h3 className="text-lg font-bold text-[#0F2447]">{selectedDoc.title}</h3>
+              <h3 className="text-lg font-bold text-[#152852]">{selectedDoc.title}</h3>
               <p className="mt-0.5 text-xs text-slate-500">
                 {selectedDoc.file_name} &bull; {selectedDoc.file_type} &bull; Submitted {selectedDoc.submitted_at}
               </p>
@@ -913,7 +949,7 @@ export default function ReviewApplication() {
                   <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
                     Mindanao State University at Naawan
                   </p>
-                  <p className="text-sm font-bold text-[#0F2447]">Office of Admissions & Student Housing</p>
+                  <p className="text-sm font-bold text-[#152852]">Office of Admissions & Student Housing</p>
                   <p className="mt-1 text-[10px] text-slate-400 font-mono">
                     VERIFIED DOCUMENT REFERENCE: {appCode}
                   </p>

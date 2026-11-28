@@ -199,15 +199,15 @@ export default function LoginPage() {
   const portalLabel = portal === 'dormer' ? 'Dormer portal' : 'Dorm personnel portal';
 
   return (
-    <div className="flex min-h-screen flex-col lg:flex-row bg-[#F4F7FC] text-slate-800">
+    <div className="flex min-h-screen flex-col lg:flex-row bg-[#FFF8EB] text-slate-800">
       {/* Left Navy Sidebar (Desktop) */}
-      <aside className="hidden w-64 shrink-0 flex-col bg-[#0F2447] text-white lg:flex">
-        <div className="border-b border-white/10 px-6 py-6">
-          <Link to="/" className="inline-flex items-center focus:outline-none">
+      <aside className="hidden w-64 shrink-0 flex-col bg-[#152852] text-white lg:flex">
+        <div className="flex items-center justify-center border-b border-white/10 px-5 py-5 text-center">
+          <Link to="/" className="inline-flex items-center justify-center focus:outline-none">
             <img
-              src="/MSUN Logo.png"
-              alt="MSUN Girls Dormitory OAP"
-              className="h-11 object-contain"
+              src="/oap-logo.png"
+              alt="MSUN Girls Dormitory — Occupancy Analytics Platform"
+              className="w-40 mx-auto object-contain"
             />
           </Link>
         </div>
@@ -221,10 +221,10 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => handleSwitchPortal('dormer')}
-              className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition cursor-pointer ${
+              className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs transition cursor-pointer ${
                 portal === 'dormer'
-                  ? 'bg-[#2563EB] text-white shadow-sm'
-                  : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                  ? 'bg-[#E2B743] text-[#152852] font-semibold shadow-sm'
+                  : 'font-medium text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
               <Users className="h-4 w-4 shrink-0" />
@@ -234,10 +234,10 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => handleSwitchPortal('personnel')}
-              className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-semibold transition cursor-pointer ${
+              className={`flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs transition cursor-pointer ${
                 portal === 'personnel'
-                  ? 'bg-[#2563EB] text-white shadow-sm'
-                  : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                  ? 'bg-[#E2B743] text-[#152852] font-semibold shadow-sm'
+                  : 'font-medium text-slate-300 hover:bg-white/10 hover:text-white'
               }`}
             >
               <ShieldCheck className="h-4 w-4 shrink-0" />
@@ -262,13 +262,13 @@ export default function LoginPage() {
       </aside>
 
       {/* Mobile Top Bar & Portal Switcher */}
-      <header className="bg-[#0F2447] text-white lg:hidden">
+      <header className="bg-[#152852] text-white lg:hidden">
         <div className="flex items-center justify-between border-b border-white/10 px-4 py-3.5">
           <Link to="/" className="inline-flex items-center">
             <img
-              src="/MSUN Logo.png"
-              alt="MSUN Girls Dormitory OAP"
-              className="h-11 object-contain"
+              src="/oap-logo.png"
+              alt="MSUN Girls Dormitory — Occupancy Analytics Platform"
+              className="h-11 w-auto object-contain"
             />
           </Link>
           <Link
@@ -288,10 +288,10 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => handleSwitchPortal('dormer')}
-              className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold transition ${
+              className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs transition ${
                 portal === 'dormer'
-                  ? 'bg-[#2563EB] text-white'
-                  : 'bg-white/5 text-slate-300 hover:bg-white/10'
+                  ? 'bg-[#E2B743] text-[#152852] font-semibold'
+                  : 'bg-white/5 font-medium text-slate-300 hover:bg-white/10'
               }`}
             >
               <Users className="h-3.5 w-3.5" />
@@ -300,10 +300,10 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => handleSwitchPortal('personnel')}
-              className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold transition ${
+              className={`flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-xs transition ${
                 portal === 'personnel'
-                  ? 'bg-[#2563EB] text-white'
-                  : 'bg-white/5 text-slate-300 hover:bg-white/10'
+                  ? 'bg-[#E2B743] text-[#152852] font-semibold'
+                  : 'bg-white/5 font-medium text-slate-300 hover:bg-white/10'
               }`}
             >
               <ShieldCheck className="h-3.5 w-3.5" />
@@ -314,13 +314,13 @@ export default function LoginPage() {
       </header>
 
       {/* Right Workspace */}
-      <div className="flex min-h-screen flex-1 flex-col bg-[#F4F7FC]">
+      <div className="flex min-h-screen flex-1 flex-col bg-[#FFF8EB]">
         {/* Top Bar */}
-        <div className="flex items-center justify-between border-b border-slate-200/80 bg-white/70 px-6 py-4 backdrop-blur lg:px-10">
+        <div className="flex items-center justify-between border-b border-[#EFE6D2] bg-white/80 px-6 py-4 backdrop-blur lg:px-10">
           <p className="text-xs font-semibold text-slate-500">
-            <span className="text-[#0F2447] font-bold">OAP</span> / Account access
+            <span className="text-[#152852] font-bold">OAP</span> / Account access
           </p>
-          <span className="rounded-full bg-blue-50 px-3 py-1 text-[11px] font-semibold text-[#2563EB]">
+          <span className="rounded-full border border-[#EFE6D2] bg-[#FFF8EB] px-3 py-1 text-[11px] font-semibold text-[#152852]">
             {portalLabel}
           </span>
         </div>
@@ -329,13 +329,13 @@ export default function LoginPage() {
         <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-8 lg:px-10 lg:py-10">
           {/* Page Heading */}
           <div>
-            <p className="text-[11px] font-bold tracking-widest text-[#2563EB] uppercase">
+            <p className="text-[11px] font-bold tracking-widest text-[#152852] uppercase">
               {portal === 'dormer' ? 'DORMER PORTAL' : 'DORM PERSONNEL PORTAL'}
             </p>
-            <h1 className="mt-1.5 text-2xl font-bold tracking-tight text-[#0F2447] sm:text-3xl">
+            <h1 className="mt-1.5 text-2xl font-bold tracking-tight text-[#152852] sm:text-3xl">
               {portal === 'dormer' ? 'Welcome back, dormer' : 'Welcome, dorm personnel'}
             </h1>
-            <p className="mt-1.5 text-sm text-slate-500">
+            <p className="mt-1.5 text-sm text-slate-600">
               {portal === 'dormer'
                 ? 'Log in to manage your dormitory requests, pass slips, and renewal.'
                 : 'Log in to manage residents, review requests, and monitor your dormitory.'}
@@ -347,7 +347,7 @@ export default function LoginPage() {
             {/* Left: Login Card */}
             <div className="lg:col-span-7">
               <div className="rounded-2xl border border-slate-100 bg-white p-7 shadow-sm">
-                <h2 className="text-lg font-bold text-[#0F2447]">Log in to your account</h2>
+                <h2 className="text-lg font-bold text-[#152852]">Log in to your account</h2>
                 <p className="mt-1 text-xs text-slate-500">
                   {portal === 'dormer'
                     ? 'Enter your student credentials to continue.'
@@ -365,7 +365,7 @@ export default function LoginPage() {
                   <div>
                     <label
                       htmlFor="login-identifier"
-                      className="block text-xs font-semibold text-[#0F2447]"
+                      className="block text-xs font-semibold text-[#152852]"
                     >
                       {portal === 'dormer' ? 'Student email *' : 'Staff email *'}
                     </label>
@@ -382,14 +382,14 @@ export default function LoginPage() {
                           ? 'Enter your student email'
                           : 'Enter your staff email'
                       }
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-2 focus:ring-[#152852]/15"
                     />
                   </div>
 
                   <div>
                     <label
                       htmlFor="login-password"
-                      className="block text-xs font-semibold text-[#0F2447]"
+                      className="block text-xs font-semibold text-[#152852]"
                     >
                       Password *
                     </label>
@@ -403,12 +403,12 @@ export default function LoginPage() {
                           if (authError) setAuthError('');
                         }}
                         placeholder="Enter your password"
-                        className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-3.5 pr-16 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15"
+                        className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-3.5 pr-16 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-2 focus:ring-[#152852]/15"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword((prev) => !prev)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:text-blue-700 cursor-pointer"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] cursor-pointer"
                       >
                         {showPassword ? (
                           <>
@@ -431,7 +431,7 @@ export default function LoginPage() {
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="h-4 w-4 rounded border-slate-300 accent-[#2563EB]"
+                        className="h-4 w-4 rounded border-slate-300 accent-[#152852]"
                       />
                       <span>Remember me</span>
                     </label>
@@ -439,7 +439,7 @@ export default function LoginPage() {
                     <button
                       type="button"
                       onClick={openForgotModal}
-                      className="text-xs font-semibold text-[#2563EB] hover:underline cursor-pointer"
+                      className="text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline cursor-pointer"
                     >
                       Forgot password?
                     </button>
@@ -447,7 +447,7 @@ export default function LoginPage() {
 
                   <button
                     type="submit"
-                    className="w-full rounded-xl bg-[#2563EB] px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-blue-700 cursor-pointer"
+                    className="w-full rounded-xl bg-[#152852] px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#1e3a75] cursor-pointer"
                   >
                     {portal === 'dormer' ? 'Log in as dormer' : 'Log in as dorm personnel'}
                   </button>
@@ -461,7 +461,7 @@ export default function LoginPage() {
                       <button
                         type="button"
                         onClick={openActivateModal}
-                        className="font-semibold text-[#2563EB] hover:underline cursor-pointer"
+                        className="font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline cursor-pointer"
                       >
                         Activate your account
                       </button>
@@ -472,7 +472,7 @@ export default function LoginPage() {
                       <button
                         type="button"
                         onClick={() => setActiveModal('contact_admin')}
-                        className="font-semibold text-[#2563EB] hover:underline cursor-pointer"
+                        className="font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline cursor-pointer"
                       >
                         Contact your administrator
                       </button>
@@ -485,7 +485,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <p className="mt-4 text-center text-[11px] text-slate-400">
+              <p className="mt-4 text-center text-[11px] text-slate-500">
                 Mindanao State University at Naawan &middot; Authorized users only
               </p>
             </div>
@@ -493,7 +493,7 @@ export default function LoginPage() {
             {/* Right: Before you log in Card */}
             <aside className="lg:col-span-5">
               <div className="h-fit rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-                <h2 className="text-base font-bold text-[#0F2447]">Before you log in</h2>
+                <h2 className="text-base font-bold text-[#152852]">Before you log in</h2>
                 <p className="mt-0.5 text-xs text-slate-500">
                   Quick reminders for accessing your portal.
                 </p>
@@ -502,11 +502,11 @@ export default function LoginPage() {
                   {portal === 'dormer' ? (
                     <>
                       <div className="flex items-start gap-3">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-xs font-bold text-[#2563EB]">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                           01
                         </span>
                         <div>
-                          <p className="text-xs font-bold text-[#0F2447]">
+                          <p className="text-xs font-bold text-[#152852]">
                             Use your resident account
                           </p>
                           <p className="mt-0.5 text-xs text-slate-500">
@@ -516,11 +516,11 @@ export default function LoginPage() {
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-xs font-bold text-[#2563EB]">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                           02
                         </span>
                         <div>
-                          <p className="text-xs font-bold text-[#0F2447]">Manage your requests</p>
+                          <p className="text-xs font-bold text-[#152852]">Manage your requests</p>
                           <p className="mt-0.5 text-xs text-slate-500">
                             View your room assignment, submit pass slips, and track renewals.
                           </p>
@@ -528,11 +528,11 @@ export default function LoginPage() {
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-xs font-bold text-[#2563EB]">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                           03
                         </span>
                         <div>
-                          <p className="text-xs font-bold text-[#0F2447]">Need assistance?</p>
+                          <p className="text-xs font-bold text-[#152852]">Need assistance?</p>
                           <p className="mt-0.5 text-xs text-slate-500">
                             First-time residents can activate their account using the temporary
                             password from the Dormitory Office.
@@ -543,11 +543,11 @@ export default function LoginPage() {
                   ) : (
                     <>
                       <div className="flex items-start gap-3">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-xs font-bold text-[#2563EB]">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                           01
                         </span>
                         <div>
-                          <p className="text-xs font-bold text-[#0F2447]">
+                          <p className="text-xs font-bold text-[#152852]">
                             Use your staff account
                           </p>
                           <p className="mt-0.5 text-xs text-slate-500">
@@ -557,11 +557,11 @@ export default function LoginPage() {
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-xs font-bold text-[#2563EB]">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                           02
                         </span>
                         <div>
-                          <p className="text-xs font-bold text-[#0F2447]">
+                          <p className="text-xs font-bold text-[#152852]">
                             Access your workspace
                           </p>
                           <p className="mt-0.5 text-xs text-slate-500">
@@ -571,11 +571,11 @@ export default function LoginPage() {
                       </div>
 
                       <div className="flex items-start gap-3">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-xs font-bold text-[#2563EB]">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                           03
                         </span>
                         <div>
-                          <p className="text-xs font-bold text-[#0F2447]">Having trouble?</p>
+                          <p className="text-xs font-bold text-[#152852]">Having trouble?</p>
                           <p className="mt-0.5 text-xs text-slate-500">
                             Contact your dormitory administrator for staff role provisioning or
                             credential resets.
@@ -591,7 +591,7 @@ export default function LoginPage() {
         </main>
 
         {/* Bottom Footer */}
-        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/70 px-6 py-4 text-[11px] text-slate-500 lg:px-10">
+        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[#EFE6D2] px-6 py-4 text-[11px] text-slate-500 lg:px-10">
           <span>OAP &mdash; Occupancy Analytics Platform | MSU at Naawan</span>
           <span>{portalLabel}</span>
         </footer>
@@ -611,11 +611,11 @@ export default function LoginPage() {
             </button>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] text-[#152852]">
                 <UserCheck className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-lg font-bold text-[#0F2447]">Activate your account</h3>
+                <h3 className="text-lg font-bold text-[#152852]">Activate your account</h3>
                 <p className="text-xs text-slate-500">
                   Set your personal password for first-time dormer access.
                 </p>
@@ -633,7 +633,7 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="activate-identifier"
-                  className="block text-xs font-semibold text-[#0F2447]"
+                  className="block text-xs font-semibold text-[#152852]"
                 >
                   Student email *
                 </label>
@@ -646,14 +646,14 @@ export default function LoginPage() {
                     if (actError) setActError('');
                   }}
                   placeholder="Enter your student email"
-                  className="mt-1 w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15"
+                  className="mt-1 w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-2 focus:ring-[#152852]/15"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="activate-temp-password"
-                  className="block text-xs font-semibold text-[#0F2447]"
+                  className="block text-xs font-semibold text-[#152852]"
                 >
                   Temporary password *
                 </label>
@@ -667,12 +667,12 @@ export default function LoginPage() {
                       if (actError) setActError('');
                     }}
                     placeholder="Issued by the Dormitory Office"
-                    className="w-full rounded-xl border border-slate-200 py-2 pl-3.5 pr-14 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15"
+                    className="w-full rounded-xl border border-slate-200 py-2 pl-3.5 pr-14 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-2 focus:ring-[#152852]/15"
                   />
                   <button
                     type="button"
                     onClick={() => setActShowTemp((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-[#2563EB] cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] cursor-pointer"
                   >
                     {actShowTemp ? 'Hide' : 'Show'}
                   </button>
@@ -682,7 +682,7 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="activate-new-password"
-                  className="block text-xs font-semibold text-[#0F2447]"
+                  className="block text-xs font-semibold text-[#152852]"
                 >
                   New password *
                 </label>
@@ -696,12 +696,12 @@ export default function LoginPage() {
                       if (actError) setActError('');
                     }}
                     placeholder="Minimum 8 characters"
-                    className="w-full rounded-xl border border-slate-200 py-2 pl-3.5 pr-14 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15"
+                    className="w-full rounded-xl border border-slate-200 py-2 pl-3.5 pr-14 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-2 focus:ring-[#152852]/15"
                   />
                   <button
                     type="button"
                     onClick={() => setActShowNew((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-[#2563EB] cursor-pointer"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] cursor-pointer"
                   >
                     {actShowNew ? 'Hide' : 'Show'}
                   </button>
@@ -711,7 +711,7 @@ export default function LoginPage() {
               <div>
                 <label
                   htmlFor="activate-confirm-password"
-                  className="block text-xs font-semibold text-[#0F2447]"
+                  className="block text-xs font-semibold text-[#152852]"
                 >
                   Confirm new password *
                 </label>
@@ -724,7 +724,7 @@ export default function LoginPage() {
                     if (actError) setActError('');
                   }}
                   placeholder="Re-enter your new password"
-                  className="mt-1 w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15"
+                  className="mt-1 w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-2 focus:ring-[#152852]/15"
                 />
               </div>
 
@@ -738,7 +738,7 @@ export default function LoginPage() {
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                  className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
                 >
                   Activate &amp; log in
                 </button>
@@ -762,11 +762,11 @@ export default function LoginPage() {
             </button>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] text-[#152852]">
                 <KeyRound className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-lg font-bold text-[#0F2447]">Forgot password?</h3>
+                <h3 className="text-lg font-bold text-[#152852]">Forgot password?</h3>
                 <p className="text-xs text-slate-500">
                   Submit a password reset request to the Dormitory Office.
                 </p>
@@ -785,7 +785,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="forgot-identifier"
-                    className="block text-xs font-semibold text-[#0F2447]"
+                    className="block text-xs font-semibold text-[#152852]"
                   >
                     Email address *
                   </label>
@@ -798,7 +798,7 @@ export default function LoginPage() {
                       if (forgotError) setForgotError('');
                     }}
                     placeholder="Enter your email address"
-                    className="mt-1.5 w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15"
+                    className="mt-1.5 w-full rounded-xl border border-slate-200 px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-2 focus:ring-[#152852]/15"
                   />
                 </div>
 
@@ -812,7 +812,7 @@ export default function LoginPage() {
                   </button>
                   <button
                     type="submit"
-                    className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                    className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
                   >
                     Submit reset request
                   </button>
@@ -837,7 +837,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setActiveModal(null)}
-                    className="rounded-xl bg-[#0F2447] px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 cursor-pointer"
+                    className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white hover:bg-[#1e3a75] cursor-pointer"
                   >
                     Close
                   </button>
@@ -862,22 +862,22 @@ export default function LoginPage() {
             </button>
 
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] text-[#152852]">
                 <HelpCircle className="h-5 w-5" />
               </span>
               <div>
-                <h3 className="text-lg font-bold text-[#0F2447]">Contact your administrator</h3>
+                <h3 className="text-lg font-bold text-[#152852]">Contact your administrator</h3>
                 <p className="text-xs text-slate-500">
                   Dormitory staff account provisioning instructions
                 </p>
               </div>
             </div>
 
-            <div className="mt-5 space-y-3 rounded-xl border border-slate-200/80 bg-[#F4F7FC] p-4 text-xs text-slate-700">
+            <div className="mt-5 space-y-3 rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] p-4 text-xs text-slate-700">
               <div className="flex items-start gap-2.5">
-                <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0F2447]" />
+                <Building2 className="mt-0.5 h-4 w-4 shrink-0 text-[#152852]" />
                 <div>
-                  <p className="font-bold text-[#0F2447]">
+                  <p className="font-bold text-[#152852]">
                     MSU at Naawan Girls Dormitory Office
                   </p>
                   <p className="mt-0.5 text-slate-600">
@@ -887,17 +887,17 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="border-t border-slate-200/70 pt-3 space-y-1.5">
+              <div className="border-t border-[#EFE6D2] pt-3 space-y-1.5">
                 <p>
-                  <span className="font-semibold text-[#0F2447]">Office Hours:</span> Monday &ndash;
+                  <span className="font-semibold text-[#152852]">Office Hours:</span> Monday &ndash;
                   Friday, 8:00 AM &ndash; 5:00 PM
                 </p>
                 <p>
-                  <span className="font-semibold text-[#0F2447]">Location:</span> Dormitory
+                  <span className="font-semibold text-[#152852]">Location:</span> Dormitory
                   Administration Desk, MSUN Campus
                 </p>
                 <p>
-                  <span className="font-semibold text-[#0F2447]">Staff Email Desk:</span>{' '}
+                  <span className="font-semibold text-[#152852]">Staff Email Desk:</span>{' '}
                   admin@msunaawan.edu.ph
                 </p>
               </div>
@@ -907,7 +907,7 @@ export default function LoginPage() {
               <button
                 type="button"
                 onClick={() => setActiveModal(null)}
-                className="rounded-xl bg-[#0F2447] px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white hover:bg-[#1e3a75] cursor-pointer"
               >
                 Got it
               </button>

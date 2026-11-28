@@ -42,7 +42,7 @@ import {
 } from '../data/mockData';
 import { OapContext } from './oapContextDef';
 
-const STORAGE_KEY = 'msun_oap_state_v7';
+const STORAGE_KEY = 'msun_oap_state_v8';
 const ABSENCE_ALERT_THRESHOLD = 3; // Configured consecutive-night absence threshold (FR-18)
 
 function loadInitialState(): OapState {
@@ -95,24 +95,15 @@ export function OapProvider({ children }: { children: ReactNode }) {
     portal: 'dormer' | 'personnel'
   ): LoginResult => {
     const user = findUserByEmail(email);
-    if (!user || user.password_hash !== password) {
+    if (
+      !user ||
+      user.password_hash !== password ||
+      (portal === 'dormer' && user.role !== 'dormer') ||
+      (portal === 'personnel' && user.role !== 'management')
+    ) {
       return {
         success: false,
-        error: 'Invalid credentials. Please check your login details and try again.',
-      };
-    }
-
-    if (portal === 'dormer' && user.role !== 'dormer') {
-      return {
-        success: false,
-        error: 'This is a staff account. Please switch to the Dorm personnel tab to log in.',
-      };
-    }
-
-    if (portal === 'personnel' && user.role !== 'management') {
-      return {
-        success: false,
-        error: 'This is a dormer account. Please switch to the Dormer tab to log in.',
+        error: 'Invalid email or password.',
       };
     }
 

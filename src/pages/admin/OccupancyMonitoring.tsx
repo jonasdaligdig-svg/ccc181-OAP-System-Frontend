@@ -395,7 +395,7 @@ export default function OccupancyMonitoring() {
       {/* 1. Page Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-[#0F2447]">
+          <h1 className="text-2xl font-bold tracking-tight text-[#152852]">
             Occupancy Monitoring
           </h1>
           <p className="mt-1 text-xs text-slate-500">
@@ -405,7 +405,7 @@ export default function OccupancyMonitoring() {
         <button
           type="button"
           onClick={() => setExportModalOpen(true)}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#2563EB] px-4 py-2.5 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 transition-colors cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#152852] px-4 py-2.5 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] transition-colors cursor-pointer"
         >
           <Download className="h-4 w-4" />
           <span>Export Report</span>
@@ -418,7 +418,7 @@ export default function OccupancyMonitoring() {
         <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-500">Occupancy Rate</span>
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] text-[#152852]">
               <PieChart className="h-4 w-4" />
             </span>
           </div>
@@ -475,7 +475,7 @@ export default function OccupancyMonitoring() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search dormitory or room..."
-            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
           />
         </div>
 
@@ -509,12 +509,12 @@ export default function OccupancyMonitoring() {
                   }}
                   className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                     selectedDorm === opt
-                      ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                      ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>{opt}</span>
-                  {selectedDorm === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                  {selectedDorm === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                 </button>
               ))}
             </div>
@@ -551,12 +551,12 @@ export default function OccupancyMonitoring() {
                   }}
                   className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                     selectedFloor === opt
-                      ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                      ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>{opt}</span>
-                  {selectedFloor === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                  {selectedFloor === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                 </button>
               ))}
             </div>
@@ -593,12 +593,12 @@ export default function OccupancyMonitoring() {
                   }}
                   className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                     selectedState === opt
-                      ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                      ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>{opt}</span>
-                  {selectedState === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                  {selectedState === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                 </button>
               ))}
             </div>
@@ -613,7 +613,7 @@ export default function OccupancyMonitoring() {
           <div>
             <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-slate-100">
               <div>
-                <h2 className="text-base font-bold text-[#0F2447]">
+                <h2 className="text-base font-bold text-[#152852]">
                   Occupancy by dormitory
                 </h2>
                 <p className="text-xs text-slate-500">
@@ -629,7 +629,7 @@ export default function OccupancyMonitoring() {
               {dormitoryBreakdown.map((item) => (
                 <div key={item.dormName} className="space-y-1.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-[#0F2447]">{item.dormName}</span>
+                    <span className="font-bold text-[#152852]">{item.dormName}</span>
                     <div className="flex items-center gap-3">
                       <span className="text-slate-500 font-medium">
                         {item.occupied} / {item.capacity} beds
@@ -639,10 +639,10 @@ export default function OccupancyMonitoring() {
                       </span>
                     </div>
                   </div>
-                  {/* Rounded royal-blue progress bar */}
-                  <div className="h-2.5 w-full overflow-hidden rounded-full bg-blue-100">
+                  {/* Rounded navy progress bar */}
+                  <div className="h-2.5 w-full overflow-hidden rounded-full bg-[#EFE6D2]">
                     <div
-                      className="h-full rounded-full bg-[#2563EB] transition-all duration-300"
+                      className="h-full rounded-full bg-[#152852] transition-all duration-300"
                       style={{ width: `${Math.min(100, Math.max(0, item.rate))}%` }}
                     />
                   </div>
@@ -660,18 +660,18 @@ export default function OccupancyMonitoring() {
         {/* Right Card — Capacity overview */}
         <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs lg:col-span-4 flex flex-col justify-between">
           <div>
-            <h2 className="text-base font-bold text-[#0F2447]">Capacity overview</h2>
+            <h2 className="text-base font-bold text-[#152852]">Capacity overview</h2>
             <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl font-black tracking-tight text-[#0F2447]">
+              <span className="text-3xl font-black tracking-tight text-[#152852]">
                 {globalOccupancyRate}%
               </span>
               <span className="text-xs font-medium text-slate-500">overall occupancy</span>
             </div>
 
-            {/* Segmented horizontal bar: royal blue for occupied + soft green for available */}
+            {/* Segmented horizontal bar: navy for occupied + soft green for available */}
             <div className="mt-4 h-3 w-full overflow-hidden rounded-full bg-slate-100 flex">
               <div
-                className="h-full bg-[#2563EB] transition-all duration-300"
+                className="h-full bg-[#152852] transition-all duration-300"
                 style={{
                   width: `${
                     globalTotalBeds > 0
@@ -695,7 +695,7 @@ export default function OccupancyMonitoring() {
             {/* Legend */}
             <div className="mt-4 flex items-center gap-5 text-xs font-medium">
               <div className="flex items-center gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#2563EB]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#152852]" />
                 <span className="text-slate-700">{globalOccupiedBeds} occupied</span>
               </div>
               <div className="flex items-center gap-1.5">
@@ -720,7 +720,7 @@ export default function OccupancyMonitoring() {
             {/* Header with Color Legend */}
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-slate-100">
               <div>
-                <h2 className="text-base font-bold text-[#0F2447]">Room occupancy map</h2>
+                <h2 className="text-base font-bold text-[#152852]">Room occupancy map</h2>
                 <p className="text-xs text-slate-500">
                   {filteredRooms.length} rooms across {roomsGroupedByDorm.length} dormitories
                 </p>
@@ -728,7 +728,7 @@ export default function OccupancyMonitoring() {
               {/* Legend dots */}
               <div className="flex flex-wrap items-center gap-3 text-xs">
                 <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#2563EB]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#152852]" />
                   <span className="text-slate-600">Full</span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -749,7 +749,7 @@ export default function OccupancyMonitoring() {
                   <div key={group.dormName} className="space-y-2.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-xs text-[#0F2447]">
+                        <span className="font-bold text-xs text-[#152852]">
                           {group.dormName}
                         </span>
                         <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
@@ -765,7 +765,7 @@ export default function OccupancyMonitoring() {
                       {group.rooms.map((roomStat) => {
                         const tileClasses =
                           roomStat.occupancyState === 'Full'
-                            ? 'bg-[#EAF1FF] text-[#2563EB] border border-blue-200/80 hover:bg-blue-100/80 hover:border-blue-300'
+                            ? 'bg-[#152852]/10 text-[#152852] border border-[#152852]/25 hover:bg-[#152852]/15 hover:border-[#152852]/40'
                             : roomStat.occupancyState === 'Partially occupied'
                             ? 'bg-amber-50 text-amber-800 border border-amber-200/70 hover:bg-amber-100/70 hover:border-amber-300'
                             : 'bg-emerald-50 text-emerald-700 border border-emerald-200/70 hover:bg-emerald-100/70 hover:border-emerald-300';
@@ -819,7 +819,7 @@ export default function OccupancyMonitoring() {
         {/* Right Card — Room status summary */}
         <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-xs lg:col-span-4 flex flex-col justify-between">
           <div>
-            <h2 className="text-base font-bold text-[#0F2447]">Room status summary</h2>
+            <h2 className="text-base font-bold text-[#152852]">Room status summary</h2>
             <p className="text-xs text-slate-500 mt-0.5">
               Current allocation across all dormitories
             </p>
@@ -827,12 +827,12 @@ export default function OccupancyMonitoring() {
             {/* 3 Status rows with left vertical colored accent bars */}
             <div className="mt-5 space-y-3">
               {/* Full rooms */}
-              <div className="flex items-center justify-between rounded-r-xl border-l-4 border-[#2563EB] bg-slate-50/70 py-2.5 pl-3 pr-3">
+              <div className="flex items-center justify-between rounded-r-xl border-l-4 border-[#152852] bg-slate-50/70 py-2.5 pl-3 pr-3">
                 <div>
                   <p className="text-xs font-bold text-slate-900">Full rooms</p>
                   <p className="text-[11px] text-slate-500">All 4 beds occupied</p>
                 </div>
-                <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-bold text-[#2563EB]">
+                <span className="rounded-full bg-[#152852]/10 px-2.5 py-1 text-xs font-bold text-[#152852]">
                   {roomStatusSummary.full}
                 </span>
               </div>
@@ -879,11 +879,11 @@ export default function OccupancyMonitoring() {
                 </div>
               </div>
             ) : (
-              <div className="rounded-xl border border-blue-200/70 bg-blue-50/60 p-3.5 text-xs">
+              <div className="rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] p-3.5 text-xs">
                 <div className="flex items-start gap-2.5">
-                  <ShieldCheck className="h-4 w-4 text-[#2563EB] shrink-0 mt-0.5" />
+                  <ShieldCheck className="h-4 w-4 text-[#152852] shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-bold text-[#0F2447]">
+                    <p className="font-bold text-[#152852]">
                       All dormitories have available capacity
                     </p>
                     <p className="text-[11px] text-slate-600 mt-0.5">
@@ -906,7 +906,7 @@ export default function OccupancyMonitoring() {
             {/* Modal Header */}
             <div className="flex items-start justify-between border-b border-slate-100 p-5">
               <div>
-                <h3 className="text-base font-bold text-[#0F2447]">
+                <h3 className="text-base font-bold text-[#152852]">
                   Room {selectedRoomModal.room.room_number} occupancy
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5">
@@ -924,9 +924,9 @@ export default function OccupancyMonitoring() {
 
             {/* Modal Body */}
             <div className="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
-              {/* Read-only #F4F7FC fields */}
+              {/* Read-only summary fields */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl bg-[#F4F7FC] p-3">
+                <div className="rounded-xl bg-[#FFF8EB] p-3">
                   <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                     Dormitory
                   </span>
@@ -934,7 +934,7 @@ export default function OccupancyMonitoring() {
                     {selectedRoomModal.dormName}
                   </p>
                 </div>
-                <div className="rounded-xl bg-[#F4F7FC] p-3">
+                <div className="rounded-xl bg-[#FFF8EB] p-3">
                   <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                     Room
                   </span>
@@ -942,7 +942,7 @@ export default function OccupancyMonitoring() {
                     Room {selectedRoomModal.room.room_number}
                   </p>
                 </div>
-                <div className="rounded-xl bg-[#F4F7FC] p-3">
+                <div className="rounded-xl bg-[#FFF8EB] p-3">
                   <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                     Occupied Beds
                   </span>
@@ -950,7 +950,7 @@ export default function OccupancyMonitoring() {
                     {selectedRoomModal.occupiedCount} of {selectedRoomModal.capacity}
                   </p>
                 </div>
-                <div className="rounded-xl bg-[#F4F7FC] p-3">
+                <div className="rounded-xl bg-[#FFF8EB] p-3">
                   <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                     Capacity
                   </span>
@@ -962,7 +962,7 @@ export default function OccupancyMonitoring() {
 
               {/* Current residents list */}
               <div>
-                <p className="text-xs font-bold text-[#0F2447] mb-2.5">Current residents</p>
+                <p className="text-xs font-bold text-[#152852] mb-2.5">Current residents</p>
                 <div className="space-y-2">
                   {selectedRoomModal.residents.map((res, idx) => (
                     <div
@@ -995,7 +995,7 @@ export default function OccupancyMonitoring() {
                       <span
                         className={`rounded-md px-2 py-0.5 text-[10px] font-semibold ${
                           res.dormer
-                            ? 'bg-blue-50 text-[#2563EB]'
+                            ? 'bg-[#152852]/10 text-[#152852]'
                             : 'bg-emerald-50 text-emerald-700'
                         }`}
                       >
@@ -1019,7 +1019,7 @@ export default function OccupancyMonitoring() {
               <button
                 type="button"
                 onClick={() => setSelectedRoomModal(null)}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Back to monitoring
               </button>
@@ -1037,7 +1037,7 @@ export default function OccupancyMonitoring() {
             {/* Modal Header */}
             <div className="flex items-start justify-between border-b border-slate-100 p-5">
               <div>
-                <h3 className="text-base font-bold text-[#0F2447]">
+                <h3 className="text-base font-bold text-[#152852]">
                   Export occupancy report
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5">
@@ -1056,7 +1056,7 @@ export default function OccupancyMonitoring() {
             {/* Modal Body */}
             <div className="p-5 space-y-4">
               {/* Scope */}
-              <div className="rounded-xl bg-[#F4F7FC] p-3.5">
+              <div className="rounded-xl bg-[#FFF8EB] p-3.5">
                 <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                   Scope
                 </span>
@@ -1067,7 +1067,7 @@ export default function OccupancyMonitoring() {
               </div>
 
               {/* Reporting Date */}
-              <div className="rounded-xl bg-[#F4F7FC] p-3.5">
+              <div className="rounded-xl bg-[#FFF8EB] p-3.5">
                 <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                   Reporting date
                 </span>
@@ -1082,7 +1082,7 @@ export default function OccupancyMonitoring() {
 
               {/* Format Selectable Options */}
               <div>
-                <label className="block text-xs font-bold text-[#0F2447] mb-2">
+                <label className="block text-xs font-bold text-[#152852] mb-2">
                   Format
                 </label>
                 <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
@@ -1091,13 +1091,13 @@ export default function OccupancyMonitoring() {
                     onClick={() => setExportFormat('csv')}
                     className={`flex items-start gap-3 rounded-xl border p-3.5 text-left transition-all cursor-pointer ${
                       exportFormat === 'csv'
-                        ? 'border-[#2563EB] bg-blue-50/50 ring-1 ring-[#2563EB]'
+                        ? 'border-[#152852] bg-[#FFF8EB] ring-1 ring-[#152852]'
                         : 'border-slate-200 bg-white hover:bg-slate-50'
                     }`}
                   >
                     <FileText
                       className={`h-4 w-4 mt-0.5 ${
-                        exportFormat === 'csv' ? 'text-[#2563EB]' : 'text-slate-400'
+                        exportFormat === 'csv' ? 'text-[#152852]' : 'text-slate-400'
                       }`}
                     />
                     <div>
@@ -1115,13 +1115,13 @@ export default function OccupancyMonitoring() {
                     onClick={() => setExportFormat('pdf')}
                     className={`flex items-start gap-3 rounded-xl border p-3.5 text-left transition-all cursor-pointer ${
                       exportFormat === 'pdf'
-                        ? 'border-[#2563EB] bg-blue-50/50 ring-1 ring-[#2563EB]'
+                        ? 'border-[#152852] bg-[#FFF8EB] ring-1 ring-[#152852]'
                         : 'border-slate-200 bg-white hover:bg-slate-50'
                     }`}
                   >
                     <Printer
                       className={`h-4 w-4 mt-0.5 ${
-                        exportFormat === 'pdf' ? 'text-[#2563EB]' : 'text-slate-400'
+                        exportFormat === 'pdf' ? 'text-[#152852]' : 'text-slate-400'
                       }`}
                     />
                     <div>
@@ -1141,7 +1141,7 @@ export default function OccupancyMonitoring() {
                 <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
                   Summary
                 </span>
-                <p className="text-xs font-bold text-[#0F2447] mt-0.5">
+                <p className="text-xs font-bold text-[#152852] mt-0.5">
                   {occupiedBeds} occupied beds / {availableBeds} available beds • {occupancyRate}%
                 </p>
               </div>
@@ -1159,7 +1159,7 @@ export default function OccupancyMonitoring() {
               <button
                 type="button"
                 onClick={handlePrepareReport}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Prepare report
               </button>
