@@ -11,6 +11,8 @@ import type {
   AddRoomPayload,
   UpdateRoomPayload,
   ActionResult,
+  LoginResult,
+  ActivateDormerResult,
   SubmitApplicationData,
   SubmitPublicApplicationPayload,
   SubmitPublicApplicationResult,
@@ -40,7 +42,7 @@ import {
 } from '../data/mockData';
 import { OapContext } from './oapContextDef';
 
-const STORAGE_KEY = 'msun_oap_state_v6';
+const STORAGE_KEY = 'msun_oap_state_v7';
 const ABSENCE_ALERT_THRESHOLD = 3; // Configured consecutive-night absence threshold (FR-18)
 
 function loadInitialState(): OapState {
@@ -80,20 +82,115 @@ export function OapProvider({ children }: { children: ReactNode }) {
     }
   }, [state]);
 
-  // --- FR-01: User Authentication ---
-  const login = (username: string, password: string, expectedRole?: string): ActionResult<User> => {
-    const user = state.users.find(
-      (u) =>
-        u.username.toLowerCase() === username.trim().toLowerCase() &&
-        u.password_hash === password &&
-        (!expectedRole || u.role === expectedRole)
-    );
-    if (!user) return { ok: false, error: 'Invalid credentials or wrong portal.' };
-    if (user.account_status !== 'active') {
-      return { ok: false, error: 'This account is inactive. Please contact Dormitory Management.' };
+  // --- FR-01: User Authentication & First-Time Activation ---
+  const findUserByEmail = (email: string): User | undefined => {
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) return undefined;
+    return state.users.find((u) => u.username.toLowerCase() === cleanEmail);
+  };
+
+  const login = (
+    email: string,
+    password: string,
+    portal: 'dormer' | 'personnel'
+  ): LoginResult => {
+    const user = findUserByEmail(email);
+    if (!user || user.password_hash !== password) {
+      return {
+        success: false,
+        error: 'Invalid credentials. Please check your login details and try again.',
+      };
     }
+
+    if (portal === 'dormer' && user.role !== 'dormer') {
+      return {
+        success: false,
+        error: 'This is a staff account. Please switch to the Dorm personnel tab to log in.',
+      };
+    }
+
+    if (portal === 'personnel' && user.role !== 'management') {
+      return {
+        success: false,
+        error: 'This is a dormer account. Please switch to the Dormer tab to log in.',
+      };
+    }
+
+    const effectiveStatus = user.status || user.account_status;
+    if (effectiveStatus === 'inactive') {
+      return {
+        success: false,
+        error: 'This account is inactive. Please contact Dormitory Management.',
+      };
+    }
+
+    if (effectiveStatus === 'pending_activation') {
+      return {
+        success: false,
+        requiresActivation: true,
+        error: 'Your account requires first-time activation. Please set your personal password.',
+      };
+    }
+
     setState((prev) => ({ ...prev, currentUser: user }));
-    return { ok: true, user };
+    return { success: true, user };
+  };
+
+  const activateDormerAccount = (
+    email: string,
+    tempPassword: string,
+    newPassword: string
+  ): ActivateDormerResult => {
+    const user = findUserByEmail(email);
+    if (!user || user.role !== 'dormer') {
+      return {
+        success: false,
+        error: 'No dormer account found matching that student email.',
+      };
+    }
+
+    const effectiveStatus = user.status || user.account_status;
+    if (effectiveStatus === 'inactive') {
+      return {
+        success: false,
+        error: 'This account is inactive. Please contact Dormitory Management.',
+      };
+    }
+    if (effectiveStatus !== 'pending_activation') {
+      return {
+        success: false,
+        error: 'This account is already active. Please log in with your password.',
+      };
+    }
+
+    if (user.password_hash !== tempPassword) {
+      return {
+        success: false,
+        error: 'Incorrect temporary password. Please check the temporary password issued by the Dormitory Office.',
+      };
+    }
+
+    if (newPassword.length < 8) {
+      return {
+        success: false,
+        error: 'New password must be at least 8 characters long.',
+      };
+    }
+
+    const activatedUser: User = {
+      ...user,
+      password_hash: newPassword,
+      account_status: 'active',
+      status: 'active',
+    };
+
+    setState((prev) => ({
+      ...prev,
+      users: prev.users.map((u) => (u.user_id === user.user_id ? activatedUser : u)),
+      currentUser: activatedUser,
+    }));
+
+    return { success: true, user: activatedUser };
   };
 
   const logout = () => setState((prev) => ({ ...prev, currentUser: null }));
@@ -1016,6 +1113,7 @@ export function OapProvider({ children }: { children: ReactNode }) {
     absenceAlerts,
     occupancyStats,
     login,
+    activateDormerAccount,
     logout,
     addDormer,
     updateDormer,

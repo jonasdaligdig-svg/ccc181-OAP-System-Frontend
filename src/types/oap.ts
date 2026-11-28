@@ -1,13 +1,19 @@
 // ─── OAP Dormitory Management System – Entity Interfaces ───
 // Aligned with mockData.js snake_case schema (OAP SRS Ch.5 & Ch.8)
 
+export type UserAccountStatus = "active" | "pending_activation" | "inactive";
+
 export interface User {
   user_id: number;
   username: string;
   password_hash: string;
   role: "management" | "dormer";
-  account_status: "active" | "inactive";
+  account_status: UserAccountStatus;
+  status?: UserAccountStatus;
+  student_number?: string;
 }
+
+export type UserAccount = User;
 
 export interface Personnel {
   personnel_id: number;
@@ -234,6 +240,19 @@ export interface OccupancyStats {
 
 // ─── Result types ───
 
+export interface LoginResult {
+  success: boolean;
+  error?: string;
+  requiresActivation?: boolean;
+  user?: UserAccount;
+}
+
+export interface ActivateDormerResult {
+  success: boolean;
+  error?: string;
+  user?: UserAccount;
+}
+
 export interface ActionResult<T = unknown> {
   ok: boolean;
   error?: string;
@@ -328,7 +347,12 @@ export interface AddDormerData {
 export interface OapContextValue extends OapState {
   absenceAlerts: AbsenceAlert[];
   occupancyStats: OccupancyStats;
-  login: (username: string, password: string, expectedRole?: string) => ActionResult<User>;
+  login: (identifier: string, password: string, portal: 'dormer' | 'personnel') => LoginResult;
+  activateDormerAccount: (
+    identifier: string,
+    tempPassword: string,
+    newPassword: string
+  ) => ActivateDormerResult;
   logout: () => void;
   addDormer: (dormerData: AddDormerData) => ActionResult<Dormer>;
   updateDormer: (dormerId: number, updates: Partial<Dormer>) => ActionResult<Dormer>;

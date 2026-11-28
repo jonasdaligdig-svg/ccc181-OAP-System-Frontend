@@ -25,6 +25,7 @@ export const INITIAL_USERS: User[] = [
     password_hash: 'demo-admin-123',
     role: 'management',
     account_status: 'active',
+    status: 'active',
   },
   {
     user_id: 2,
@@ -32,6 +33,7 @@ export const INITIAL_USERS: User[] = [
     password_hash: 'demo-staff-123',
     role: 'management',
     account_status: 'active',
+    status: 'active',
   },
   {
     user_id: 3,
@@ -39,6 +41,8 @@ export const INITIAL_USERS: User[] = [
     password_hash: 'demo-dormer-123',
     role: 'dormer',
     account_status: 'active',
+    status: 'active',
+    student_number: '2023-0145',
   },
   {
     user_id: 4,
@@ -46,13 +50,17 @@ export const INITIAL_USERS: User[] = [
     password_hash: 'demo-dormer-123',
     role: 'dormer',
     account_status: 'active',
+    status: 'active',
+    student_number: '2024-0321',
   },
   {
     user_id: 5,
     username: 'patricia.reyes@msunaawan.edu.ph',
-    password_hash: 'demo-dormer-123',
+    password_hash: 'MSUN-TEMP-2026',
     role: 'dormer',
-    account_status: 'active',
+    account_status: 'pending_activation',
+    status: 'pending_activation',
+    student_number: '2024-0789',
   },
   {
     user_id: 6,
@@ -60,6 +68,8 @@ export const INITIAL_USERS: User[] = [
     password_hash: 'demo-dormer-123',
     role: 'dormer',
     account_status: 'active',
+    status: 'active',
+    student_number: '2025-0512',
   },
   {
     user_id: 7,
@@ -67,6 +77,8 @@ export const INITIAL_USERS: User[] = [
     password_hash: 'demo-dormer-123',
     role: 'dormer',
     account_status: 'inactive',
+    status: 'inactive',
+    student_number: '2025-0967',
   },
 ];
 

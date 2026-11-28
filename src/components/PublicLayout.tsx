@@ -6,7 +6,7 @@ export default function PublicLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `text-xs font-bold tracking-wider uppercase transition-colors pb-1 border-b-2 ${
+    `inline-flex items-center text-xs font-bold tracking-wider uppercase transition-colors py-1 border-b-2 ${
       isActive
         ? 'text-[#D4A537] border-[#D4A537]'
         : 'text-white/90 border-transparent hover:text-[#D4A537]'
@@ -39,14 +39,14 @@ export default function PublicLayout() {
               ABOUT
             </NavLink>
             <Link
-              to="/admin/dashboard"
-              className="text-xs font-semibold tracking-wider text-slate-300 uppercase transition-colors hover:text-white"
+              to="/login"
+              className="inline-flex items-center text-xs font-semibold tracking-wider text-slate-300 uppercase transition-colors py-1 border-b-2 border-transparent hover:text-white"
             >
               PORTAL LOGIN
             </Link>
             <Link
               to="/apply"
-              className="rounded-lg bg-[#D4A537] px-5 py-2.5 text-xs font-bold tracking-wider text-[#152852] uppercase shadow-xs transition hover:bg-[#c2942c]"
+              className="inline-flex items-center rounded-lg bg-[#D4A537] px-5 py-2.5 text-xs font-bold tracking-wider text-[#152852] uppercase shadow-xs transition hover:bg-[#c2942c]"
             >
               APPLY NOW
             </Link>
@@ -95,7 +95,7 @@ export default function PublicLayout() {
                 ABOUT
               </NavLink>
               <Link
-                to="/admin/dashboard"
+                to="/login"
                 onClick={() => setMobileMenuOpen(false)}
                 className="rounded-lg px-3 py-2 text-xs font-semibold tracking-wider text-slate-300 uppercase hover:bg-white/5 hover:text-white"
               >
