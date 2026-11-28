@@ -20,7 +20,6 @@ import {
   UserCheck,
   UserCog,
   Users,
-  X,
 } from 'lucide-react';
 import { useOap } from '../context/useOap';
 
@@ -132,7 +131,7 @@ export default function AdminLayout() {
   };
 
   const SidebarContent = (
-    <div className="flex h-full flex-col bg-[#0F2447] text-slate-200">
+    <div className="flex h-full flex-col bg-[#152852] text-slate-200">
       {/* University & OAP Branding */}
       <div className="flex items-center justify-center px-5 py-5 text-center border-b border-white/10">
         <img
@@ -153,10 +152,10 @@ export default function AdminLayout() {
               onClick={() => setMobileOpen(false)}
               className={({ isActive }) => {
                 const isMatch = isActive || location.pathname.startsWith(item.to);
-                return `flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs font-medium transition-colors ${
+                return `flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-xs transition-colors ${
                   isMatch
-                    ? 'bg-[#2563EB] text-white shadow-sm'
-                    : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                    ? 'bg-[#E2B743] text-[#152852] font-semibold shadow-sm'
+                    : 'font-medium text-slate-300 hover:bg-white/10 hover:text-white'
                 }`;
               }}
             >
@@ -182,7 +181,7 @@ export default function AdminLayout() {
   );
 
   return (
-    <div className="flex min-h-screen bg-[#F4F7FC] text-slate-800">
+    <div className="flex min-h-screen bg-[#FFF8EB] text-slate-800">
       {/* Desktop Sidebar */}
       <aside className="hidden w-60 shrink-0 lg:block">{SidebarContent}</aside>
 
@@ -204,7 +203,7 @@ export default function AdminLayout() {
         {/* Topbar */}
         <header
           ref={headerRef}
-          className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-slate-200/80 bg-[#F4F7FC]/95 px-4 backdrop-blur lg:px-8"
+          className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-[#EFE6D2] bg-[#FFF8EB]/95 px-4 backdrop-blur lg:px-8"
         >
           <div className="flex flex-1 items-center gap-3">
             <button
@@ -221,7 +220,7 @@ export default function AdminLayout() {
               <div
                 className={`flex items-center gap-2 rounded-xl border bg-white px-3.5 py-2 shadow-2xs transition ${
                   searchOpen
-                    ? 'border-[#2563EB] ring-2 ring-[#2563EB]/15'
+                    ? 'border-[#152852] ring-2 ring-[#152852]/15'
                     : 'border-slate-200'
                 }`}
               >
@@ -279,13 +278,13 @@ export default function AdminLayout() {
                           className="flex w-full items-center justify-between rounded-xl px-2.5 py-2 text-left hover:bg-slate-50"
                         >
                           <div className="flex items-center gap-2.5">
-                            <Clock className="h-4 w-4 text-[#2563EB]" />
+                            <Clock className="h-4 w-4 text-[#152852]" />
                             <div>
                               <p className="text-xs font-semibold text-slate-800">{item.title}</p>
                               <p className="text-[11px] text-slate-500">{item.subtitle}</p>
                             </div>
                           </div>
-                          <ArrowRight className="h-3.5 w-3.5 text-[#2563EB]" />
+                          <ArrowRight className="h-3.5 w-3.5 text-[#152852]" />
                         </button>
                       ))}
                       {searchQuery.trim() && searchResults.length === 0 && (
@@ -318,7 +317,7 @@ export default function AdminLayout() {
                             <p className="text-[11px] text-slate-500">{link.desc}</p>
                           </div>
                         </div>
-                        <ArrowRight className="h-3.5 w-3.5 text-[#2563EB]" />
+                        <ArrowRight className="h-3.5 w-3.5 text-[#152852]" />
                       </button>
                     ))}
                   </div>
@@ -354,7 +353,7 @@ export default function AdminLayout() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <h3 className="text-sm font-bold text-slate-900">Notifications</h3>
-                      <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-[#2563EB]">
+                      <span className="rounded-full bg-[#FFF8EB] border border-[#EFE6D2] px-2 py-0.5 text-[11px] font-medium text-[#152852]">
                         {unreadCount} unread
                       </span>
                     </div>
@@ -377,9 +376,9 @@ export default function AdminLayout() {
                     <button
                       type="button"
                       onClick={() => handleGo('/admin/pass-slips')}
-                      className="flex w-full items-start gap-3 rounded-xl bg-blue-50/60 p-3 text-left hover:bg-blue-50"
+                      className="flex w-full items-start gap-3 rounded-xl bg-[#FFF8EB]/80 p-3 text-left hover:bg-[#FFF8EB]"
                     >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-[#2563EB]">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#152852]/10 text-[#152852]">
                         <Send className="h-4 w-4" />
                       </span>
                       <div className="flex-1">
@@ -390,7 +389,7 @@ export default function AdminLayout() {
                           Residents are waiting for permission to leave.
                         </p>
                       </div>
-                      <ArrowRight className="mt-1 h-3.5 w-3.5 text-[#2563EB]" />
+                      <ArrowRight className="mt-1 h-3.5 w-3.5 text-[#152852]" />
                     </button>
 
                     <button
@@ -409,7 +408,7 @@ export default function AdminLayout() {
                           Review resident applications for the next term.
                         </p>
                       </div>
-                      <ArrowRight className="mt-1 h-3.5 w-3.5 text-[#2563EB]" />
+                      <ArrowRight className="mt-1 h-3.5 w-3.5 text-[#152852]" />
                     </button>
 
                     <button
@@ -428,14 +427,14 @@ export default function AdminLayout() {
                           {absenceAlerts.length} resident(s) flagged for consecutive absences.
                         </p>
                       </div>
-                      <ArrowRight className="mt-1 h-3.5 w-3.5 text-[#2563EB]" />
+                      <ArrowRight className="mt-1 h-3.5 w-3.5 text-[#152852]" />
                     </button>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="h-6 w-px bg-slate-200" />
+            <div className="h-6 w-px bg-[#EFE6D2]" />
 
             {/* Profile Dropdown */}
             <div className="relative">
@@ -448,7 +447,7 @@ export default function AdminLayout() {
                 }}
                 className="flex items-center gap-2.5 rounded-xl px-2 py-1.5 hover:bg-white"
               >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0F2447] text-xs font-bold text-white">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#152852] text-xs font-bold text-white">
                   DP
                 </span>
                 <span className="hidden text-xs font-semibold text-slate-700 sm:inline">
@@ -460,13 +459,13 @@ export default function AdminLayout() {
               {profileOpen && (
                 <div className="absolute right-0 top-12 z-40 w-64 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl">
                   <div className="flex items-center gap-3 border-b border-slate-100 pb-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0F2447] text-sm font-bold text-white">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#152852] text-sm font-bold text-white">
                       DP
                     </span>
                     <div>
                       <p className="text-xs font-bold text-slate-900">Dormitory Personnel</p>
                       <p className="text-[11px] text-slate-500">MSU at Naawan</p>
-                      <span className="mt-1 inline-block rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#2563EB]">
+                      <span className="mt-1 inline-block rounded-full bg-[#FFF8EB] border border-[#EFE6D2] px-2 py-0.5 text-[10px] font-semibold text-[#152852]">
                         Staff account
                       </span>
                     </div>
@@ -481,15 +480,7 @@ export default function AdminLayout() {
                         <p className="text-xs font-semibold text-slate-800">My profile</p>
                         <p className="text-[11px] text-slate-500">View personnel information</p>
                       </div>
-                      <ArrowRight className="h-3.5 w-3.5 text-[#2563EB]" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      className="mt-2 flex w-full items-center justify-between rounded-xl bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-100"
-                    >
-                      <span>Logout</span>
-                      <X className="h-3.5 w-3.5" />
+                      <ArrowRight className="h-3.5 w-3.5 text-[#152852]" />
                     </button>
                   </div>
                   <p className="mt-2 border-t border-slate-100 pt-2 text-[10px] text-slate-400">
@@ -507,7 +498,7 @@ export default function AdminLayout() {
         </main>
 
         {/* Footer */}
-        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/70 px-4 py-3 text-[11px] text-slate-500 lg:px-8">
+        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[#EFE6D2] px-4 py-3 text-[11px] text-slate-500 lg:px-8">
           <span>OAP — Occupancy Analytics Platform | MSU at Naawan</span>
           <span>Version 1.0.0</span>
         </footer>

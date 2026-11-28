@@ -2,6 +2,7 @@ import { useMemo, useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
+  Award,
   Check,
   ChevronDown,
   Search,
@@ -35,6 +36,7 @@ export default function ApplicantManagement() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('All statuses');
   const [statusDropdownOpen, setStatusDropdownOpen] = useState(false);
+  const [scholarsFirst, setScholarsFirst] = useState(false);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,6 +73,7 @@ export default function ApplicantManagement() {
         | 'waitlisted'
         | 'rejected';
       const submittedFormatted = formatSubmittedDate(app.submitted_at || app.application_date);
+      const isScholar = Boolean(app.is_scholar === true || app.scholarship_status === true);
 
       return {
         ...app,
@@ -81,6 +84,7 @@ export default function ApplicantManagement() {
         courseAndYear,
         appStatus,
         submittedFormatted,
+        isScholar,
       };
     });
   }, [applicants, dormers]);
@@ -105,7 +109,7 @@ export default function ApplicantManagement() {
   // Filtered applicants
   const filteredApplicants = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    return applicantsWithMeta.filter((app) => {
+    const filtered = applicantsWithMeta.filter((app) => {
       // Search matching
       if (q) {
         const matchesCode = app.appCode.toLowerCase().includes(q);
@@ -119,7 +123,18 @@ export default function ApplicantManagement() {
       }
       return true;
     });
-  }, [applicantsWithMeta, searchQuery, statusFilter]);
+
+    if (!scholarsFirst) return filtered;
+
+    return [...filtered].sort((a, b) => {
+      if (a.isScholar !== b.isScholar) {
+        return a.isScholar ? -1 : 1;
+      }
+      const dateA = a.submitted_at || a.application_date || '';
+      const dateB = b.submitted_at || b.application_date || '';
+      return dateB.localeCompare(dateA);
+    });
+  }, [applicantsWithMeta, searchQuery, statusFilter, scholarsFirst]);
 
   // Pagination calculation
   const totalPages = Math.max(1, Math.ceil(filteredApplicants.length / ITEMS_PER_PAGE));
@@ -130,6 +145,7 @@ export default function ApplicantManagement() {
   const handleClearFilters = () => {
     setSearchQuery('');
     setStatusFilter('All statuses');
+    setScholarsFirst(false);
     setCurrentPage(1);
   };
 
@@ -137,7 +153,7 @@ export default function ApplicantManagement() {
     <div className="space-y-6">
       {/* 1. Header & Filter Toolbar */}
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-bold text-[#0F2447]">Applicant Management</h1>
+        <h1 className="text-2xl font-bold text-[#152852]">Applicant Management</h1>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-3">
@@ -153,7 +169,7 @@ export default function ApplicantManagement() {
                     setCurrentPage(1);
                   }}
                   placeholder="Search applicant by name or ID..."
-                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9.5 pr-8 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB] shadow-2xs"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9.5 pr-8 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852] shadow-2xs"
                 />
                 {searchQuery && (
                   <button
@@ -197,18 +213,36 @@ export default function ApplicantManagement() {
                         }}
                         className={`flex w-full items-center justify-between px-3 py-1.5 text-xs transition ${
                           isSelected
-                            ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                            ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                             : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
                         <span>{opt}</span>
-                        {isSelected && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                        {isSelected && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                       </button>
                     );
                   })}
                 </div>
               )}
             </div>
+
+            {/* Scholars First Toggle */}
+            <button
+              type="button"
+              aria-pressed={scholarsFirst}
+              onClick={() => {
+                setScholarsFirst((prev) => !prev);
+                setCurrentPage(1);
+              }}
+              className={`inline-flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs transition shadow-2xs cursor-pointer ${
+                scholarsFirst
+                  ? 'border-[#E2B743] bg-[#E2B743] text-[#152852] font-semibold'
+                  : 'border-slate-200 bg-white text-slate-700 font-medium hover:bg-slate-50'
+              }`}
+            >
+              <Award className="h-3.5 w-3.5" />
+              <span>Scholars First</span>
+            </button>
           </div>
         </div>
       </div>
@@ -218,7 +252,7 @@ export default function ApplicantManagement() {
         {/* Left Card — APPLICANTS DIRECTORY */}
         <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm xl:col-span-9">
           <div className="flex items-center justify-between pb-4">
-            <h2 className="text-xs font-bold tracking-wider text-[#0F2447] uppercase">
+            <h2 className="text-xs font-bold tracking-wider text-[#152852] uppercase">
               Applicants Directory
             </h2>
             <span className="text-xs font-medium text-slate-500">
@@ -230,7 +264,7 @@ export default function ApplicantManagement() {
           <div className="overflow-x-auto rounded-xl border border-slate-100">
             <table className="w-full border-collapse text-left text-xs">
               <thead>
-                <tr className="bg-[#EEF3FC] text-slate-700">
+                <tr className="bg-[#FFF8EB] text-[#152852]">
                   <th className="px-3.5 py-2.5 font-bold">Application ID</th>
                   <th className="px-3.5 py-2.5 font-bold">Applicant Name</th>
                   <th className="px-3.5 py-2.5 font-bold">Course & Year</th>
@@ -251,11 +285,18 @@ export default function ApplicantManagement() {
                       {/* Applicant Name with circular initials avatar */}
                       <td className="px-3.5 py-3">
                         <div className="flex items-center gap-2.5">
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-[#2563EB]">
+                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#EFE6D2] bg-[#FFF8EB] text-xs font-bold text-[#152852]">
                             {applicant.initials}
                           </span>
                           <div>
-                            <p className="font-bold text-slate-900">{applicant.fullName}</p>
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <p className="font-bold text-slate-900">{applicant.fullName}</p>
+                              {applicant.isScholar && (
+                                <span className="inline-flex items-center rounded-full border border-[#E2B743]/60 bg-[#FFF8EB] px-2 py-0.5 text-[10px] font-bold text-[#9A7418]">
+                                  Scholar
+                                </span>
+                              )}
+                            </div>
                             <p className="font-mono text-[10px] text-slate-400">
                               ID: {applicant.studentNumber}
                             </p>
@@ -301,7 +342,7 @@ export default function ApplicantManagement() {
                       <td className="whitespace-nowrap px-3.5 py-3 text-right">
                         <Link
                           to={`/admin/applicants/${applicant.applicant_id}`}
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline"
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
                         >
                           <span>Review</span>
                           <ArrowRight className="h-3 w-3" />
@@ -323,7 +364,7 @@ export default function ApplicantManagement() {
                         <button
                           type="button"
                           onClick={handleClearFilters}
-                          className="mt-4 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2563EB] shadow-2xs hover:bg-slate-50"
+                          className="mt-4 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#152852] shadow-2xs hover:bg-slate-50 hover:text-[#1e3a75]"
                         >
                           Clear filters
                         </button>
@@ -363,7 +404,7 @@ export default function ApplicantManagement() {
                     onClick={() => setCurrentPage(pageNum)}
                     className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs font-semibold transition ${
                       isActive
-                        ? 'bg-[#2563EB] text-white'
+                        ? 'bg-[#152852] text-white'
                         : 'text-slate-600 hover:bg-slate-100'
                     }`}
                   >
@@ -436,19 +477,19 @@ export default function ApplicantManagement() {
 
             <ul className="mt-3 space-y-2 text-xs font-medium text-slate-700">
               <li className="flex items-start gap-2">
-                <span className="font-bold text-[#2563EB]">1.</span>
+                <span className="font-bold text-[#152852]">1.</span>
                 <span>Enrollment confirmation</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="font-bold text-[#2563EB]">2.</span>
+                <span className="font-bold text-[#152852]">2.</span>
                 <span>Valid student ID</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="font-bold text-[#2563EB]">3.</span>
+                <span className="font-bold text-[#152852]">3.</span>
                 <span>Completed application</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="font-bold text-[#2563EB]">4.</span>
+                <span className="font-bold text-[#152852]">4.</span>
                 <span>Dormitory availability</span>
               </li>
             </ul>

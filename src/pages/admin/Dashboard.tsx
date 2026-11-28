@@ -24,7 +24,7 @@ interface DonutRingProps {
   sublabel: string;
 }
 
-function DonutRing({ percent, color = '#2563EB', label, sublabel }: DonutRingProps) {
+function DonutRing({ percent, color = '#152852', label, sublabel }: DonutRingProps) {
   const radius = 44;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percent / 100) * circumference;
@@ -124,7 +124,7 @@ export default function Dashboard() {
             delta: 'Active',
             deltaColor: 'text-emerald-600',
             icon: Users,
-            iconBg: 'bg-blue-100 text-[#2563EB]',
+            iconBg: 'bg-[#FFF8EB] border border-[#EFE6D2] text-[#152852]',
           },
           {
             label: 'Occupied Beds',
@@ -178,13 +178,13 @@ export default function Dashboard() {
         <section className="rounded-2xl border border-slate-200/70 bg-white p-5 shadow-2xs xl:col-span-7">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <BarChart2 className="h-5 w-5 text-[#2563EB]" />
-              <h2 className="text-sm font-bold text-slate-900">Building Occupancy</h2>
+              <BarChart2 className="h-5 w-5 text-[#152852]" />
+              <h2 className="text-sm font-bold text-[#152852]">Building Occupancy</h2>
             </div>
             <select
               value={selectedBuilding}
               onChange={(e) => setSelectedBuilding(e.target.value)}
-              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 outline-none"
+              className="rounded-xl border border-slate-200 bg-[#FFF8EB]/60 px-3 py-1.5 text-xs font-medium text-slate-700 outline-none"
             >
               <option value="all">All Buildings</option>
               {occupancyStats.byBuilding.map((b) => (
@@ -205,9 +205,9 @@ export default function Dashboard() {
                   <span className="w-10 text-xs font-bold text-slate-900">
                     {b.occupancyRate}%
                   </span>
-                  <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-blue-100">
+                  <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-[#EFE6D2]">
                     <div
-                      className="h-full rounded-full bg-[#2563EB] transition-all"
+                      className="h-full rounded-full bg-[#152852] transition-all"
                       style={{ width: `${b.occupancyRate}%` }}
                     />
                   </div>
@@ -220,7 +220,7 @@ export default function Dashboard() {
 
             <DonutRing
               percent={occupancyStats.overallRate}
-              color="#2563EB"
+              color="#152852"
               label={`${occupancyStats.overallRate}%`}
               sublabel="Overall Occupancy"
             />
@@ -231,12 +231,12 @@ export default function Dashboard() {
         <section className="rounded-2xl border border-slate-200/70 bg-white p-5 shadow-2xs xl:col-span-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ClipboardList className="h-5 w-5 text-[#2563EB]" />
-              <h2 className="text-sm font-bold text-slate-900">Pending Requests</h2>
+              <ClipboardList className="h-5 w-5 text-[#152852]" />
+              <h2 className="text-sm font-bold text-[#152852]">Pending Requests</h2>
             </div>
             <Link
               to="/admin/pass-slips"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
             >
               View All <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -245,10 +245,10 @@ export default function Dashboard() {
           <div className="mt-4 space-y-3">
             <Link
               to="/admin/pass-slips"
-              className="flex items-center justify-between rounded-2xl bg-[#F4F7FC] p-4 transition hover:bg-blue-50/70"
+              className="flex items-center justify-between rounded-2xl bg-[#FFF8EB]/75 p-4 transition hover:bg-[#FFF8EB]"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-[#2563EB]">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#152852]/10 text-[#152852]">
                   <Send className="h-4 w-4" />
                 </span>
                 <span className="text-xs font-semibold text-slate-800">Pass Slip Requests</span>
@@ -260,7 +260,7 @@ export default function Dashboard() {
 
             <Link
               to="/admin/renewals"
-              className="flex items-center justify-between rounded-2xl bg-[#F4F7FC] p-4 transition hover:bg-emerald-50/70"
+              className="flex items-center justify-between rounded-2xl bg-[#FFF8EB]/75 p-4 transition hover:bg-emerald-50/70"
             >
               <div className="flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
@@ -282,12 +282,12 @@ export default function Dashboard() {
         <section className="rounded-2xl border border-slate-200/70 bg-white p-5 shadow-2xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Fingerprint className="h-5 w-5 text-[#2563EB]" />
-              <h2 className="text-sm font-bold text-slate-900">Attendance Overview</h2>
+              <Fingerprint className="h-5 w-5 text-[#152852]" />
+              <h2 className="text-sm font-bold text-[#152852]">Attendance Overview</h2>
             </div>
             <Link
               to="/admin/attendance"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
             >
               View Details <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -315,7 +315,7 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center justify-between gap-6">
                 <span className="flex items-center gap-2 text-slate-600">
-                  <span className="h-2 w-2 rounded-full bg-blue-500" /> Not Recorded
+                  <span className="h-2 w-2 rounded-full bg-[#152852]" /> Not Recorded
                 </span>
                 <span className="font-bold text-slate-900">{notRecordedCount}</span>
               </div>
@@ -328,11 +328,11 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-red-500" />
-              <h2 className="text-sm font-bold text-slate-900">Residents Needing Attention</h2>
+              <h2 className="text-sm font-bold text-[#152852]">Residents Needing Attention</h2>
             </div>
             <Link
               to="/admin/monitoring"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
             >
               View All <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -352,7 +352,7 @@ export default function Dashboard() {
                     className="flex items-center justify-between py-3 first:pt-1 last:pb-0"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-[#0F2447]">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FFF8EB] border border-[#EFE6D2] text-xs font-bold text-[#152852]">
                         {dormer.first_name[0]}
                         {dormer.last_name[0]}
                       </span>
@@ -385,12 +385,12 @@ export default function Dashboard() {
         <section className="rounded-2xl border border-slate-200/70 bg-white p-5 shadow-2xs">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-[#2563EB]" />
-              <h2 className="text-sm font-bold text-slate-900">Recent Activities</h2>
+              <Clock className="h-5 w-5 text-[#152852]" />
+              <h2 className="text-sm font-bold text-[#152852]">Recent Activities</h2>
             </div>
             <Link
               to="/admin/monitoring"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline"
             >
               View All <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -403,7 +403,7 @@ export default function Dashboard() {
               { time: 'Nov 17, 2026 — 08:20 AM', text: 'Renewal request submitted by Juana Dela Cruz' },
             ].map((act) => (
               <li key={act.time} className="relative">
-                <span className="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full bg-[#2563EB] ring-4 ring-white" />
+                <span className="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full bg-[#E2B743] ring-4 ring-white" />
                 <p className="text-[11px] font-medium text-slate-500">{act.time}</p>
                 <p className="text-xs font-semibold text-slate-800">{act.text}</p>
               </li>

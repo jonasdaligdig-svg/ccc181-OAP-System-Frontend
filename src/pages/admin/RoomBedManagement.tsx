@@ -355,7 +355,7 @@ export default function RoomBedManagement() {
       {/* 1. Page Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#0F2447]">Room and Bed Management</h1>
+          <h1 className="text-2xl font-bold text-[#152852]">Room and Bed Management</h1>
           <p className="mt-1 text-xs text-slate-500">
             Manage dormitory rooms, bed availability, and resident assignments.
           </p>
@@ -364,7 +364,7 @@ export default function RoomBedManagement() {
         <button
           type="button"
           onClick={handleOpenAddModal}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-blue-700 cursor-pointer"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs transition hover:bg-[#1e3a75] cursor-pointer"
         >
           <Plus className="h-4 w-4" />
           <span>Add room</span>
@@ -375,7 +375,7 @@ export default function RoomBedManagement() {
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-100 text-[#2563EB]">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] text-[#152852]">
               <DoorClosed className="h-4 w-4" />
             </span>
             <span className="text-xs font-semibold text-slate-500">Total Rooms</span>
@@ -433,7 +433,7 @@ export default function RoomBedManagement() {
               setCurrentPage(1);
             }}
             placeholder="Search room number..."
-            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:border-[#2563EB] focus:outline-none focus:ring-1 focus:ring-[#2563EB]"
+            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:border-[#152852] focus:outline-none focus:ring-1 focus:ring-[#152852]"
           />
         </div>
 
@@ -465,12 +465,12 @@ export default function RoomBedManagement() {
                   }}
                   className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                     selectedDorm === opt
-                      ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                      ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>{opt}</span>
-                  {selectedDorm === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                  {selectedDorm === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                 </button>
               ))}
             </div>
@@ -505,12 +505,12 @@ export default function RoomBedManagement() {
                   }}
                   className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                     selectedFloor === opt
-                      ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                      ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>{opt}</span>
-                  {selectedFloor === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                  {selectedFloor === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                 </button>
               ))}
             </div>
@@ -545,12 +545,12 @@ export default function RoomBedManagement() {
                   }}
                   className={`flex w-full items-center justify-between px-3 py-1.5 text-left text-xs ${
                     selectedStatus === opt
-                      ? 'bg-blue-50 font-semibold text-[#2563EB]'
+                      ? 'bg-[#FFF8EB] font-semibold text-[#152852]'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <span>{opt}</span>
-                  {selectedStatus === opt && <Check className="h-3.5 w-3.5 text-[#2563EB]" />}
+                  {selectedStatus === opt && <Check className="h-3.5 w-3.5 text-[#152852]" />}
                 </button>
               ))}
             </div>
@@ -564,7 +564,7 @@ export default function RoomBedManagement() {
         <div className="lg:col-span-7 xl:col-span-8">
           <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
-              <h2 className="text-sm font-bold tracking-wider text-[#0F2447] uppercase">
+              <h2 className="text-sm font-bold tracking-wider text-[#152852] uppercase">
                 Room Directory
               </h2>
               <span className="text-xs font-medium text-slate-500">
@@ -576,7 +576,7 @@ export default function RoomBedManagement() {
             <div className="mt-4 overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="rounded-xl bg-[#EEF3FC] text-slate-600">
+                  <tr className="rounded-xl bg-[#FFF8EB] text-[#152852]">
                     <th className="py-2.5 pl-3.5 pr-2 font-semibold">Room</th>
                     <th className="px-2 py-2.5 font-semibold">Dormitory</th>
                     <th className="px-2 py-2.5 font-semibold">Floor</th>
@@ -606,7 +606,7 @@ export default function RoomBedManagement() {
                         }}
                         className={`transition cursor-pointer ${
                           isSelected
-                            ? 'bg-blue-50/80 border-l-4 border-l-[#2563EB]'
+                            ? 'bg-[#FFF8EB] border-l-4 border-l-[#152852]'
                             : 'border-l-4 border-l-transparent hover:bg-slate-50/80'
                         }`}
                       >
@@ -632,7 +632,7 @@ export default function RoomBedManagement() {
                                     ? 'bg-slate-500'
                                     : isMaintenance
                                     ? 'bg-amber-500'
-                                    : 'bg-[#2563EB]'
+                                    : 'bg-[#152852]'
                                 }`}
                                 style={{ width: `${percent}%` }}
                               />
@@ -660,7 +660,7 @@ export default function RoomBedManagement() {
                           <button
                             type="button"
                             onClick={(e) => handleViewRoomDetails(room, e)}
-                            className="font-semibold text-[#2563EB] hover:underline cursor-pointer"
+                            className="font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline cursor-pointer"
                           >
                             View
                           </button>
@@ -681,7 +681,7 @@ export default function RoomBedManagement() {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="mt-4 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#2563EB] shadow-2xs hover:bg-slate-50 cursor-pointer"
+                    className="mt-4 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-[#152852] shadow-2xs hover:bg-slate-50 hover:text-[#1e3a75] cursor-pointer"
                   >
                     Clear filters
                   </button>
@@ -714,7 +714,7 @@ export default function RoomBedManagement() {
                       onClick={() => setCurrentPage(pg)}
                       className={`h-7 w-7 rounded-lg font-medium transition cursor-pointer ${
                         currentPage === pg
-                          ? 'bg-[#2563EB] text-white'
+                          ? 'bg-[#152852] text-white'
                           : 'border border-slate-200 hover:bg-slate-50 text-slate-700'
                       }`}
                     >
@@ -742,7 +742,7 @@ export default function RoomBedManagement() {
               {/* Header */}
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div>
-                  <h3 className="text-base font-bold text-[#0F2447]">
+                  <h3 className="text-base font-bold text-[#152852]">
                     Room {effectiveSelectedRoom.room_number}
                   </h3>
                   <p className="text-xs text-slate-500">
@@ -753,7 +753,7 @@ export default function RoomBedManagement() {
                 <button
                   type="button"
                   onClick={handleOpenEditModal}
-                  className="flex items-center gap-1 text-xs font-semibold text-[#2563EB] hover:underline cursor-pointer"
+                  className="flex items-center gap-1 text-xs font-semibold text-[#152852] hover:text-[#1e3a75] hover:underline cursor-pointer"
                 >
                   <Edit2 className="h-3.5 w-3.5" />
                   <span>Edit room</span>
@@ -792,23 +792,23 @@ export default function RoomBedManagement() {
                         onClick={() => setSelectedBedId(bed.bed_id)}
                         className={`rounded-xl border p-3.5 cursor-pointer transition ${
                           isBedSelected
-                            ? 'border-transparent ring-2 ring-[#2563EB] shadow-md bg-white'
-                            : 'border-slate-200/80 bg-[#F4F7FC] hover:bg-blue-50/40'
+                            ? 'border-transparent ring-2 ring-[#152852] shadow-md bg-white'
+                            : 'border-[#EFE6D2] bg-[#FFF8EB]/70 hover:bg-[#FFF8EB]'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-1.5">
-                            <Bed className="h-4 w-4 text-[#2563EB]" />
+                            <Bed className="h-4 w-4 text-[#152852]" />
                             <span className="text-xs font-bold text-slate-900">{bed.bed_number}</span>
                           </div>
-                          <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-[#2563EB]">
+                          <span className="rounded-full bg-[#152852]/10 px-2 py-0.5 text-[10px] font-bold text-[#152852]">
                             Occupied
                           </span>
                         </div>
 
                         <div className="mt-2.5">
                           <div className="flex items-center gap-2">
-                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-[10px] font-bold text-[#2563EB]">
+                            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#152852]/10 text-[10px] font-bold text-[#152852]">
                               {occupant
                                 ? `${occupant.first_name[0] || ''}${occupant.last_name[0] || ''}`
                                 : 'RES'}
@@ -836,7 +836,7 @@ export default function RoomBedManagement() {
                       onClick={() => setSelectedBedId(bed.bed_id)}
                       className={`rounded-xl border p-3.5 cursor-pointer transition ${
                         isBedSelected
-                          ? 'border-transparent ring-2 ring-[#2563EB] shadow-md bg-white'
+                          ? 'border-transparent ring-2 ring-[#152852] shadow-md bg-white'
                           : 'border-emerald-200 bg-emerald-50 hover:bg-emerald-100/60'
                       }`}
                     >
@@ -871,7 +871,7 @@ export default function RoomBedManagement() {
                   <button
                     type="button"
                     onClick={handleOpenAssignModal}
-                    className="w-full rounded-xl bg-[#2563EB] py-2.5 text-xs font-semibold text-white shadow-2xs transition hover:bg-blue-700 cursor-pointer"
+                    className="w-full rounded-xl bg-[#152852] py-2.5 text-xs font-semibold text-white shadow-2xs transition hover:bg-[#1e3a75] cursor-pointer"
                   >
                     Assign Resident to {effectiveSelectedBed.bed_number}
                   </button>
@@ -926,7 +926,7 @@ export default function RoomBedManagement() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">Add room</h3>
+            <h3 className="text-xl font-bold text-[#152852]">Add room</h3>
             <p className="mt-0.5 text-xs text-slate-500">
               Configure a new dormitory room and auto-generate its bed records.
             </p>
@@ -944,7 +944,7 @@ export default function RoomBedManagement() {
                 <select
                   value={addDorm}
                   onChange={(e) => setAddDorm(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value="Dorm A">Dorm A (Dormitory A)</option>
                   <option value="Dorm B">Dorm B (Dormitory B)</option>
@@ -962,7 +962,7 @@ export default function RoomBedManagement() {
                     if (e.target.value.trim()) setAddError('');
                   }}
                   placeholder="e.g. A-105"
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:bg-white focus:outline-none"
                 />
               </div>
 
@@ -971,7 +971,7 @@ export default function RoomBedManagement() {
                 <select
                   value={addFloor}
                   onChange={(e) => setAddFloor(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value="1st floor">1st floor</option>
                   <option value="2nd floor">2nd floor</option>
@@ -984,7 +984,7 @@ export default function RoomBedManagement() {
                 <select
                   value={addCapacity}
                   onChange={(e) => setAddCapacity(Number(e.target.value))}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value={1}>1 Bed</option>
                   <option value={2}>2 Beds</option>
@@ -998,7 +998,7 @@ export default function RoomBedManagement() {
                 <select
                   value={addStatus}
                   onChange={(e) => setAddStatus(e.target.value as 'available' | 'maintenance')}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value="available">Available</option>
                   <option value="maintenance">Maintenance</option>
@@ -1017,7 +1017,7 @@ export default function RoomBedManagement() {
               <button
                 type="button"
                 onClick={handleSaveAddRoom}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Save room
               </button>
@@ -1038,7 +1038,7 @@ export default function RoomBedManagement() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">
+            <h3 className="text-xl font-bold text-[#152852]">
               Edit Room {effectiveSelectedRoom.room_number}
             </h3>
             <p className="mt-0.5 text-xs text-slate-500">
@@ -1058,7 +1058,7 @@ export default function RoomBedManagement() {
                 <select
                   value={editDorm}
                   onChange={(e) => setEditDorm(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value="Dorm A">Dorm A (Dormitory A)</option>
                   <option value="Dorm B">Dorm B (Dormitory B)</option>
@@ -1075,7 +1075,7 @@ export default function RoomBedManagement() {
                     setEditRoomNum(e.target.value);
                     if (e.target.value.trim()) setEditError('');
                   }}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 />
               </div>
 
@@ -1084,7 +1084,7 @@ export default function RoomBedManagement() {
                 <select
                   value={editFloor}
                   onChange={(e) => setEditFloor(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value="1st floor">1st floor</option>
                   <option value="2nd floor">2nd floor</option>
@@ -1097,7 +1097,7 @@ export default function RoomBedManagement() {
                 <select
                   value={editCapacity}
                   onChange={(e) => setEditCapacity(Number(e.target.value))}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value={1}>1 Bed</option>
                   <option value={2}>2 Beds</option>
@@ -1116,7 +1116,7 @@ export default function RoomBedManagement() {
                   onChange={(e) =>
                     setEditStatus(e.target.value as 'available' | 'full' | 'maintenance')
                   }
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   <option value="available">Available</option>
                   <option value="full">Full</option>
@@ -1136,7 +1136,7 @@ export default function RoomBedManagement() {
               <button
                 type="button"
                 onClick={handleSaveEditRoom}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Save changes
               </button>
@@ -1157,7 +1157,7 @@ export default function RoomBedManagement() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">
+            <h3 className="text-xl font-bold text-[#152852]">
               Assign Resident to {effectiveSelectedBed.bed_number}
             </h3>
             <p className="mt-0.5 text-xs text-slate-500">
@@ -1165,8 +1165,8 @@ export default function RoomBedManagement() {
             </p>
 
             {/* Read-only Assignment Summary Banner */}
-            <div className="mt-4 rounded-xl border border-blue-100 bg-blue-50/70 p-3 text-xs text-blue-900 space-y-1">
-              <p className="font-semibold text-blue-800">Target Location:</p>
+            <div className="mt-4 rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] p-3 text-xs text-[#152852] space-y-1">
+              <p className="font-semibold text-[#152852]">Target Location:</p>
               <p className="font-bold">
                 {getDormName(effectiveSelectedRoom.building_id)} &bull; Room{' '}
                 {effectiveSelectedRoom.room_number} &bull; {effectiveSelectedBed.bed_number}
@@ -1189,7 +1189,7 @@ export default function RoomBedManagement() {
                     setAssignDormerId(Number(e.target.value));
                     setAssignError('');
                   }}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 >
                   {availableDormers.length === 0 ? (
                     <option value="">No unassigned residents available</option>
@@ -1212,7 +1212,7 @@ export default function RoomBedManagement() {
                   type="date"
                   value={assignDate}
                   onChange={(e) => setAssignDate(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 focus:border-[#152852] focus:bg-white focus:outline-none"
                 />
               </div>
 
@@ -1223,7 +1223,7 @@ export default function RoomBedManagement() {
                   value={assignNotes}
                   onChange={(e) => setAssignNotes(e.target.value)}
                   placeholder="Approved dormitory assignment"
-                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#F4F7FC] p-2.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#2563EB] focus:bg-white focus:outline-none"
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-[#FFF8EB]/70 p-2.5 text-xs text-slate-800 placeholder:text-slate-400 focus:border-[#152852] focus:bg-white focus:outline-none"
                 />
               </div>
             </div>
@@ -1240,7 +1240,7 @@ export default function RoomBedManagement() {
                 type="button"
                 disabled={!assignDormerId}
                 onClick={handleConfirmAssign}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 disabled:opacity-40 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] disabled:opacity-40 cursor-pointer"
               >
                 Confirm assignment
               </button>
@@ -1261,7 +1261,7 @@ export default function RoomBedManagement() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">
+            <h3 className="text-xl font-bold text-[#152852]">
               Room {effectiveSelectedRoom.room_number} &bull; Bed Assignments
             </h3>
             <p className="mt-0.5 text-xs text-slate-500">
@@ -1270,7 +1270,7 @@ export default function RoomBedManagement() {
 
             {/* Read-only summary tiles */}
             <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Location</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {getDormName(effectiveSelectedRoom.building_id)} &bull;{' '}
@@ -1278,7 +1278,7 @@ export default function RoomBedManagement() {
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Bed Occupancy</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {selectedRoomOccupiedCount} of {effectiveSelectedRoom.capacity} occupied (
@@ -1291,7 +1291,7 @@ export default function RoomBedManagement() {
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Available Beds</p>
                 <p className="mt-1 font-bold text-emerald-700">
                   {selectedRoomBeds
@@ -1301,7 +1301,7 @@ export default function RoomBedManagement() {
                 </p>
               </div>
 
-              <div className="rounded-xl bg-[#F4F7FC] p-3">
+              <div className="rounded-xl bg-[#FFF8EB] p-3">
                 <p className="font-semibold text-slate-500">Assignment History</p>
                 <p className="mt-1 font-medium text-slate-800">
                   Last reviewed {effectiveSelectedRoom.last_reviewed || 'Nov 20, 2026'}
@@ -1322,13 +1322,13 @@ export default function RoomBedManagement() {
                   return (
                     <div
                       key={bed.bed_id}
-                      className="flex items-center justify-between rounded-xl border border-slate-100 bg-[#F4F7FC] p-2.5 text-xs"
+                      className="flex items-center justify-between rounded-xl border border-[#EFE6D2] bg-[#FFF8EB]/70 p-2.5 text-xs"
                     >
                       <div className="flex items-center gap-2.5">
                         <span
                           className={`flex h-7 w-7 items-center justify-center rounded-lg font-bold text-[10px] ${
                             isOccupied
-                              ? 'bg-blue-100 text-[#2563EB]'
+                              ? 'bg-[#152852]/10 text-[#152852]'
                               : 'bg-emerald-100 text-emerald-700'
                           }`}
                         >
@@ -1346,7 +1346,7 @@ export default function RoomBedManagement() {
 
                       <div>
                         {isOccupied ? (
-                          <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold text-[#2563EB]">
+                          <span className="rounded-full bg-[#152852]/10 px-2 py-0.5 text-[10px] font-bold text-[#152852]">
                             Occupied
                           </span>
                         ) : (
@@ -1365,7 +1365,7 @@ export default function RoomBedManagement() {
               <button
                 type="button"
                 onClick={() => setViewModalOpen(false)}
-                className="rounded-xl bg-[#2563EB] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-blue-700 cursor-pointer"
+                className="rounded-xl bg-[#152852] px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-[#1e3a75] cursor-pointer"
               >
                 Back to rooms
               </button>
@@ -1386,7 +1386,7 @@ export default function RoomBedManagement() {
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-[#0F2447]">
+            <h3 className="text-xl font-bold text-[#152852]">
               Unassign Resident from {effectiveSelectedBed.bed_number}?
             </h3>
             <p className="mt-1 text-xs text-slate-500">
@@ -1395,7 +1395,7 @@ export default function RoomBedManagement() {
             </p>
 
             {bedOccupantMap.get(effectiveSelectedBed.bed_id) && (
-              <div className="mt-4 rounded-xl border border-slate-200/80 bg-[#F4F7FC] p-3 text-xs">
+              <div className="mt-4 rounded-xl border border-[#EFE6D2] bg-[#FFF8EB] p-3 text-xs">
                 <p className="font-semibold text-slate-500">Current Resident:</p>
                 <p className="mt-1 font-bold text-slate-900">
                   {bedOccupantMap.get(effectiveSelectedBed.bed_id)?.first_name}{' '}
