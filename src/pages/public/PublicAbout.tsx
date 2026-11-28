@@ -11,21 +11,21 @@ interface FacilityCard {
 const FACILITIES: FacilityCard[] = [
   {
     src: '/images/facility-1.png',
-    alt: 'MSUN Girls Dormitory student quarters',
-    label: 'Comfortable Quarters',
-    caption: 'Well-ventilated rooms designed for study and rest.',
+    alt: 'MSUN Girls Dormitory outdoor courtyard and walkway seating',
+    label: 'Courtyard & Seating Area',
+    caption: 'Shaded outdoor benches and garden walkway for relaxing between classes.',
   },
   {
     src: '/images/facility-2.png',
-    alt: 'MSUN Girls Dormitory common study hall',
-    label: 'Study & Common Area',
-    caption: 'Dedicated spaces for group review and quiet academic focus.',
+    alt: 'MSUN Girls Dormitory building exterior and front lawn',
+    label: 'Dormitory Grounds',
+    caption: 'Well-kept campus dormitory building surrounded by trees and green space.',
   },
   {
     src: '/images/facility-3.png',
-    alt: 'MSUN Girls Dormitory safe campus grounds',
-    label: 'Secure Environment',
-    caption: 'Gated grounds monitored by dedicated dormitory personnel.',
+    alt: 'MSUN Girls Dormitory shared comfort room and shower area',
+    label: 'Shared Comfort Room & Showers',
+    caption: 'Clean tiled restrooms, shower stalls, and washbasins for residents.',
   },
 ];
 

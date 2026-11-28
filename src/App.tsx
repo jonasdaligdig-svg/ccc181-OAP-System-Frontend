@@ -5,6 +5,8 @@ import PublicHome from './pages/public/PublicHome';
 import PublicAbout from './pages/public/PublicAbout';
 import PublicApply from './pages/public/PublicApply';
 import PublicConfirmation from './pages/public/PublicConfirmation';
+import LoginPage from './pages/auth/LoginPage';
+import DormerDashboard from './pages/dormer/DormerDashboard';
 import AdminLayout from './components/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import StudentManagement from './pages/admin/StudentManagement';
@@ -36,6 +38,8 @@ export default function App() {
             <Route path="/apply" element={<PublicApply />} />
             <Route path="/apply/confirmation" element={<PublicConfirmation />} />
           </Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/dormer/dashboard" element={<DormerDashboard />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="students" element={<StudentManagement />} />

@@ -128,7 +128,7 @@ export default function AdminLayout() {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate('/login');
   };
 
   const SidebarContent = (

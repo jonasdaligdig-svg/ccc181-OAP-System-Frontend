@@ -17,3 +17,14 @@ If you are developing a production application, we recommend using TypeScript wi
 
 live .vercel.app project deployed URL
 https://ccc181-oap-system-frontend.vercel.app
+
+## Demo Accounts
+
+Test credentials from `src/data/mockData.ts`:
+
+| Role / Status | Email | Password | Notes |
+| --- | --- | --- | --- |
+| **Dorm Personnel** | `admin@msunaawan.edu.ph` | `demo-admin-123` | Staff portal access |
+| **Dormer (Active)** | `juana.delacruz@msunaawan.edu.ph` | `demo-dormer-123` | Active resident account |
+| **Dormer (Active)** | `maria.santos@msunaawan.edu.ph` | `demo-dormer-123` | Active resident account |
+| **Dormer (First-Time Activation)** | `patricia.reyes@msunaawan.edu.ph` | `MSUN-TEMP-2026` | Temporary password — use via "Activate your account" |
